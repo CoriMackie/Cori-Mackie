@@ -3,7 +3,7 @@
 
 **Not yet graded — no perfect-competition brief in the repo. Held for revision; the deadline has not passed.**
 
-> docs/briefs/ contains initial-case-brief.md, which is a generic template about deploying a caching strategy and measuring API latency — placeholder text from somewhere else, with [CASE TITLE] still in the heading. There is no perfect-competition brief. The graded path is docs/briefs/perfect-competition-brief.md.
+> Your docs/briefs/ contains initial-case-brief.md, which is a generic template about deploying a caching strategy and measuring API latency — placeholder text from somewhere else, with [CASE TITLE] still in the heading. There is no perfect-competition brief. The graded path is docs/briefs/perfect-competition-brief.md.
 
 ### What to do
 
