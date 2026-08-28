@@ -27,4 +27,4 @@ don't increase too much per bed and earn $2,094 for carrots and $2,700 for mescl
 As you plant more beds of the same crop, the labor cost of each additional bed goes up. For tomatoes, each new bed costs about 10% more labor than the one before it — cost increases for each bed, Whereas for carrots and mesclun, each new bed only costs 2.5% and 1.25% more, respectively. 
 hours needed= base hours x (1+rate)^(bed number -1) , cost=hours x 20/hr x 20 weeks, profit=revenue-cost
 
-STILL WORKING ON FORMULAS ANC=D DESCRIPTION
+STILL WORKING ON FORMULAS AND DESCRIPTION
