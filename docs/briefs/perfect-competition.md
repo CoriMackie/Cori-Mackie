@@ -16,19 +16,15 @@ point where price equals marginal cost.
 
 ## Hypothesis
 
-I hypothesize that the optimal crop mix will be 10 beds of tomatoes, 20
-beds of carrots, and 30 beds of mesclun, using 60 of the 64 available
+I hypothesize that the optimal crop mix will be 10 beds of tomatoes, 0
+beds of carrots, and 43 beds of mesclun, using 60 of the 64 available
 beds. My prediction is based on the relationship between revenue, labor
-requirements, and diminishing returns for each crop.
+requirements, and diminishing returns for each crop per bed. To do the last four beds would exceed what the earning would be.
 
-Tomatoes generate the highest revenue at \$8,800 per bed, compared with
-\$2,094 for carrots and \$2,700 for mesclun. But tomatoes also require
-2.5 labor hours per week per bed and have a 10% return factor for every
-additional bed planted. Carrots require only 0.833 hours per week with a
-2.5% diminishing-return factor, while mesclun requires 1.25 hours per
-week with only a 1.25% diminishing-return factor. Because the labor
-requirement increases as more beds of a crop are planted, the high 10%
-rate for tomatoes should cause their marginal cost to increase much
-faster than the other two crops.
+Tomatoes earn the most per bed $8,800 per bed, but there is a limit to how many the
+farmer can plant because it starts getting more expensive per bed. Carrots and mesclun
+don't increase too much per bed and earn $2,094 for carrots and $2,700 for mesclun.
+As you plant more beds of the same crop, the labor cost of each additional bed goes up. For tomatoes, each new bed costs about 10% more labor than the one before it — cost increases for each bed, Whereas for carrots and mesclun, each new bed only costs 2.5% and 1.25% more, respectively. 
+hours needed= base hours x (1+rate)^(bed number -1) , cost=hours x 20/hr x 20 weeks, profit=revenue-cost
 
-To do the last four beds would exceed what the earning would be.
+STILL WORKING ON FORMULAS ANC=D DESCRIPTION
