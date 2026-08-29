@@ -26,26 +26,20 @@ maximizing point where price equals marginal cost.
 
 I hypothesize that the optimal crop mix will be **10 beds of tomatoes, 20 beds of carrots, and 30
 beds of mesclun**, using 60 of the 64 available beds. My prediction is based on the relationship
-between revenue, labor requirements, and diminishing returns for each crop per bed. To plant the
-last four beds would cost more than they would earn.
+between revenue, labor requirements, and diminishing returns for each crop per bed.
 
-The rule is P = MC. She adds beds of a crop until the next bed will cost more than it earns.
-Tomatoes, although most profitable, will be the least amount because of the cost of each bed.
-Carrots and mesclun stop at their caps. Four beds will stay empty because labor and costs were
-maximized at 60.
+The rule is P = MC. She adds beds of a crop until the next bed will cost more than it earns. As you
+plant more beds of the same crop, the labor cost of each additional bed goes up. For tomatoes, each
+new bed costs about 10% more labor than the one before it. Whereas for carrots and mesclun, each new
+bed only costs 2.5% and 1.25% more, respectively.
 
 Tomatoes earn the most per bed at $8,800, but there is a limit to how many the farmer can plant
-because it starts getting more expensive per bed. Carrots and mesclun don't increase too much per
-bed and earn $2,094 for carrots and $2,700 for mesclun. As you plant more beds of the same crop,
-the labor cost of each additional bed goes up. For tomatoes, each new bed costs about 10% more
-labor than the one before it. Whereas for carrots and mesclun, each new bed only costs 2.5% and
-1.25% more, respectively.
+because it starts getting more expensive per bed. Tomatoes, although most profitable, will be the
+least amount because of the cost of each bed. Carrots and mesclun don't increase too much per bed
+and earn $2,094 for carrots and $2,700 for mesclun, so they stop at their caps rather than on price.
 
-## How the cost builds
-
-    hours needed = base hours × (1 + rate) ^ (bed number − 1)
-    cost         = hours × $20/hr × 20 weeks
-    profit       = revenue − cost
+To plant the last four beds would cost more than they would earn. Four beds will stay empty because
+labor and costs were maximized at 60.
 
 ## Labor and cost per bed
 
