@@ -46,7 +46,7 @@ much per bed and earn $2,094 for carrots and $2,700 for mesclun, so they stop at
 than on price.
 
 To plant the last four beds would cost more than they earn. Carrots and mesclun are at their
-limit, only tomatoes can be planted more but it would cost $9,390 against $8,800 allowed. Even
+limit, only tomatoes can be planted more but it would cost $9,390 against the $8,800 it earns. Even
 though labor is still within budget, planting more loses money.
 
 ## Labor and cost per bed
