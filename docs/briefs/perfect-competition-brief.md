@@ -22,6 +22,23 @@ Under perfect competition, the farmer should continue allocating beds to a parti
 the market price is greater than the cost of producing the next bed, which would mean the profit
 maximizing point where price equals marginal cost.
 
+## What I first thought
+
+<!-- Three or four sentences, your words. The three things to cover:
+
+     1. Your first prediction: 10 tomatoes, 0 carrots, 43 mesclun. Why mesclun hardest?
+        (1.25% is the flattest penalty of the three.) Why no carrots?
+        ($2,094 a bed looked negligible next to tomatoes at $8,800.)
+
+     2. What you had missed: mesclun is capped at 30 beds, so 43 was never available.
+
+     3. The reasoning error worth naming: you were pricing carrots against tomatoes
+        instead of against their own cost. A carrot bed takes about 30 hours and $440
+        of fertilizer, and earns $2,094 — it covers itself comfortably, which is why
+        carrots run all the way to their cap.
+
+     Delete this comment when you've written the paragraph. -->
+
 ## Hypothesis
 
 I hypothesize that the optimal crop mix will be **10 beds of tomatoes, 20 beds of carrots, and 30
