@@ -34,12 +34,15 @@ new bed costs about 10% more labor than the one before it. Whereas for carrots a
 bed only costs 2.5% and 1.25% more, respectively.
 
 Tomatoes earn the most per bed at $8,800, but there is a limit to how many the farmer can plant
-because it starts getting more expensive per bed. Tomatoes, although most profitable, will be the
-least amount because of the cost of each bed. Carrots and mesclun don't increase too much per bed
+because each additional bed costs more than the one before it. Tomatoes, although most profitable,
+will be the least amount because that cost keeps climbing. Carrots and mesclun don't increase too much per bed
 and earn $2,094 for carrots and $2,700 for mesclun, so they stop at their caps rather than on price.
 
-To plant the last four beds would cost more than they would earn. Four beds will stay empty because
-labor and costs were maximized at 60.
+To plant the last four beds would cost more than they would earn. Nothing forces them to stay
+empty — carrots and mesclun are at their caps, so the only crop with room left is tomatoes, and an
+eleventh tomato bed costs about $9,390 against a price of $8,800. Labor is not the limit either:
+this mix uses roughly 5,277 of the 6,480 field hours the farm can buy. The four beds stay empty
+because planting them loses money, not because the farm runs out of anything.
 
 ## Labor and cost per bed
 
