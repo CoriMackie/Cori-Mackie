@@ -45,11 +45,9 @@ will be the least amount because that cost keeps climbing. Carrots and mesclun d
 much per bed and earn $2,094 for carrots and $2,700 for mesclun, so they stop at their caps rather
 than on price.
 
-To plant the last four beds would cost more than they would earn. Nothing forces them to stay
-empty — carrots and mesclun are at their caps, so the only crop with room left is tomatoes, and an
-eleventh tomato bed costs about $9,390 against a price of $8,800. Labor is not the limit either:
-this mix uses roughly 5,277 of the 6,480 field hours the farm can buy. The four beds stay empty
-because planting them loses money, not because the farm runs out of anything.
+To plant the last four beds would cost more than they earn. Carrots and mesclun are at their
+limit, only tomatoes can be planted more but it would cost $9,390 against $8,800 allowed. Even
+though labor is still within budget, planting more loses money.
 
 ## Labor and cost per bed
 
