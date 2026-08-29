@@ -20,7 +20,8 @@ works out to $17.36 per hour.
 
 Under perfect competition, the farmer should continue allocating beds to a particular crop while
 the market price is greater than the cost of producing the next bed, which would mean the profit
-maximizing point where price equals marginal cost.
+maximizing point where price equals marginal cost. The farmer cannot change what the vegetables
+earn, only how many beds she can plant. That is what makes it perfect competition.
 
 ## What I first thought
 
