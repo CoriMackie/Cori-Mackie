@@ -24,10 +24,10 @@ maximizing point where price equals marginal cost.
 
 ## Hypothesis
 
-I hypothesize that the optimal crop mix will be **10 beds of tomatoes, 0 beds of carrots, and 43
-beds of mesclun**, using 53 of the 64 available beds. My prediction is based on the relationship
+I hypothesize that the optimal crop mix will be **10 beds of tomatoes, 20 beds of carrots, and 30
+beds of mesclun**, using 60 of the 64 available beds. My prediction is based on the relationship
 between revenue, labor requirements, and diminishing returns for each crop per bed. To plant the
-remaining beds would cost more than they would earn.
+last four beds would cost more than they would earn.
 
 Tomatoes earn the most per bed at $8,800, but there is a limit to how many the farmer can plant
 because it starts getting more expensive per bed. Carrots and mesclun don't increase too much per
