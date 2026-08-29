@@ -25,7 +25,7 @@ earn, only how many beds she can plant. That is what makes it perfect competitio
 
 ## What I first thought
 
-I guessed initially the 20 tomatoes and 43 mesclun just looking at the math working out, but
+I guessed initially the 10 tomatoes and 43 mesclun just looking at the math working out, but
 realizing that there was a cap, I had to go back and follow the parameters.
 
 ## Hypothesis
