@@ -69,13 +69,10 @@ than 6,480 field hours in a season no matter what it plants.
 Each of these is an outcome the model can produce. Any one of them would break a claim I have
 made above.
 
-**If tomatoes come out well above 10 beds**, then the 10% labor penalty matters less than I
-assumed. I have claimed the eleventh bed costs about $9,390 against a price of $8,800; if the
-schedule shows it under $8,800, my picture of how fast tomato cost climbs is wrong.
+**If the model plants more than 10 tomato beds**, the labor isn't as costly as I thought.
 
-**If carrots or mesclun finish below their caps**, then marginal cost caught the price before the
-constraint did, and I was wrong that these two crops are stopped by the cap rather than by
-economics. That would mean their 2.5% and 1.25% penalties bite harder than I gave them credit for.
+**If both the carrots and mesclun come out below their maximum allowed**, then that isn't what
+stopped the farmer from planting more.
 
 **If all 64 beds get planted**, then leaving land idle was never the profitable choice and the
 eleventh tomato bed pays for itself after all.
