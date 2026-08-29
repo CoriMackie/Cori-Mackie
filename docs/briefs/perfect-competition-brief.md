@@ -74,11 +74,8 @@ made above.
 **If both the carrots and mesclun come out below their maximum allowed**, then that isn't what
 stopped the farmer from planting more.
 
-**If all 64 beds get planted**, then leaving land idle was never the profitable choice and the
-eleventh tomato bed pays for itself after all.
+**If all 64 beds get planted**, keeping them empty wasn't profitable.
 
-**If tomato marginal cost does not rise smoothly**, my reasoning is incomplete rather than wrong.
-The farmer's own 720 hours cost $34.72 and temp hours cost $17.36, so somewhere in the tomato
-schedule the marginal hour gets cheaper, not dearer. I have not accounted for that, and I expect
-it to show up as a dip in the cost curve.
-
+**If the tomato cost doesn't rise smoothly**, it isn't a complete reason. The farmer has 720 hours
+at $34.72 and temp hours are $17.36, so somewhere in the planting of the tomatoes the marginal
+hours are cheaper.
