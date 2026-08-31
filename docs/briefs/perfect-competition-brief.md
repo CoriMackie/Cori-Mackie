@@ -74,8 +74,11 @@ made above.
 **If both the carrots and mesclun come out below their maximum allowed**, then that isn't what
 stopped the farmer from planting more.
 
-**If all 64 beds get planted**, keeping them empty wasn't profitable.
+**If all 64 beds get planted**, then it would mean that the empty beds were not the profit
+maximizing choice that I claimed.
 
-**If the tomato cost doesn't rise smoothly**, it isn't a complete reason. The farmer has 720 hours
-at $34.72 and temp hours are $17.36, so somewhere in the planting of the tomatoes the marginal
-hours are cheaper.
+**If the tomato cost doesn't rise smoothly**, it isn't a complete reason. The farmer has 720
+hours at $34.72 and temp hours are $17.36. When adding the four additional tomato beds, if the
+farmer switched from her higher labor of $34.72 for her own hours to the temp hours of $17.36,
+there would be a dip in the cost of each bed. The marginal cost doesn't rise smoothly but dips,
+so my reasoning is incomplete.
