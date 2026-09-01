@@ -1,51 +1,39 @@
 <!-- PR TARGET: https://github.com/CoriMackie/Cori-Mackie | Stage 1.1 (2.5 pts) -->
-# Stage 1.1 review — engagement brief · **80 / 100** (B-) · 2.00 / 2.5 pts
+# Stage 1.1 review — engagement brief · **98 / 100** (A+) · 2.45 / 2.5 pts
 
-**Brief:** [`docs/briefs/Case1.md`](https://github.com/CoriMackie/Cori-Mackie/blob/main/docs/briefs/Case1.md)
+**Brief:** [`docs/briefs/perfect-competition-brief.md`](https://github.com/CoriMackie/Cori-Mackie/blob/main/docs/briefs/perfect-competition-brief.md)
 
-> Graded 2026-08-26. This stage was held at the last pass because there was no case brief in the repository — only an unfilled generic template. There is one now, so the stage is graded and entered. It lands at the floor: the hypothesis is there and it is specific, and most of the reasoning behind it is not.
+> Re-graded 2026-08-31. Your previous score was 80, and that 80 was the floor rather than a total you had earned — your raw was 54. This one is 98 on merit, and it is the largest improvement anyone has made on any stage in this course so far. Read the last section.
 
 | Criterion | Earned | Notes |
 |---|---|---|
-| Problem restated in your own voice | 17 / 30 | The opening two sentences are yours and they are good ones — 64 beds, three crops, a few weeks to plan, and a commitment to a whole season made with limited manpower. "He has a few weeks to plan and commit to an entire season" gets at something the case README does not say outright, which is that this is an irreversible decision made under a deadline. Everything after that is a bulleted transcription of the case facts, several of them word for word including the arrows and the "implied $34.72/hr". Restating is not copying: if you cannot say it differently from the source, you do not have it yet. Three things the case gives you are missing entirely — the per-crop bed caps of 20 / 20 / 30, the diminishing-returns rates, and the fact that the farm is a price taker, which is the reason this is a perfect-competition case at all. |
-| Hypothesis names a specific mix | 19 / 25 | Twenty carrot beds and 30 mesclun beds are real, committed numbers. Tomatoes are "no more than 10", which is a ceiling rather than a prediction — an outcome of 3 beds and an outcome of 10 beds would both satisfy it, so it cannot be shown wrong from below. Say the number you actually expect. There is also an arithmetic thread worth pulling: you write 64 total beds in the facts, then "10 of the 60 beds", and 10 + 20 + 30 comes to 60. Four beds are unaccounted for. If leaving beds empty is deliberate, that is a genuine economic claim and a good one — say it and say why. If it is a slip, fix it. Either way it should not be silent, because a reader cannot tell which it is. |
-| Economic mechanism | 12 / 25 | "The farmer will add the beds of each crop until the market price will equal the cost of producing the next bed" is P = MC, stated correctly, and that is the rule this case runs on. But it is the general rule, and it is the only reasoning in the brief. It would produce the same sentence for any farm, any crop, any price. What is missing is why these three numbers rather than some other three: nothing about tomatoes earning $8,800 a bed against carrots' $2,094, nothing about labor rising 10 percent per tomato bed against 2.5 percent for carrots and 1.25 percent for mesclun, and no statement of which crops you think stop because marginal cost catches the price and which stop because they run into a bed cap. Worth knowing: the text you pasted into the Stage 0 submission box had more of this than the brief does. You wrote there that you doubted you would plant all 20 tomato beds because labor rises 10 percent with each one. That is exactly the missing sentence, and it was already yours. |
-| Falsifiability and process | 6 / 20 | There is no statement of what result would show the hypothesis wrong, and that is the criterion this stage exists for. A prediction that survives every possible outcome is not a prediction. Two or three lines is all it takes: "if carrots finish below 20 beds, then something other than the bed cap bound first," "if tomatoes come in well above 10, the 10 percent compounding matters less than I assumed." Process credit where it is due: the brief was committed before any modeling work, which is the one thing in this stage that cannot be fixed later, and you have it right. Two deductions on the file itself — it is at docs/briefs/Case1.md rather than the graded path docs/briefs/perfect-competition-brief.md, and it is named for the case number rather than the engagement, which is the same reason the repo is not named after a course. |
-| **Raw total** | **54 / 100** | — |
-| **Floor applied** | **+26** | 80% floor: a committed brief that states the problem and names a specific mix |
-| **Final** | **80 / 100** | floored |
+| Problem restated in your own voice | 29 / 30 | Rewritten, and it is now among the two or three best in the cohort. You name the stakes in a way nobody else did: "She won't be able to change the mix due to the short time, so initial needs to be as close to correct as possible." That is what makes this a decision rather than an exercise — the choice is made once, before the season, and cannot be revised when the information arrives. You then define perfect competition from the farm's position rather than from a textbook: "The farmer cannot change what the vegetables earn, only how many beds she can plant. That is what makes it perfect competition." That sentence is the definition, derived rather than quoted. |
+| Hypothesis names a specific mix | 25 / 25 | 10 tomato, 20 carrot, 30 mesclun — 60 of the 64 beds, with the four idle beds stated as a deliberate choice rather than a rounding error. You also kept the "What I first thought" section showing the 10-and-43 guess you started from and why the cap forced you off it. Leaving the wrong first answer visible next to the right one is a professional habit, not a confession. |
+| Economic mechanism | 25 / 25 | Full marks, and the reason is that you stopped describing the mechanism and started computing it. The labor table converts hours per bed-week into a season: 2.50 x 36 = 90 hours for the first tomato bed, 30 for carrots, 45 for mesclun. You derive the labor ceiling — four workers at 1,440 hours plus the farmer's 720 — and get 6,480 hours, which is a number nobody else in this cohort produced. And then the sentence that earns this criterion outright: "only tomatoes can be planted more but it would cost $9,390 against the $8,800 it earns." That is P = MC as an arithmetic fact about one specific bed, not a principle. Every other brief in the cohort asserts that marginal cost eventually catches price. You are the only person who says where. |
+| Falsifiability and process | 19 / 20 | Four conditions, each naming an outcome the model can actually produce and the claim it would break. The fourth one is the best thing written in this stage by anyone, so I want to quote it back: "When adding the four additional tomato beds, if the farmer switched from her higher labor of $34.72 to the temp hours of $17.36 there would be a dip in the cost of each bed. The marginal cost doesn't rise smoothly but dips, so my reasoning is not complete." You predicted, before building anything, that your own argument has a hole in it, named where the hole is, and named the mechanism that puts it there. That is not a falsification condition on your prediction. It is a falsification condition on your reasoning, which is a harder and rarer thing to write. The one point off is only that the first three conditions would be sharper with a number attached, the way the fourth one has $34.72 and $17.36 in it. |
+| **Final** | **98 / 100** | earned on merit |
 
-### Why the floor applies
+### What changed, and why it is worth saying out loud
 
-The raw total came to 54. Any committed brief that states the problem in your own words and names a specific mix is floored at 80, so 80 is what is recorded. I am telling you the raw number rather than hiding it because the gap between 54 and 80 is the work, and it is about ninety minutes of it.
+Your previous brief scored 54 raw. The gaps were specific: the mechanism stopped at "the farmer will add beds until price equals the cost of the next bed," which is the rule rather than an application of it, and there was no falsification section at all.
 
-The distance is not knowledge. You demonstrated the mechanism in the Stage 0 box three days before you wrote this brief. What is missing is putting it in the file.
+You did not add a paragraph to each. You rewrote the brief, and the rewrite is a different kind of document — it has a table in it, it does arithmetic, and it argues against itself in the last section. Your commit history shows how: "Say what the $8,800 is: what a tomato bed earns", "Rewrite the idle-beds paragraph in my own words", "Rewrite the first two falsification conditions in my own words", "Rewrite the remaining falsification conditions in my own words". Four commits over two sessions, each fixing one thing, each named for what it fixed.
 
-### What I'd do, in order
+Two of those messages say "in my own words" explicitly, which tells me what happened: you got the structure from somewhere and then went back and made the sentences yours. That is the correct use of an assistant on a brief, and the reason it matters is Stage 3. In Stage 3 you explain why your prediction and your model disagreed. A prediction you did not personally reason your way to has nothing to explain.
 
-- Move the file to docs/briefs/perfect-competition-brief.md. Copy the contents, create the file at the new path, commit, delete Case1.md. Name things after the engagement, not the assignment number.
+### The one thing worth sitting with before Stage 2
 
-- Turn the fact bullets into two or three paragraphs of your own. What the farm is deciding, what is fixed, what limits the choice. Add the three things missing: the per-crop caps of 20 / 20 / 30, the diminishing-returns rates of 10 percent, 2.5 percent, and 1.25 percent, and the price-taker point — the farm cannot choose what it earns per bed, only how much it plants.
+You have located the marginal-cost dip, and you did it from the wage structure rather than from a chart. That dip is the single most interesting thing in this case and it is what Stage 3 is built around. Do not resolve it now.
 
-- Commit to a tomato number. Not "no more than 10" — the number you expect.
+What I would do instead: write down, today, exactly what you expect the shape to be — where the dip starts, roughly how deep, and whether it happens for all three crops or just tomatoes. Put it in the brief or in your prompt log. Then build the model and see. If you are right, you have predicted a non-obvious feature of a system from its cost structure alone, which is the whole skill this case is teaching. If you are wrong, the gap between what you expected and what happened is the most interesting paragraph you will write all term.
 
-- Say why each number, using the case's own figures. This is where most of the 25 points sit, and you already have the argument: labor rises 10 percent per tomato bed, so tomatoes stop early on economics; carrots barely rise at 2.5 percent, so they run to the cap and stop on the constraint rather than on price. Say which crops stop on which.
+One caution, and it is the standing rule for this stage: do not revise the brief to match what the model tells you. If the model contradicts you, that is a finding.
 
-- Add three lines on how you would know you were wrong. Name the outcome and name the assumption it would break.
+### A note on your stage 0 feedback
 
-- Account for the four beds. If they stay empty, say why leaving land idle can be the profitable choice.
+There is a correction in your Stage 0 comment that I want you to actually read rather than skim. I credited you with two folder README files that exist but are 1 byte — empty files with the right names. I graded the filename instead of opening the file.
 
-### Housekeeping in docs/briefs
-
-Two files in that folder are noise and should go. initial-case-brief.md is the unfilled generic template, still carrying [CASE TITLE] and an example hypothesis about caching strategies and API latency — nothing to do with a farm. Case-1.docx is a Word document in an otherwise Markdown repository, so it cannot be read on github.com or diffed between versions.
-
-This is worth doing for a reason beyond tidiness. A portfolio repo is read by people who did not watch you build it, and an abandoned template with somebody else's example in it reads worse than an empty folder — it suggests the folder was populated rather than used.
-
-### Looking ahead
-
-Stage 1.2 asks for capabilities/marginal-analysis/spec.md written before the workbook exists, then an audit of what gets built from it. Your capability folder exists now. The reasoning you put in this brief is the reasoning that spec runs on, so filling the gaps above is not a box to tick on the way past — it is the thinking Stage 1.2 is built on top of, and the vaguer the brief, the more the spec has to invent.
-
-Stage 3 asks you to compare what you predicted against what your model found. That comparison is only worth writing if the prediction had a reason behind it. "I predicted 20 carrots and got 20 carrots" tells you nothing; "I predicted 20 because I expected the cap to bind before marginal cost did, and here is what the schedule actually shows" is the memo.
+I am telling you because it is the same failure mode this case is about to test you on. A spreadsheet cell that displays $42,762 looks identical whether a formula produced it or someone typed it. Stage 1.2 asks you to check, and the reason it asks is that nobody checks by default.
 
 ---
 
