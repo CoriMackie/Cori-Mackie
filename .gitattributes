@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Office documents are binary: never line-ending normalize them
+*.xlsx binary
+*.docx binary
+*.pptx binary
