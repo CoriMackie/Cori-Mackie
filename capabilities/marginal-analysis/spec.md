@@ -62,16 +62,18 @@ Decisions the case does not state, settled here so the builder does not guess.
 cost in the model. The other $25,000 is used for costs not related to the labor
 of farming, so it is not charged against the planting decision.
 
-> **TODO 3 — Temporary labor basis.** Are temps charged per hour worked, or per
-> whole seasonal contract at $25,000 each? (Hourly gives $79,118 at the optimum;
-> per contract gives $100,000.)
+**3. Temporary labor.** Temps are charged per hour worked at `TEMP_RATE`, not per
+whole seasonal contract. Hourly costs $79,118 at the optimum; charging four whole
+contracts costs $100,000 and misses the check figure.
 
-> **TODO 4 — Rounded figures generally.** The case prints $34.72 and $17.36. The
-> exact quotients are $34.7222… and $17.3611…. State which governs. Typing the
-> printed values costs $6.67 against the check figure.
+**4. Rounded figures.** The exact quotients govern, not the printed $34.72 and
+$17.36. `PERM_RATE` and `TEMP_RATE` are derived at full precision and are never
+entered as constants. Typing the printed values returns a season profit of
+$42,768 against a check figure of $42,762.
 
-> **TODO 5 — Standalone schedules.** Does each crop's marginal-cost schedule draw
-> on the full 720 permanent hours by itself, or is the pool split across crops?
+**5. Standalone schedules.** Each crop's marginal-cost schedule draws on the full
+720 permanent hours by itself. The pool is not divided across crops. This is what
+puts the standalone crossings at 10, 10 and 6 beds.
 
 ---
 
@@ -115,6 +117,8 @@ The farmer's hours are used first. Any labor beyond them is temporary labor.
 
 **C. Labor cost**
 
+    PERM_RATE       = FARMER_SALARY / 2 / PERM_HOURS
+    TEMP_RATE       = TEMP_WORKER_PAY / TEMP_WORKER_HRS
     PERM_COST       = PERM_HOURS_USED × PERM_RATE
     TEMP_COST       = TEMP_HOURS × TEMP_RATE
     TOTAL_LABOR_COST = PERM_COST + TEMP_COST
@@ -136,9 +140,6 @@ The farmer's hours are used first. Any labor beyond them is temporary labor.
 
 Marginal cost is calculated, not assumed to increase continuously.
 
-> **TODO — `PERM_RATE` and `TEMP_RATE` are used here but never defined.** Add the
-> two formulas.
-
 > **TODO — `MC(q)` is ambiguous.** `TOTAL_COST` is defined in §E at farm level,
 > including fixed costs and all three crops. State that marginal cost is per
 > crop, includes fertilizer, and excludes fixed cost.
@@ -153,8 +154,12 @@ Marginal cost is calculated, not assumed to increase continuously.
 
 > **TODO — Bed counts must be integers.** Not stated anywhere.
 
-> **TODO — The temporary-worker constraint is never computed.** Is the cap
-> `TEMP_HOURS ≤ 5,760`, or `ROUNDUP(TEMP_HOURS / 1440) ≤ 4`? These differ.
+**G. Temporary workers**
+
+    TEMP_WORKERS = ROUNDUP(TEMP_HOURS / TEMP_WORKER_HRS, 0)
+
+The constraint is on whole workers, not on hours: `TEMP_WORKERS ≤ TEMP_WORKERS_MAX`.
+Temps are hired by the season, so a worker needed for one hour is a worker hired.
 
 ---
 
@@ -191,11 +196,10 @@ constraints satisfied.
 
 > **TODO — "approximately" appears twice** with no tolerance.
 
-> **TODO — Add a rule pinning the derived rates** to their exact quotients.
+**V6 — Solver.** The optimization runs GRG Nonlinear with integer decisions,
+maximizing season profit over the three bed counts.
 
 > **TODO — Enumerate the constraints** V5 refers to.
-
-> **TODO — State the Solver method:** GRG Nonlinear with integer decisions.
 
 > **TODO — State the crossing rule.** Marginal cost is not monotonic; once it
 > exceeds price and later falls back below, which q is reported?
