@@ -206,11 +206,10 @@ which is the same reason `MC(q)` excludes it. So the three crop profits less
 `FIXED_COST` equal `SEASON_PROFIT`.
 
 **The two rules, and where each applies.** The marginal-cost schedules in §F use
-the sequential split — farmer's hours first, then temporary — because they answer
-what the *next* bed costs, and that is a question about which hours are still
-unspent. The per-crop P&L here uses the blended rate because it answers what each
-crop *cost*, and that is a question about dividing a farm-level total. Same hours,
-two purposes, two rates. Neither substitutes for the other.
+two different rates, the farmer's hours first and then the temporary workers'
+hours. They answer what each bed costs as it is planted. The per-crop P&L uses the
+blended rate because it answers what each crop costs against the farm-level total.
+Same hours, different purposes, two rates.
 
 
 **G. Temporary workers**
