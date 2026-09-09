@@ -281,8 +281,8 @@ each one gets its own check cell:
 | Whole beds | all three bed counts are integers |
 | Non-negative | all three bed counts are ≥ 0 |
 
-The farmer's own 720 hours are not a constraint. She works them or she does not;
-what is beyond them is hired.
+The farmer's own 720 hours are not a constraint. They do not stop anything, it
+just costs more. What is beyond them is hired.
 
 **V7 — The crossing rule.** Marginal cost does not always move in one direction. A
 schedule can go above price and later fall below it. The **first** bed where
