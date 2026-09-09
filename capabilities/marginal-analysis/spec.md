@@ -168,10 +168,21 @@ plus the fertilizer for one bed. It excludes `FIXED_COST`, which does not change
 with the number of beds and so cannot belong in the cost of the next one. The
 farm-level `TOTAL_COST` in §E is a different quantity and is not what this uses.
 
-> **TODO — The permanent/temporary split inside one bed.** §B applies the rule to
-> the farm total only. Bed 5 of tomatoes is split 192.92 farmer hours / 4.73 temp
-> hours — that split is what produces the marginal-cost dip. State the rule at
-> the level of a single bed's incremental hours.
+**The split inside a single bed.** §B applies "farmer first" to the farm total.
+The marginal-cost schedules apply the same rule one bed at a time, to that bed's
+incremental hours:
+
+    MARGINAL_HRS(q)  = LABOR_HRS(q) − LABOR_HRS(q−1)
+    PERM_HRS(q)      = MAX(0, MIN(MARGINAL_HRS(q), PERM_HOURS − LABOR_HRS(q−1)))
+    TEMP_HRS(q)      = MARGINAL_HRS(q) − PERM_HRS(q)
+    MC(q)            = PERM_HRS(q) × PERM_RATE + TEMP_HRS(q) × TEMP_RATE + FERT
+
+A bed can therefore be split across both rates. Tomato bed 5 takes 192.92 of the
+farmer's remaining hours and 4.73 temporary hours, because the permanent pool runs
+out partway through it.
+
+This rule is not optional. Pricing the schedules at the blended rate instead moves
+the tomato crossing from 10 beds to 9 and fails the acceptance criteria.
 
 > **TODO — `BLENDED_RATE` is computed and never used.** State what it is for, or
 > remove it. If it is for a per-crop P&L, §5 has to ask for one.
