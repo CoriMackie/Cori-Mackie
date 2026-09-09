@@ -184,8 +184,34 @@ out partway through it.
 This rule is not optional. Pricing the schedules at the blended rate instead moves
 the tomato crossing from 10 beds to 9 and fails the acceptance criteria.
 
-> **TODO — `BLENDED_RATE` is computed and never used.** State what it is for, or
-> remove it. If it is for a per-crop P&L, §5 has to ask for one.
+**H. Per-crop P&L — what `BLENDED_RATE` is for**
+
+The workbook reports a profit and loss line for each crop. Labor is allocated to
+crops at the blended rate:
+
+    CROP_LABOR_COST  = CROP_HOURS × BLENDED_RATE
+    CROP_PROFIT      = CROP_REVENUE − CROP_FERT_COST − CROP_LABOR_COST
+
+The blended rate is the right instrument here because the permanent-versus-
+temporary split is a fact about the farm, not about any one crop. No crop hires
+the temporary workers; the season does. Charging tomatoes the temporary rate
+because they happen to be planted after the farmer's hours ran out would price the
+same hour differently depending on the order the schedules were written in.
+
+Because `BLENDED_RATE` is total labor dollars divided by total labor hours, the
+three crop labor costs add back to `TOTAL_LABOR_COST` exactly. The per-crop P&L
+reconciles to the season P&L with nothing left over.
+
+`FIXED_COST` is not allocated across crops. It does not vary with what is planted,
+which is the same reason `MC(q)` excludes it. So the three crop profits less
+`FIXED_COST` equal `SEASON_PROFIT`.
+
+**The two rules, and where each applies.** The marginal-cost schedules in §F use
+the sequential split — farmer's hours first, then temporary — because they answer
+what the *next* bed costs, and that is a question about which hours are still
+unspent. The per-crop P&L here uses the blended rate because it answers what each
+crop *cost*, and that is a question about dividing a farm-level total. Same hours,
+two purposes, two rates. Neither substitutes for the other.
 
 
 **G. Temporary workers**
@@ -309,6 +335,18 @@ name rather than by description.
 | `OUT_LABOR_COST` · `OUT_FERT_COST` · `OUT_FIXED_COST` | Costs, by kind |
 | `OUT_TOTAL_COST` | All three added |
 | `OUT_SEASON_PROFIT` | Revenue less total cost — the objective |
+
+**Per-crop P&L**
+
+One row per crop, labor allocated at `OUT_BLENDED_RATE` per §3H.
+
+| Output | What it reports |
+|---|---|
+| `OUT_CROP_REVENUE` | Revenue, per crop |
+| `OUT_CROP_FERT_COST` | Fertilizer cost, per crop |
+| `OUT_CROP_LABOR_COST` | Labor cost, per crop, at the blended rate |
+| `OUT_CROP_PROFIT` | Crop profit before fixed costs |
+| `OUT_PNL_RECONCILES` | `OK` when the three crop labor costs sum to `OUT_LABOR_COST`, and the three crop profits less `OUT_FIXED_COST` equal `OUT_SEASON_PROFIT` |
 
 **Marginal analysis**
 
