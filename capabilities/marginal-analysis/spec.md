@@ -286,12 +286,12 @@ each one gets its own check cell:
 The farmer's own 720 hours are not a constraint. She works them or she does not;
 what is beyond them is hired.
 
-**V7 — The crossing rule.** Marginal cost is not monotonic, so a schedule can go
-above price and later fall back below it. The crossing point is the **first** bed
-at which marginal cost exceeds price. The schedule stops there and reports the bed
-before it, whatever marginal cost does further down the column. Carrots stop at 10
-even though beds 17 through 20 come back under price, and mesclun stops at 6 for
-the same reason.
+**V7 — The crossing rule.** Marginal cost does not always move in one direction. A
+schedule can go above price and later fall below it. The **first** bed where
+marginal cost exceeds the price is where we stop. At that point we report the bed
+before it, whatever marginal cost does further down. Carrots stop at 10, although
+beds 17 through 20 come back under price, and mesclun stops at 6 for the same
+reason.
 
 The decision column must implement this rule rather than labelling each bed
 independently. A per-bed label produces Plant, then Stop, then Plant again, which
