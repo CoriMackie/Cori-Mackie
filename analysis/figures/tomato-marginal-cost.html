@@ -1,0 +1,186 @@
+<title>Tomato Marginal Cost</title>
+<style>
+.viz-root{color-scheme:light;
+ --surface-1:#fcfcfb;--plane:#f9f9f7;--text-primary:#0b0b0b;--text-secondary:#52514e;
+ --muted:#898781;--grid:#e1e0d9;--baseline:#c3c2b7;--ring:rgba(11,11,11,.10);
+ --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--neg:#b3261e;--pos:#006300}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .viz-root{color-scheme:dark;
+ --surface-1:#1a1a19;--plane:#0d0d0d;--text-primary:#fff;--text-secondary:#c3c2b7;
+ --muted:#898781;--grid:#2c2c2a;--baseline:#383835;--ring:rgba(255,255,255,.10);
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--neg:#e66767;--pos:#0ca30c}}
+:root[data-theme="dark"] .viz-root{color-scheme:dark;
+ --surface-1:#1a1a19;--plane:#0d0d0d;--text-primary:#fff;--text-secondary:#c3c2b7;
+ --muted:#898781;--grid:#2c2c2a;--baseline:#383835;--ring:rgba(255,255,255,.10);
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--neg:#e66767;--pos:#0ca30c}
+body{margin:0;background:#f9f9f7;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){body:where(:not([data-theme="light"] *)){background:#0d0d0d}}
+.viz-root{background:var(--plane);padding:22px;max-width:1000px;margin:0 auto}
+.card{background:var(--surface-1);border:1px solid var(--ring);border-radius:12px;padding:20px 22px 14px}
+h1{font-size:17px;margin:0 0 5px;color:var(--text-primary);letter-spacing:-.01em}
+.sub{font-size:13px;color:var(--text-secondary);margin:0 0 15px;max-width:74ch;line-height:1.5}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:0 0 4px;font-size:12.5px;color:var(--text-secondary)}
+.legend span{display:flex;align-items:center;gap:7px}
+.sw{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
+svg{display:block;width:100%;height:auto}
+.grid{stroke:var(--grid);stroke-width:1}.axis{stroke:var(--baseline);stroke-width:1}
+.tick{fill:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}.ytick{text-anchor:end}
+.s1{fill:var(--s1)}.s2{fill:var(--s2)}.s3{fill:var(--s3)}
+.price{stroke:var(--text-primary);stroke-width:2}
+.pricelab{fill:var(--text-primary);font-size:12px;font-weight:650}
+.vlab{fill:var(--text-primary);font-size:11.5px;font-weight:650;font-variant-numeric:tabular-nums}
+.anno{fill:var(--text-secondary);font-size:12px}
+.anno-b{fill:var(--text-primary);font-weight:650;font-size:12.5px}
+.lead{stroke:var(--muted);stroke-width:1;fill:none}.leaddot{fill:var(--muted)}
+.span{stroke:var(--baseline);stroke-width:1}.span-lab{fill:var(--muted);font-size:11.5px}
+.axtitle{fill:var(--text-secondary);font-size:12px}.hit{fill:transparent;cursor:crosshair}
+.foot{font-size:11.5px;color:var(--muted);margin:12px 0 0;line-height:1.55;max-width:96ch}
+.bar{display:flex;justify-content:flex-end;margin:12px 0 0}
+button{font:inherit;font-size:12.5px;padding:5px 11px;border:1px solid var(--ring);
+ background:var(--surface-1);color:var(--text-secondary);border-radius:7px;cursor:pointer}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12px;margin-top:12px;
+ font-variant-numeric:tabular-nums;color:var(--text-secondary)}
+th{text-align:right;font-size:11px;color:var(--muted);font-weight:600;padding:5px 8px;
+ border-bottom:1px solid var(--baseline);white-space:nowrap}
+th:first-child,td:first-child,th:last-child,td:last-child{text-align:left}
+td{text-align:right;padding:4px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+td.strong{color:var(--text-primary);font-weight:650}td.neg{color:var(--neg)}td.pos{color:var(--pos)}
+#tip{position:fixed;pointer-events:none;opacity:0;transition:opacity .1s;background:var(--surface-1);
+ border:1px solid var(--ring);border-radius:8px;padding:9px 11px;font-size:12px;color:var(--text-primary);
+ box-shadow:0 4px 16px rgba(0,0,0,.16);z-index:9;min-width:200px}
+#tip b{display:block;margin-bottom:5px}
+#tip .r{display:flex;justify-content:space-between;gap:16px;color:var(--text-secondary)}
+#tip .r i{font-style:normal;display:flex;align-items:center;gap:6px}
+#tip .tot{margin-top:5px;padding-top:5px;border-top:1px solid var(--grid);color:var(--text-primary);font-weight:650}
+</style>
+<div class="viz-root"><div class="card">
+<h1>Marginal cost of each tomato bed</h1>
+<p class="sub">Beds 1&ndash;14, built as though tomatoes were the only crop. The price a bed earns is fixed at $8,800 &mdash; the farmer cannot move it, only choose how many beds to plant. Planting stops at the first bed that costs more than it earns.</p>
+<div class="legend"><span><i class="sw" style="background:var(--s2)"></i>Labor at $17.36 &mdash; hired temporary hours</span><span><i class="sw" style="background:var(--s1)"></i>Labor at $34.72 &mdash; the farmer&rsquo;s own hours</span><span><i class="sw" style="background:var(--s3)"></i>Fertilizer, $880 a bed</span></div>
+<svg viewBox="0 0 900 510" role="img" aria-label="Stacked bars of marginal cost for tomato beds 1 to 14 against a fixed price of 8,800 dollars a bed. Cost is carried by the farmer's own hours at 34.72 through bed 4, splits across both rates in bed 5, then falls from 7,660.86 to 4,906.28 at bed 6 when her 720 hours run out and hired labour at 17.36 takes over. It climbs again and passes the price between bed 10, at 8,248.59, and bed 11, at 9,390.72.">
+<line class="grid" x1="74" y1="424.0" x2="872" y2="424.0"/>
+<text class="tick ytick" x="64" y="428.0">$0</text>
+<line class="grid" x1="74" y1="371.4" x2="872" y2="371.4"/>
+<text class="tick ytick" x="64" y="375.4">$2,000</text>
+<line class="grid" x1="74" y1="318.9" x2="872" y2="318.9"/>
+<text class="tick ytick" x="64" y="322.9">$4,000</text>
+<line class="grid" x1="74" y1="266.3" x2="872" y2="266.3"/>
+<text class="tick ytick" x="64" y="270.3">$6,000</text>
+<line class="grid" x1="74" y1="213.7" x2="872" y2="213.7"/>
+<text class="tick ytick" x="64" y="217.7">$8,000</text>
+<line class="grid" x1="74" y1="161.1" x2="872" y2="161.1"/>
+<text class="tick ytick" x="64" y="165.1">$10,000</text>
+<line class="grid" x1="74" y1="108.6" x2="872" y2="108.6"/>
+<text class="tick ytick" x="64" y="112.6">$12,000</text>
+<line class="grid" x1="74" y1="56.0" x2="872" y2="56.0"/>
+<text class="tick ytick" x="64" y="60.0">$14,000</text>
+<line class="axis" x1="74" y1="424.0" x2="872" y2="424.0"/>
+<rect class="s3" x="83.5" y="400.9" width="38" height="21.1"/>
+<path class="s1" d="M83.5,400.9 L83.5,314.5 Q83.5,310.5 87.5,310.5 L117.5,310.5 Q121.5,310.5 121.5,314.5 L121.5,400.9 Z"/>
+<text class="tick" x="102.5" y="442.0" text-anchor="middle">1</text>
+<rect class="s3" x="140.5" y="400.9" width="38" height="21.1"/>
+<path class="s1" d="M140.5,400.9 L140.5,296.4 Q140.5,292.4 144.5,292.4 L174.5,292.4 Q178.5,292.4 178.5,296.4 L178.5,400.9 Z"/>
+<text class="tick" x="159.5" y="442.0" text-anchor="middle">2</text>
+<rect class="s3" x="197.5" y="400.9" width="38" height="21.1"/>
+<path class="s1" d="M197.5,400.9 L197.5,275.7 Q197.5,271.7 201.5,271.7 L231.5,271.7 Q235.5,271.7 235.5,275.7 L235.5,400.9 Z"/>
+<text class="tick" x="216.5" y="442.0" text-anchor="middle">3</text>
+<rect class="s3" x="254.5" y="400.9" width="38" height="21.1"/>
+<path class="s1" d="M254.5,400.9 L254.5,251.8 Q254.5,247.8 258.5,247.8 L288.5,247.8 Q292.5,247.8 292.5,251.8 L292.5,400.9 Z"/>
+<text class="tick" x="273.5" y="442.0" text-anchor="middle">4</text>
+<rect class="s3" x="311.5" y="400.9" width="38" height="21.1"/>
+<rect class="s1" x="311.5" y="224.8" width="38" height="174.1"/>
+<path class="s2" d="M311.5,224.8 L311.5,224.8 Q311.5,222.6 313.7,222.6 L347.3,222.6 Q349.5,222.6 349.5,224.8 L349.5,224.8 Z"/>
+<text class="tick" x="330.5" y="442.0" text-anchor="middle">5</text>
+<rect class="s3" x="368.5" y="400.9" width="38" height="21.1"/>
+<path class="s2" d="M368.5,400.9 L368.5,299.0 Q368.5,295.0 372.5,295.0 L402.5,295.0 Q406.5,295.0 406.5,299.0 L406.5,400.9 Z"/>
+<text class="tick" x="387.5" y="442.0" text-anchor="middle">6</text>
+<rect class="s3" x="425.5" y="400.9" width="38" height="21.1"/>
+<path class="s2" d="M425.5,400.9 L425.5,281.2 Q425.5,277.2 429.5,277.2 L459.5,277.2 Q463.5,277.2 463.5,281.2 L463.5,400.9 Z"/>
+<text class="tick" x="444.5" y="442.0" text-anchor="middle">7</text>
+<rect class="s3" x="482.5" y="400.9" width="38" height="21.1"/>
+<path class="s2" d="M482.5,400.9 L482.5,260.8 Q482.5,256.8 486.5,256.8 L516.5,256.8 Q520.5,256.8 520.5,260.8 L520.5,400.9 Z"/>
+<text class="tick" x="501.5" y="442.0" text-anchor="middle">8</text>
+<rect class="s3" x="539.5" y="400.9" width="38" height="21.1"/>
+<path class="s2" d="M539.5,400.9 L539.5,237.6 Q539.5,233.6 543.5,233.6 L573.5,233.6 Q577.5,233.6 577.5,237.6 L577.5,400.9 Z"/>
+<text class="tick" x="558.5" y="442.0" text-anchor="middle">9</text>
+<rect class="s3" x="596.5" y="400.9" width="38" height="21.1"/>
+<path class="s2" d="M596.5,400.9 L596.5,211.2 Q596.5,207.2 600.5,207.2 L630.5,207.2 Q634.5,207.2 634.5,211.2 L634.5,400.9 Z"/>
+<text class="tick" x="615.5" y="442.0" text-anchor="middle">10</text>
+<rect class="s3" x="653.5" y="400.9" width="38" height="21.1"/>
+<path class="s2" d="M653.5,400.9 L653.5,181.2 Q653.5,177.2 657.5,177.2 L687.5,177.2 Q691.5,177.2 691.5,181.2 L691.5,400.9 Z"/>
+<text class="tick" x="672.5" y="442.0" text-anchor="middle">11</text>
+<rect class="s3" x="710.5" y="400.9" width="38" height="21.1"/>
+<path class="s2" d="M710.5,400.9 L710.5,147.1 Q710.5,143.1 714.5,143.1 L744.5,143.1 Q748.5,143.1 748.5,147.1 L748.5,400.9 Z"/>
+<text class="tick" x="729.5" y="442.0" text-anchor="middle">12</text>
+<rect class="s3" x="767.5" y="400.9" width="38" height="21.1"/>
+<path class="s2" d="M767.5,400.9 L767.5,108.4 Q767.5,104.4 771.5,104.4 L801.5,104.4 Q805.5,104.4 805.5,108.4 L805.5,400.9 Z"/>
+<text class="tick" x="786.5" y="442.0" text-anchor="middle">13</text>
+<rect class="s3" x="824.5" y="400.9" width="38" height="21.1"/>
+<path class="s2" d="M824.5,400.9 L824.5,64.6 Q824.5,60.6 828.5,60.6 L858.5,60.6 Q862.5,60.6 862.5,64.6 L862.5,400.9 Z"/>
+<text class="tick" x="843.5" y="442.0" text-anchor="middle">14</text>
+<line class="price" x1="74" y1="192.7" x2="872" y2="192.7"/>
+<text class="pricelab" x="78" y="209.7">Price  $8,800 a bed</text>
+<text class="vlab" x="330.5" y="213.6" text-anchor="middle">$7,661</text>
+<text class="vlab" x="387.5" y="286.0" text-anchor="middle">$4,906</text>
+<text class="anno anno-b" x="80" y="78">Marginal cost falls $2,754.58 at bed 6</text>
+<text class="anno" x="80" y="96">The farmer’s own 720 hours run out inside bed 5.</text>
+<text class="anno" x="80" y="112">Bed 6 is the first charged entirely at $17.36.</text>
+<path class="lead" d="M359.0,122.0 V295.0 H368.5"/>
+<circle class="leaddot" cx="368.5" cy="295.0" r="3"/>
+<text class="anno anno-b" x="430" y="78">P = MC between beds 10 and 11</text>
+<text class="anno" x="430" y="96">Bed 10 costs $8,248.59 and earns $8,800.</text>
+<text class="anno" x="430" y="112">Bed 11 costs $9,390.72 and loses $590.72.</text>
+<path class="lead" d="M644.0,122.0 V192.7"/>
+<circle class="leaddot" cx="644.0" cy="192.7" r="3.5"/>
+<line class="span" x1="76.0" y1="458.0" x2="643.5" y2="458.0"/>
+<line class="span" x1="76.0" y1="454.0" x2="76.0" y2="458.0"/>
+<line class="span" x1="643.5" y1="454.0" x2="643.5" y2="458.0"/>
+<text class="span-lab" x="359.8" y="473.0" text-anchor="middle">10 beds planted</text>
+<line class="span" x1="649.5" y1="458.0" x2="870.0" y2="458.0"/>
+<line class="span" x1="649.5" y1="454.0" x2="649.5" y2="458.0"/>
+<line class="span" x1="870.0" y1="454.0" x2="870.0" y2="458.0"/>
+<text class="span-lab" x="759.8" y="473.0" text-anchor="middle">not planted</text>
+<text class="axtitle" x="473.0" y="504" text-anchor="middle">Tomato bed (q)</text>
+<rect class="hit" data-q="1" x="74.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="2" x="131.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="3" x="188.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="4" x="245.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="5" x="302.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="6" x="359.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="7" x="416.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="8" x="473.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="9" x="530.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="10" x="587.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="11" x="644.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="12" x="701.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="13" x="758.0" y="56" width="57.0" height="368.0"/>
+<rect class="hit" data-q="14" x="815.0" y="56" width="57.0" height="368.0"/>
+</svg>
+<p class="foot">Beds 15&ndash;20 keep climbing, reaching $29,548.32 at bed 20; they are left off the plot so the decision region stays legible, and all twenty are in the table. Marginal cost is the labor for that bed plus one bed of fertilizer; it excludes the $20,000 season fixed cost. Source: <code>capabilities/marginal-analysis/model.xlsx</code>.</p>
+<div class="bar"><button id="t">Show all 20 beds as a table</button></div>
+<div class="tw" id="tw" hidden><table><thead><tr><th>Bed</th><th>Farmer hrs</th><th>Temp hrs</th><th>At $34.72</th><th>At $17.36</th><th>Fertilizer</th><th>MC</th><th>Price &minus; MC</th><th>Decision</th></tr></thead><tbody><tr><td>1</td><td>99.00</td><td>0.00</td><td>$3,437.50</td><td>$0.00</td><td>$880</td><td class="strong">$4,317.50</td><td class="pos">+$4,482.50</td><td>Plant</td></tr><tr><td>2</td><td>118.80</td><td>0.00</td><td>$4,125.00</td><td>$0.00</td><td>$880</td><td class="strong">$5,005.00</td><td class="pos">+$3,795.00</td><td>Plant</td></tr><tr><td>3</td><td>141.57</td><td>0.00</td><td>$4,915.63</td><td>$0.00</td><td>$880</td><td class="strong">$5,795.63</td><td class="pos">+$3,004.37</td><td>Plant</td></tr><tr><td>4</td><td>167.71</td><td>0.00</td><td>$5,823.13</td><td>$0.00</td><td>$880</td><td class="strong">$6,703.13</td><td class="pos">+$2,096.87</td><td>Plant</td></tr><tr><td>5</td><td>192.92</td><td>4.73</td><td>$6,698.75</td><td>$82.11</td><td>$880</td><td class="strong">$7,660.86</td><td class="pos">+$1,139.14</td><td>Plant</td></tr><tr><td>6</td><td>0.00</td><td>231.91</td><td>$0.00</td><td>$4,026.28</td><td>$880</td><td class="strong">$4,906.28</td><td class="pos">+$3,893.72</td><td>Plant</td></tr><tr><td>7</td><td>0.00</td><td>271.05</td><td>$0.00</td><td>$4,705.71</td><td>$880</td><td class="strong">$5,585.71</td><td class="pos">+$3,214.29</td><td>Plant</td></tr><tr><td>8</td><td>0.00</td><td>315.69</td><td>$0.00</td><td>$5,480.77</td><td>$880</td><td class="strong">$6,360.77</td><td class="pos">+$2,439.23</td><td>Plant</td></tr><tr><td>9</td><td>0.00</td><td>366.55</td><td>$0.00</td><td>$6,363.78</td><td>$880</td><td class="strong">$7,243.78</td><td class="pos">+$1,556.22</td><td>Plant</td></tr><tr><td>10</td><td>0.00</td><td>424.43</td><td>$0.00</td><td>$7,368.59</td><td>$880</td><td class="strong">$8,248.59</td><td class="pos">+$551.41</td><td>Plant</td></tr><tr><td>11</td><td>0.00</td><td>490.22</td><td>$0.00</td><td>$8,510.72</td><td>$880</td><td class="strong">$9,390.72</td><td class="neg">&minus;$590.72</td><td>Stop</td></tr><tr><td>12</td><td>0.00</td><td>564.92</td><td>$0.00</td><td>$9,807.59</td><td>$880</td><td class="strong">$10,687.59</td><td class="neg">&minus;$1,887.59</td><td>Stop</td></tr><tr><td>13</td><td>0.00</td><td>649.65</td><td>$0.00</td><td>$11,278.73</td><td>$880</td><td class="strong">$12,158.73</td><td class="neg">&minus;$3,358.73</td><td>Stop</td></tr><tr><td>14</td><td>0.00</td><td>745.69</td><td>$0.00</td><td>$12,946.02</td><td>$880</td><td class="strong">$13,826.02</td><td class="neg">&minus;$5,026.02</td><td>Stop</td></tr><tr><td>15</td><td>0.00</td><td>854.44</td><td>$0.00</td><td>$14,833.98</td><td>$880</td><td class="strong">$15,713.98</td><td class="neg">&minus;$6,913.98</td><td>Stop</td></tr><tr><td>16</td><td>0.00</td><td>977.48</td><td>$0.00</td><td>$16,970.07</td><td>$880</td><td class="strong">$17,850.07</td><td class="neg">&minus;$9,050.07</td><td>Stop</td></tr><tr><td>17</td><td>0.00</td><td>1,116.58</td><td>$0.00</td><td>$19,385.04</td><td>$880</td><td class="strong">$20,265.04</td><td class="neg">&minus;$11,465.04</td><td>Stop</td></tr><tr><td>18</td><td>0.00</td><td>1,273.73</td><td>$0.00</td><td>$22,113.31</td><td>$880</td><td class="strong">$22,993.31</td><td class="neg">&minus;$14,193.31</td><td>Stop</td></tr><tr><td>19</td><td>0.00</td><td>1,451.14</td><td>$0.00</td><td>$25,193.38</td><td>$880</td><td class="strong">$26,073.38</td><td class="neg">&minus;$17,273.38</td><td>Stop</td></tr><tr><td>20</td><td>0.00</td><td>1,651.30</td><td>$0.00</td><td>$28,668.32</td><td>$880</td><td class="strong">$29,548.32</td><td class="neg">&minus;$20,748.32</td><td>Stop</td></tr></tbody></table></div>
+</div></div>
+<div id="tip"></div>
+<script>
+const ROWS={"1": {"q": 1, "permHrs": 99.00000000000001, "tempHrs": 0.0, "permCost": 3437.5000000000005, "tempCost": 0.0, "fert": 880.0, "mc": 4317.5, "dec": "Plant"}, "2": {"q": 2, "permHrs": 118.80000000000003, "tempHrs": 0.0, "permCost": 4125.000000000001, "tempCost": 0.0, "fert": 880.0, "mc": 5005.000000000001, "dec": "Plant"}, "3": {"q": 3, "permHrs": 141.57000000000008, "tempHrs": 0.0, "permCost": 4915.625000000003, "tempCost": 0.0, "fert": 880.0, "mc": 5795.625000000003, "dec": "Plant"}, "4": {"q": 4, "permHrs": 167.70600000000002, "tempHrs": 0.0, "permCost": 5823.125000000001, "tempCost": 0.0, "fert": 880.0, "mc": 6703.125000000001, "dec": "Plant"}, "5": {"q": 5, "permHrs": 192.92399999999986, "tempHrs": 4.729500000000257, "permCost": 6698.749999999995, "tempCost": 82.10937500000446, "fert": 880.0, "mc": 7660.859375, "dec": "Plant"}, "6": {"q": 6, "permHrs": 0.0, "tempHrs": 231.91344000000015, "permCost": 0.0, "tempCost": 4026.2750000000024, "fert": 880.0, "mc": 4906.275000000002, "dec": "Plant"}, "7": {"q": 7, "permHrs": 0.0, "tempHrs": 271.0488330000003, "permCost": 0.0, "tempCost": 4705.7089062500045, "fert": 880.0, "mc": 5585.7089062500045, "dec": "Plant"}, "8": {"q": 8, "permHrs": 0.0, "tempHrs": 315.6921702000004, "permCost": 0.0, "tempCost": 5480.766843750007, "fert": 880.0, "mc": 6360.766843750007, "dec": "Plant"}, "9": {"q": 9, "permHrs": 0.0, "tempHrs": 366.5536865100005, "permCost": 0.0, "tempCost": 6363.779279687508, "fert": 880.0, "mc": 7243.779279687508, "dec": "Plant"}, "10": {"q": 10, "permHrs": 0.0, "tempHrs": 424.43058438000025, "permCost": 0.0, "tempCost": 7368.586534375005, "fert": 880.0, "mc": 8248.586534375005, "dec": "Plant"}, "11": {"q": 11, "permHrs": 0.0, "tempHrs": 490.21732495890046, "permCost": 0.0, "tempCost": 8510.717447203133, "fert": 880.0, "mc": 9390.717447203133, "dec": "Stop"}, "12": {"q": 12, "permHrs": 0.0, "tempHrs": 564.9171078097811, "permCost": 0.0, "tempCost": 9807.588677253143, "fert": 880.0, "mc": 10687.588677253143, "dec": "Stop"}, "13": {"q": 13, "permHrs": 0.0, "tempHrs": 649.6546739812479, "permCost": 0.0, "tempCost": 11278.72697884111, "fert": 880.0, "mc": 12158.72697884111, "dec": "Stop"}, "14": {"q": 14, "permHrs": 0.0, "tempHrs": 745.690582308911, "permCost": 0.0, "tempCost": 12946.017053974148, "fert": 880.0, "mc": 13826.017053974148, "dec": "Stop"}, "15": {"q": 15, "permHrs": 0.0, "tempHrs": 854.4371255622937, "permCost": 0.0, "tempCost": 14833.977874345375, "fert": 880.0, "mc": 15713.977874345375, "dec": "Stop"}, "16": {"q": 16, "permHrs": 0.0, "tempHrs": 977.4760716432638, "permCost": 0.0, "tempCost": 16970.070688251108, "fert": 880.0, "mc": 17850.070688251108, "dec": "Stop"}, "17": {"q": 17, "permHrs": 0.0, "tempHrs": 1116.5784356848062, "permCost": 0.0, "tempCost": 19385.04228619455, "fert": 880.0, "mc": 20265.04228619455, "dec": "Stop"}, "18": {"q": 18, "permHrs": 0.0, "tempHrs": 1273.7265118182222, "permCost": 0.0, "tempCost": 22113.307496844136, "fert": 880.0, "mc": 22993.307496844136, "dec": "Stop"}, "19": {"q": 19, "permHrs": 0.0, "tempHrs": 1451.138418821476, "permCost": 0.0, "tempCost": 25193.375326761736, "fert": 880.0, "mc": 26073.375326761736, "dec": "Stop"}, "20": {"q": 20, "permHrs": 0.0, "tempHrs": 1651.2954421071954, "permCost": 0.0, "tempCost": 28668.323647694364, "fert": 880.0, "mc": 29548.323647694364, "dec": "Stop"}};
+const f=n=>"$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const tip=document.getElementById("tip");
+document.querySelectorAll(".hit").forEach(h=>{
+ h.addEventListener("mousemove",e=>{
+  const r=ROWS[h.dataset.q],pm=8800-r.mc;
+  let s="<b>Tomato bed "+r.q+"</b>";
+  if(r.tempCost>0.005)s+="<div class='r'><i><span class='sw' style='background:var(--s2)'></span>Temp labor</i><span>"+f(r.tempCost)+"</span></div>";
+  if(r.permCost>0.005)s+="<div class='r'><i><span class='sw' style='background:var(--s1)'></span>Farmer labor</i><span>"+f(r.permCost)+"</span></div>";
+  s+="<div class='r'><i><span class='sw' style='background:var(--s3)'></span>Fertilizer</i><span>"+f(r.fert)+"</span></div>";
+  s+="<div class='r tot'><span>Marginal cost</span><span>"+f(r.mc)+"</span></div>";
+  s+="<div class='r' style='color:"+(pm<0?"var(--neg)":"var(--pos)")+"'><span>Price \u2212 MC</span><span>"+(pm<0?"\u2212":"+")+f(Math.abs(pm)).slice(1)+"</span></div>";
+  s+="<div class='r' style='margin-top:4px'><span>Decision</span><span>"+r.dec+"</span></div>";
+  tip.innerHTML=s;tip.style.opacity=1;
+  let x=e.clientX+16,y=e.clientY+16;const b=tip.getBoundingClientRect();
+  if(x+b.width>innerWidth-8)x=e.clientX-b.width-16;
+  if(y+b.height>innerHeight-8)y=e.clientY-b.height-16;
+  tip.style.left=x+"px";tip.style.top=y+"px";});
+ h.addEventListener("mouseleave",()=>tip.style.opacity=0);});
+const tw=document.getElementById("tw"),tb=document.getElementById("t");
+tb.onclick=()=>{tw.hidden=!tw.hidden;tb.textContent=tw.hidden?"Show all 20 beds as a table":"Hide the table";};
+</script>

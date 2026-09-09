@@ -48,6 +48,13 @@ tomatoes, and an eleventh tomato bed loses $590.72. Labor is not what
 stops the farm: it finishes the season with 1,203 field hours unused.
 Planting the last four beds is possible and it is not worth doing.
 
+![Marginal cost of each tomato bed, shown as stacked bars against the fixed $8,800 price. Beds 1 to 5 are carried by the farmer's own hours at $34.72; bed 6 onward is hired labor at $17.36, and marginal cost falls $2,754.58 at that switch before climbing again to cross the price between beds 10 and 11.](../../analysis/figures/tomato-marginal-cost.png)
+
+*Each bar is split by what the cost is made of, so the colour change at bed 6
+is the wage switch itself. The interactive version, with figures on hover and
+all twenty beds as a table, is at
+[`analysis/figures/tomato-marginal-cost.html`](../../analysis/figures/tomato-marginal-cost.html).*
+
 ## How the hypothesis held up
 
 The brief predicted 10 / 20 / 30 and 60 beds planted. That is exactly what
