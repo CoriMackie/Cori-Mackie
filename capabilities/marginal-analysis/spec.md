@@ -192,11 +192,10 @@ crops at the blended rate:
     CROP_LABOR_COST  = CROP_HOURS × BLENDED_RATE
     CROP_PROFIT      = CROP_REVENUE − CROP_FERT_COST − CROP_LABOR_COST
 
-The blended rate is the right instrument here because the permanent-versus-
-temporary split is a fact about the farm, not about any one crop. No crop hires
-the temporary workers; the season does. Charging tomatoes the temporary rate
-because they happen to be planted after the farmer's hours ran out would price the
-same hour differently depending on the order the schedules were written in.
+The blended rate works in this situation, and not the sequential one, for the P&L.
+It is because the permanent versus temporary labor split is about the farm and not
+the crop. Charging a crop the temporary rate because the farmer's hours ran out
+would price the same hour differently depending on the order it happened in.
 
 Because `BLENDED_RATE` is total labor dollars divided by total labor hours, the
 three crop labor costs add back to `TOTAL_LABOR_COST` exactly. The per-crop P&L
