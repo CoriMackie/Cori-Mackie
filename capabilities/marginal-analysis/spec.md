@@ -126,7 +126,7 @@ Every check computes to `OK` or `VIOLATED` — no other wording.
 | | Check | What it would catch |
 |---|---|---|
 | **V1** | `LABOR_HRS(1)` for tomatoes equals 99 hours, computed by hand | A dropped `(1 + dim)^q` term — the same cell returns 90 without it |
-| **V2** | MC of tomato bed 10 agrees with the Farm Profit Lab to the dollar | A structural difference from the reference implementation. Taken from mid-schedule, where an endpoint could agree by accident |
+| **V2** | MC of tomato bed 10, computed by hand, agrees with the model to the dollar | An error in the cost machinery mid-schedule, where the permanent hours are gone and every term of `MC(q)` is in play. Taken from mid-schedule, where an endpoint could agree by accident |
 | **V3** | Solver run from two start points agrees on season profit | A local optimum reported as the answer |
 | **V4** | Mix is 10/20/30, profit rounds to $42,762 and does not exceed it, crossings are 10/10/6 | Any drift in the headline result |
 | **V5** | Zero error cells; constraints satisfied; per-crop P&L reconciles; rates derived rather than typed | Silent breakage anywhere in the sheets |
@@ -140,9 +140,28 @@ is also infeasible, so a local search has no route out. The second start
 is therefore `15/0/0`: the nearest tomato-only start that fits the
 four-worker cap, and thirty hill-climb steps away from the answer.
 
-**On V2.** `B25` is an observed input, not a calculated cell. V2 reads
-`VIOLATED` until the Farm Profit Lab is run and its figure entered. That
-is the intended state, not a failure.
+**On V2.** `B25` is an observed input, not a calculated cell, and V2 reads
+`VIOLATED` until a figure is entered. That is the intended state, not a
+failure.
+
+V2 originally cross-checked against an external reference implementation,
+the Farm Profit Lab. That tool is no longer reachable, so the check is now
+a hand computation instead:
+
+```
+LABOR_HRS(10) - LABOR_HRS(9) = 2,334.3682 - 1,909.9376 = 424.4306 hours
+424.4306 x TEMP_RATE + TOM_FERT = $8,248.59
+```
+
+Be clear about what was lost in the substitution. An external
+implementation could catch a model that is *conceived* wrongly — someone
+else's formulas, arrived at independently, disagreeing with mine. A hand
+computation cannot: it works the same model design, so it catches
+arithmetic and formula-entry errors mid-schedule but shares any error in
+how the model was conceived. V1 and V2 together now check the hours
+function at `q = 1` and the full cost of a bed at `q = 10`; neither is an
+independent check on the design itself. If a reference implementation
+becomes available again, V2 should go back to being one.
 
 ## §7 Result
 
