@@ -103,14 +103,14 @@ loud, the way you'd answer a person. Then it comes out in your words.
 
 - [x] **1. The crossing rule** — done, committed `da6c8e9`
 - [x] **2. Why the blended rate for the P&L** — done, committed `b340844`
-- [ ] **3. Two labor rates.** *"You've got two different labor rates in this model.
-      Why?"*
-- [ ] **4. Fixed cost.** *"Why isn't the $20,000 in your marginal cost?"*
-- [ ] **5. The farmer's hours.** *"Why isn't the farmer's 720 hours a constraint
-      like the bed caps are?"*
+- [x] **3. Two labor rates** — done, committed `2d0d1a1`
+- [x] **4. Fixed cost** — reviewed and kept as written; it states a definition
+      rather than an argument, and it records the call you made
+- [x] **5. The farmer's hours** — done. "They do not stop anything, it just costs
+      more."
 
-Then the remaining thirteen passages, which are flat statements of rule rather than
-argument — lower stakes, quicker to do.
+All five argument passages are done. The remaining thirteen are flat statements of
+rule rather than argument — lower stakes, and optional if time is short.
 
 ## Held for Stage 3 — do not resolve
 
