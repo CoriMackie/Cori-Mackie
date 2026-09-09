@@ -49,10 +49,8 @@ Nothing is on `main`. Nothing has gone to Adam. No pull request exists.
       decision variables unnamed. Each one names what it would have caught.
 - [ ] **The dip** — reported, not explained. `OUT_TOM_DIP_BED` and
       `OUT_TOM_DIP_SIZE` are already specified as outputs.
-- [ ] **The voice pass.** ~197 lines of the spec are prose I wrote from your
-      answers. The decisions are yours; the sentences are not. Say them your way
-      before you submit — this is where the stage reads your judgment, and Adam
-      singled your last brief out for exactly this.
+- [ ] **The voice pass** — see the section at the bottom of this file. Two of the
+      five argument passages are done.
 - [ ] **Drop the DRAFT header** at the top of `spec.md` once the TODOs are gone.
 
 ---
@@ -91,3 +89,36 @@ not the number — and the brief's own $9,390 figure already uses the right form
 
 Fixing a mislabeled input is not revising your hypothesis to match the model. Say
 so in your PR reply so it reads as a correction rather than a quiet edit.
+
+---
+
+## Voice pass — where you left off
+
+The spec's tables and formulas don't need your voice. The prose does. There are 18
+prose passages; five of them make an argument, and those are the ones a reader
+notices.
+
+**The trick that works:** don't rewrite the paragraph. Answer the question out
+loud, the way you'd answer a person. Then it comes out in your words.
+
+- [x] **1. The crossing rule** — done, committed `da6c8e9`
+- [x] **2. Why the blended rate for the P&L** — done, committed `b340844`
+- [ ] **3. Two labor rates.** *"You've got two different labor rates in this model.
+      Why?"*
+- [ ] **4. Fixed cost.** *"Why isn't the $20,000 in your marginal cost?"*
+- [ ] **5. The farmer's hours.** *"Why isn't the farmer's 720 hours a constraint
+      like the bed caps are?"*
+
+Then the remaining thirteen passages, which are flat statements of rule rather than
+argument — lower stakes, quicker to do.
+
+## Held for Stage 3 — do not resolve
+
+Why marginal cost falls and then rises again. You already predicted it in the
+brief's fourth falsification condition, before building anything. Both Adam and the
+stage page say to leave it alone until Stage 3. Report where it happens and how
+deep; don't explain it.
+
+Worth doing while it's fresh, per Adam's own suggestion: write down what you expect
+the shape to be — where the dip starts, how deep, all three crops or just tomatoes
+— and put it in the prompt log. Then the model either confirms you or doesn't.
