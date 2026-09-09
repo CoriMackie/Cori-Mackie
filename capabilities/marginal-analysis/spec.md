@@ -101,9 +101,11 @@ The workbook should contain four main areas:
 The economic principle behind the marginal analysis is P ≈ MC: continue adding
 production while the revenue from the next bed justifies its marginal cost.
 
-> **TODO —** State that the Cost / Marginal Analysis area holds **three separate
-> schedules**, one per crop, each running from q = 0 to that crop's bed cap.
-> As written, a builder could produce one combined schedule.
+The Cost / Marginal Analysis area holds **three separate schedules, one per crop**
+— not one combined schedule. Each runs from q = 0 to that crop's bed cap, and each
+is built as though that crop were the only thing planted, per convention 5. A
+single blended schedule cannot produce a per-crop crossing point and is not what
+this specifies.
 
 Every check cell in the Validation area displays `OK` or `VIOLATED`. No other
 wording, so a failed check is visible at a glance rather than read for.
@@ -231,7 +233,21 @@ at or below price, which is a whole bed and carries no tolerance.
 **V6 — Solver.** The optimization runs GRG Nonlinear with integer decisions,
 maximizing season profit over the three bed counts.
 
-> **TODO — Enumerate the constraints** V5 refers to.
+**The constraints.** These are what V5 means by "all constraints satisfied," and
+each one gets its own check cell:
+
+| Constraint | Rule |
+|---|---|
+| Tomato bed cap | `TOM_BEDS ≤ TOM_CAP` (20) |
+| Carrot bed cap | `CAR_BEDS ≤ CAR_CAP` (20) |
+| Mesclun bed cap | `MES_BEDS ≤ MES_CAP` (30) |
+| Farm bed cap | `TOM_BEDS + CAR_BEDS + MES_BEDS ≤ FARM_BED_CAP` (64) |
+| Temporary workers | `TEMP_WORKERS ≤ TEMP_WORKERS_MAX` (4) |
+| Whole beds | all three bed counts are integers |
+| Non-negative | all three bed counts are ≥ 0 |
+
+The farmer's own 720 hours are not a constraint. She works them or she does not;
+what is beyond them is hired.
 
 **V7 — The crossing rule.** Marginal cost is not monotonic, so a schedule can go
 above price and later fall back below it. The crossing point is the **first** bed
@@ -253,17 +269,54 @@ question.
 
 ## 5. Outputs
 
-The finished workbook should clearly show the optimal number of beds for each
-crop; total beds used versus the 64-bed capacity; total, farmer, and temporary
-labor requirements; number of temporary workers required; revenue; fertilizer and
-labor costs; fixed and total costs; season profit; marginal cost by crop and bed;
-P vs. MC; and whether all constraints have been satisfied.
+Each of these is a named, labelled cell in the workbook, so §4 can refer to it by
+name rather than by description.
 
-> **TODO — Name the outputs** rather than listing them in prose, so §4 can refer
-> to them.
+**The decision**
 
-> **TODO — Add the location of the tomato marginal-cost dip** as a reported
-> output (Stage 3 needs it).
+| Output | What it reports |
+|---|---|
+| `OUT_TOM_BEDS` · `OUT_CAR_BEDS` · `OUT_MES_BEDS` | Optimal beds, per crop |
+| `OUT_BEDS_USED` | Total beds planted |
+| `OUT_BEDS_IDLE` | `FARM_BED_CAP` − `OUT_BEDS_USED` |
+
+**Labor**
+
+| Output | What it reports |
+|---|---|
+| `OUT_TOTAL_HOURS` | Total field hours required |
+| `OUT_PERM_HOURS` | Hours worked by the farmer |
+| `OUT_TEMP_HOURS` | Hours worked by temporary labor |
+| `OUT_TEMP_WORKERS` | Temporary workers required |
+| `OUT_BLENDED_RATE` | Total labor dollars ÷ total labor hours |
+
+**Money**
+
+| Output | What it reports |
+|---|---|
+| `OUT_REVENUE` | Total season revenue |
+| `OUT_LABOR_COST` · `OUT_FERT_COST` · `OUT_FIXED_COST` | Costs, by kind |
+| `OUT_TOTAL_COST` | All three added |
+| `OUT_SEASON_PROFIT` | Revenue less total cost — the objective |
+
+**Marginal analysis**
+
+| Output | What it reports |
+|---|---|
+| `OUT_MC_SCHEDULE` | Marginal cost by crop and bed, all three schedules |
+| `OUT_P_MINUS_MC` | Price less marginal cost, bed by bed |
+| `OUT_CROSSING_TOM` · `OUT_CROSSING_CAR` · `OUT_CROSSING_MES` | Standalone crossing point per crop, per V7 |
+| `OUT_TOM_DIP_BED` | The bed at which tomato marginal cost falls below the bed before it |
+| `OUT_TOM_DIP_SIZE` | The size of that fall, in dollars |
+
+**Checks**
+
+| Output | What it reports |
+|---|---|
+| `OUT_CONSTRAINTS_OK` | `OK` only when every constraint check reads `OK` |
+
+`OUT_TOM_DIP_BED` and `OUT_TOM_DIP_SIZE` are reported and not explained. Locating
+the dip is this stage's job; accounting for it is Stage 3's.
 
 ---
 
