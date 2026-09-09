@@ -7,4 +7,9 @@ holds:
 -   `spec.md` — the approach/spec behind it
 -   a supporting model or workbook (e.g. `model.xlsx`), where relevant
 
-No capabilities have been added yet.
+## Capabilities
+
+-   [`marginal-analysis/`](marginal-analysis/) — finding the
+    profit-maximizing quantity where P = MC. Exercised by the
+    `perfect-competition` engagement: a 64-bed vegetable farm choosing a
+    crop mix under land, labor and time constraints.
