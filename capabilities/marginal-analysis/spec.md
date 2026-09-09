@@ -45,6 +45,18 @@ addresses.
 | `MES_PRICE` | 2700   | $ per bed              | Case table |
 | `MES_CAP`   | 30     | beds                   | Case table |
 
+### Decision variables
+
+The three bed counts are the only cells the optimizer changes. They are named
+ranges like every other input, and they are constrained to whole numbers — a bed
+is planted or it is not.
+
+| Name | Unit | Bounds |
+|---|---|---|
+| `TOM_BEDS` | beds, integer | 0 to `TOM_CAP` |
+| `CAR_BEDS` | beds, integer | 0 to `CAR_CAP` |
+| `MES_BEDS` | beds, integer | 0 to `MES_CAP` |
+
 ### Not inputs — derived in §3
 
 `PERM_RATE` and `TEMP_RATE` are computed from the values above and must never be
@@ -93,7 +105,16 @@ production while the revenue from the next bed justifies its marginal cost.
 > schedules**, one per crop, each running from q = 0 to that crop's bed cap.
 > As written, a builder could produce one combined schedule.
 
-> **TODO —** State what a Validation cell outputs (PASS/FAIL, or OK/VIOLATED).
+Every check cell in the Validation area displays `OK` or `VIOLATED`. No other
+wording, so a failed check is visible at a glance rather than read for.
+
+### Naming
+
+The crop-prefixed names in §1 are the only names. `TOM_HPB`, `TOM_DIM`,
+`TOM_PRICE` and their carrot and mesclun equivalents are what formulas reference;
+the generic forms used in the logic below (`HRS_PER_BED`, `DIM_PCT`,
+`PRICE_PER_BED`, `BEDS`) are shorthand for "the value for the crop this schedule
+is about" and are never named ranges themselves.
 
 ---
 
@@ -140,9 +161,10 @@ The farmer's hours are used first. Any labor beyond them is temporary labor.
 
 Marginal cost is calculated, not assumed to increase continuously.
 
-> **TODO — `MC(q)` is ambiguous.** `TOTAL_COST` is defined in §E at farm level,
-> including fixed costs and all three crops. State that marginal cost is per
-> crop, includes fertilizer, and excludes fixed cost.
+`MC(q)` is per crop, not farm-wide. It is the labor cost of that crop's qth bed
+plus the fertilizer for one bed. It excludes `FIXED_COST`, which does not change
+with the number of beds and so cannot belong in the cost of the next one. The
+farm-level `TOTAL_COST` in §E is a different quantity and is not what this uses.
 
 > **TODO — The permanent/temporary split inside one bed.** §B applies the rule to
 > the farm total only. Bed 5 of tomatoes is split 192.92 farmer hours / 4.73 temp
@@ -152,7 +174,6 @@ Marginal cost is calculated, not assumed to increase continuously.
 > **TODO — `BLENDED_RATE` is computed and never used.** State what it is for, or
 > remove it. If it is for a per-crop P&L, §5 has to ask for one.
 
-> **TODO — Bed counts must be integers.** Not stated anywhere.
 
 **G. Temporary workers**
 
@@ -187,14 +208,25 @@ both produce the same solution.
 **V5 — Integrity.** Calculated cells contain formulas, no spreadsheet errors, all
 constraints satisfied.
 
-> **TODO — V2 has no expected value.** Name which marginal cost is compared and
-> what it must equal.
+**V2 detail.** The cross-check is taken from the middle of a schedule rather than
+from either end, because an endpoint can agree by accident where the interior
+cannot. The comparison is the marginal cost of tomato bed 10, which this model
+returns as $8,249. The Farm Profit Lab's figure for the same bed must agree to
+the dollar.
 
-> **TODO — V3 has no pass condition.** Say what result is acceptable. Note that
-> 20/0/0 is an infeasible starting point: 20 tomato beds needs 12,109 hours,
-> about eight temp workers against a cap of four.
+**V3 detail.** Both Solver runs have to agree on season profit. They do not have
+to arrive by the same route. If the profit differs between the two starting
+points, one of them found a local optimum and the result is not the answer.
 
-> **TODO — "approximately" appears twice** with no tolerance.
+Note that 20/0/0 is an infeasible starting point: 20 tomato beds needs 12,109
+hours, about eight temp workers against a cap of four. It is run anyway — the
+point of the second start is to see whether Solver lands somewhere different, and
+starting outside the feasible region is a harder test than starting inside it.
+
+**Tolerance.** Season profit must round to $42,762 and must not exceed it. The
+standalone crossing points are exact bed counts, not approximate: 10, 10 and 6.
+Wherever this document says P ≈ MC it means the last bed whose marginal cost is
+at or below price, which is a whole bed and carries no tolerance.
 
 **V6 — Solver.** The optimization runs GRG Nonlinear with integer decisions,
 maximizing season profit over the three bed counts.
