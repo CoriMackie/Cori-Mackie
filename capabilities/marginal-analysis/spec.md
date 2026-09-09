@@ -201,8 +201,21 @@ maximizing season profit over the three bed counts.
 
 > **TODO — Enumerate the constraints** V5 refers to.
 
-> **TODO — State the crossing rule.** Marginal cost is not monotonic; once it
-> exceeds price and later falls back below, which q is reported?
+**V7 — The crossing rule.** Marginal cost is not monotonic, so a schedule can go
+above price and later fall back below it. The crossing point is the **first** bed
+at which marginal cost exceeds price. The schedule stops there and reports the bed
+before it, whatever marginal cost does further down the column. Carrots stop at 10
+even though beds 17 through 20 come back under price, and mesclun stops at 6 for
+the same reason.
+
+The decision column must implement this rule rather than labelling each bed
+independently. A per-bed label produces Plant, then Stop, then Plant again, which
+reports no crossing point at all.
+
+This rule governs the three standalone schedules. It is not the optimization: the
+optimizer works on total season profit and may land on bed counts above a crop's
+standalone crossing. Both results are reported, and they are not the same
+question.
 
 ---
 
