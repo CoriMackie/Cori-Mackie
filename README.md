@@ -28,8 +28,6 @@ Business.
 ## Repository Guide
 
 -   [`RESUME.md`](RESUME.md) — resume
--   [`CM_CV.md`](CM_CV.md) — CV
--   [`Cori_Mackie_Bio.md`](Cori_Mackie_Bio.md) — short bio
 -   [`AGENTS.md`](AGENTS.md) — AI working conventions for this repo
 -   [`prompt-log.md`](prompt-log.md) — running record of AI sessions that mattered
 -   [`capabilities/`](capabilities/) — one folder per capability (README, spec, model)
