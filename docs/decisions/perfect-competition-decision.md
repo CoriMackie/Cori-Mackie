@@ -131,16 +131,17 @@ it rises. That is the next piece of work.
 
 ## How far this was checked
 
-Every check in the workbook reads OK. What that covers is worth splitting in
-two, because the two halves are not worth the same.
+The checks in the workbook read that it is OK, but they fall into two groups.
+The first group is the evidence. The second group is only as reliable as the
+arithmetic I did by hand behind it.
 
-Most of it the workbook checks for itself. The seven constraints, the
-acceptance figures — the mix, the season profit, the three standalone
-crossings — the integrity checks, and the rule that a crop's planting block
-never restarts once it stops all compute from the model's own cells, so they
-re-test themselves every time a bed count moves. V1 is a hand computation of
-the hours function at one bed, 1 x 2.5 x 36 x 1.10 = 99, set against the cell
-that should return it.
+The majority of the workbook checks itself. That is the seven constraints,
+the figures of the mix, season profit and the three standalone crossings, the
+integrity checks, and the rule that once a crop stops planting it never
+starts again. All of those compute from the model's own cells, so they
+re-test themselves each time a bed count moves. V1 is computed by hand — the
+hours for one bed, 1 × 2.5 × 36 × 1.10 = 99 — against the cell that should
+return it.
 
 Two of them are not the workbook checking itself. V2 sets the model's
 marginal cost for tomato bed 10, $8,248.59, against the same figure worked by
