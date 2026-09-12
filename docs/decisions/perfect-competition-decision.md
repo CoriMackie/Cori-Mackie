@@ -131,14 +131,57 @@ it rises. That is the next piece of work.
 
 ## How far this was checked
 
-Every validation check in the model reads OK. They are a hand computation
-of the hours function at one bed and of the full marginal cost at bed 10,
-Solver run from two different starting points agreeing on the profit to the
-dollar, the acceptance figures, the integrity checks, and the rule that a
-crop's planting block never restarts once it stops. (V6 in the workbook is
-the Solver setup itself rather than a test.)
+The checks in the workbook read that it is OK, but they fall into two groups.
+The first group is the evidence. The second group is only as reliable as the
+arithmetic I did by hand behind it.
+
+The majority of the workbook checks itself. That is the seven constraints,
+the figures of the mix, season profit and the three standalone crossings, the
+integrity checks, and the rule that once a crop stops planting it never
+starts again. All of those compute from the model's own cells, so they
+re-test themselves each time a bed count moves. V1 is computed by hand — the
+hours for one bed, 1 × 2.5 × 36 × 1.10 = 99 — against the cell that should
+return it.
+
+The other two are different. V2 and V3 do not check themselves — I put those
+numbers into the sheet myself.
+
+V2 is the marginal cost of tomato bed 10. The model returns $8,248.59, and I
+worked the same figure out by hand from the case table. They agree to the
+dollar. V3 is the season profit Solver reported from two different starting
+points, and both runs came back $42,761.66.
+
+What the sheet is checking there is that two numbers match. It has no way of
+knowing where mine came from, or whether I ran Solver the way I said I did.
+
+V2 is also weaker than I meant it to be. I wrote it as a cross-check against
+the Farm Profit Lab, which is an outside model of the same case. The Lab is
+out of reach now, so V2 became a hand computation instead. The trouble with
+that is that I am working the same way the model works — so if the model and
+I are wrong in the same way, the check still reads OK. It will catch bad
+arithmetic. It will not catch a bad idea.
+
+(V6 in the workbook is the Solver setup itself, not a test.)
 
 Beyond the workbook's own checks, all 9,726 feasible bed combinations were
 evaluated against the live model. 10 / 20 / 30 is the global optimum and it
 is unique, and a steepest climb from every feasible starting point reaches
 it, so there is no local optimum for Solver to have settled on instead.
+
+### A correction to this section
+
+I wrote here that every validation check read OK. The sheet showed
+**VIOLATED** on V2 and V3. I wrote what I thought to be true, not what the
+workbook actually showed.
+
+The fault was not in the checks. The numbers were already sitting in their
+cells. What was wrong was the two check cells above them — they were still
+showing the answer from before those numbers went in, because the last time
+the file was saved, it was saved by something that does not recalculate. So
+the formulas were right, the numbers were right, and the file still showed
+two failed checks to anyone who opened it. That is fixed now. The workbook
+carries the recalculated results and recalculates itself whenever it opens.
+
+The claim is true now. It was not true when I made it. The difference is that
+I had not opened the sheet. So the memo gets written last from now on, with
+the validation sheet open beside it.

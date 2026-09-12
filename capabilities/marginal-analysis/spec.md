@@ -2,7 +2,7 @@
 
 **Author:** Cori Mackie
 **Capability:** `marginal-analysis` · **Engagement:** `perfect-competition`
-**Status:** DRAFT — open items marked TODO. Remove every TODO before committing.
+**Status:** Complete — no open TODOs.
 
 ---
 
@@ -378,4 +378,74 @@ check would have caught a dropped `(1 + dim)^q` term — without the exponent th
 same cell returns 90 hours, which looks entirely reasonable and is wrong in every
 figure downstream.
 
-> **TODO —** V2, V3, V4, V5 after the build.
+**V2 — Mid-schedule hand check, tomato bed 10.** Worked the marginal cost of the
+tenth tomato bed by hand from the case table: `LABOR_HRS(10) - LABOR_HRS(9)` is
+424.4306 hours, all of it past the farmer's 720 and so charged at `TEMP_RATE`,
+plus one bed of fertilizer — $8,248.59. The workbook returns $8,248.5865. PASS to
+the dollar.
+
+What this check is worth is less than what it was specified to be worth, and the
+spec records why. It was written as a cross-check against the Farm Profit Lab —
+an outside implementation of the same case — and became a hand computation when
+that tool went out of reach. A hand computation works the same design the model
+works. It will catch a mis-typed exponent or a term dropped from `MC(q)`; it
+cannot catch a model conceived wrongly, because the conception being checked is
+the one doing the checking. If a reference implementation turns up, V2 should go
+back to being one.
+
+The check was taken ten rows down rather than at either end on purpose. At q = 1
+the permanent hours cover the whole bed and most of `MC(q)` is dormant; at q = 10
+every term is in play, so an interior agreement is harder to get by accident.
+
+**V3 — Solver from two starting points.** Both runs return a season profit of
+$42,761.66, so the check passes. The finding is not the pass.
+
+**V3 could not have passed as it was first written, and running it is what
+showed that.** The second start point was 20/0/0. Twenty tomato beds needs 12,109
+hours — about eight temporary workers against a cap of four — so the start is
+infeasible, and every single-bed neighbour of it is infeasible too. Solver has no
+route out, returns no season profit, and the check cell has nothing to read. A
+validation rule that cannot be satisfied is worse than no rule, because it looks
+like diligence. The start was moved to 15/0/0, the nearest tomato-only point that
+fits the four-worker cap, and it sits thirty hill-climb steps from the answer —
+far enough to be a real test of whether Solver lands somewhere else.
+
+Beyond the two runs, all 9,726 feasible bed combinations were evaluated against
+the live model. 10 / 20 / 30 is the global optimum, it is unique, and steepest
+ascent from every feasible start reaches it. So there is no local optimum for
+Solver to have settled on, which is the thing V3 was written to detect and which
+two runs can only ever suggest.
+
+**V4 — Acceptance criteria.** All three reproduce. The mix is 10 tomatoes, 20
+carrots, 30 mesclun. Season profit is $42,761.66, which rounds to the required
+$42,762 and does not exceed it. The standalone crossings are 10, 10 and 6, exact
+bed counts rather than approximations. PASS.
+
+These are the figures the model had to land on to be believed at all, and the
+check is deliberately a whole-model one: it does not care how the answer was
+reached, only that a model built from this specification arrives where the case
+says it should.
+
+**V5 — Integrity.** Zero error cells across the schedules and the optimization
+block. Every constraint check reads OK. The per-crop P&L reconciles — the three
+crop labor costs sum to `OUT_LABOR_COST`, and the three crop profits less
+`OUT_FIXED_COST` equal `OUT_SEASON_PROFIT`. PASS.
+
+The item in V5 that earned its place is the last one: **both labor rates are
+derived, not typed.** `PERM_RATE` is `FARMER_SALARY/2/PERM_HOURS` and `TEMP_RATE`
+is `TEMP_WORKER_PAY/TEMP_WORKER_HRS`. The case prints them as $34.72 and $17.36,
+and typing those two printed figures in place of the quotients returns a season
+profit of $42,768 against a check figure of $42,762 — a $6 error produced by
+nothing but two roundings, in a model where every other number is right. This
+check was specified before the workbook existed, which is the only reason the
+workbook never carried the defect.
+
+**One defect this section caught in itself.** After the observed values for V2 and
+V3 were entered, the two check cells went on displaying `VIOLATED` — the values
+were in their cells and the formulas were correct, but the file had last been
+written by a tool that does not recalculate, so each check showed the result from
+before its input arrived. A check cell displaying a verdict its own formula no
+longer supports is precisely the failure this section exists to catch, and it got
+past me into the decision memo, which claimed a verification the sheet did not
+show. The cached results were refreshed and the workbook now recalculates when it
+opens.
