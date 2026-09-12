@@ -174,14 +174,14 @@ I wrote here that every validation check read OK. The sheet showed
 **VIOLATED** on V2 and V3. I wrote what I thought to be true, not what the
 workbook actually showed.
 
-The fault was not in the checks. The observed values were sitting in their
-cells; the two check cells were still showing the result from before those
-values were entered, because the file was last written by a tool that does
-not recalculate formulas. Formula and inputs were both right, and the file
-as committed still showed two failed checks to anyone who opened it. The
-workbook now carries the recalculated results and is set to recalculate when
-it opens, so a check cell cannot show a stale answer again.
+The fault was not in the checks. The numbers were already sitting in their
+cells. What was wrong was the two check cells above them — they were still
+showing the answer from before those numbers went in, because the last time
+the file was saved, it was saved by something that does not recalculate. So
+the formulas were right, the numbers were right, and the file still showed
+two failed checks to anyone who opened it. That is fixed now. The workbook
+carries the recalculated results and recalculates itself whenever it opens.
 
-The claim is true now. It was not true when I made it, and the whole
-difference is that I had not opened the sheet while writing the sentence
-that described it.
+The claim is true now. It was not true when I made it. The difference is that
+I had not opened the sheet. So the memo gets written last from now on, with
+the validation sheet open beside it.
