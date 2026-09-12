@@ -2,7 +2,7 @@
 
 **Author:** Cori Mackie
 **Capability:** `marginal-analysis` · **Engagement:** `perfect-competition`
-**Status:** DRAFT — open items marked TODO. Remove every TODO before committing.
+**Status:** Complete — no open TODOs.
 
 ---
 

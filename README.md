@@ -38,4 +38,8 @@ Business.
 
 ## Engagements
 
-_No engagements logged yet. As capabilities are added under `capabilities/`, list them here with a one-line description and a link._
+-   **perfect-competition** — a 64-bed vegetable farm choosing its crop mix
+    under land, labor and time constraints. Exercises the
+    [`marginal-analysis`](capabilities/marginal-analysis/) capability.
+    [Brief](docs/briefs/perfect-competition-brief.md) ·
+    [Decision](docs/decisions/perfect-competition-decision.md)
