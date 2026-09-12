@@ -1,7 +1,7 @@
 # Stage 1.2 — what's left
 
 Working checklist. Not a deliverable — delete it before you submit if you'd rather.
-Due 11 September. Last updated 9 September.
+Due 11 September. Last updated 12 September.
 
 ---
 
@@ -19,7 +19,7 @@ Nothing is on `main`. Nothing has gone to Adam. No pull request exists.
 
 ## In flight
 
-- [ ] **A fresh session is rebuilding the workbook** from the corrected spec.
+- [x] **A fresh session is rebuilding the workbook** from the corrected spec.
       It will push to this branch on its own. When you come back, check whether
       `model.xlsx` has a new commit, and **read its list of guesses and undefined
       terms first** — that list is worth more than the spreadsheet. Each item on it
@@ -29,14 +29,18 @@ Nothing is on `main`. Nothing has gone to Adam. No pull request exists.
 
 ## Needs Excel on your desktop — only you can do these
 
-- [ ] **Run Solver from 0/0/0.** Maximize season profit, changing the three bed
+- [x] **Run Solver from 0/0/0.** Maximize season profit, changing the three bed
       counts. Constraints: bed caps, 64 total, temp workers ≤ 4, integers.
-      GRG Nonlinear. Record the result.
-- [ ] **Run Solver again from 20/0/0.** Record the result. Your V3 says they pass
-      if they agree on profit. If they disagree, that is a finding.
-- [ ] **Farm Profit Lab cross-check.** Your V2 names the marginal cost of tomato
-      bed 10. This model returns **$8,249**. The Lab's figure must agree to the
-      dollar.
+      GRG Nonlinear. Recorded at `Validation!B31`: **$42,761.66**.
+- [x] **Run Solver again from 15/0/0** — 20/0/0 is infeasible and stranded, so the
+      second start was moved to the nearest tomato-only start that fits the
+      four-worker cap. Recorded at `Validation!B32`: **$42,761.66**. V3 reads OK.
+- [x] **V2 cross-check.** The Farm Profit Lab is out of reach, so V2 became a hand
+      computation of the same figure — the marginal cost of tomato bed 10, which
+      this model returns as **$8,249**. Recorded at `Validation!B25`: $8,248.59.
+      V2 reads OK. The substitution is recorded in `spec.md`: a hand computation
+      works the same design the model does, so it is a weaker check than an
+      outside implementation would have been.
 
 ---
 

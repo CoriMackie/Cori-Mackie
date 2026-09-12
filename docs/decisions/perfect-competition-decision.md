@@ -131,14 +131,50 @@ it rises. That is the next piece of work.
 
 ## How far this was checked
 
-Every validation check in the model reads OK. They are a hand computation
-of the hours function at one bed and of the full marginal cost at bed 10,
-Solver run from two different starting points agreeing on the profit to the
-dollar, the acceptance figures, the integrity checks, and the rule that a
-crop's planting block never restarts once it stops. (V6 in the workbook is
-the Solver setup itself rather than a test.)
+Every check in the workbook reads OK. What that covers is worth splitting in
+two, because the two halves are not worth the same.
+
+Most of it the workbook checks for itself. The seven constraints, the
+acceptance figures — the mix, the season profit, the three standalone
+crossings — the integrity checks, and the rule that a crop's planting block
+never restarts once it stops all compute from the model's own cells, so they
+re-test themselves every time a bed count moves. V1 is a hand computation of
+the hours function at one bed, 1 x 2.5 x 36 x 1.10 = 99, set against the cell
+that should return it.
+
+Two of them are not the workbook checking itself. V2 sets the model's
+marginal cost for tomato bed 10, $8,248.59, against the same figure worked by
+hand from the case table. V3 records the season profit Solver reported
+starting from 0/0/0 and again from 15/0/0; both runs came back $42,761.66.
+Each of those rests on a figure I entered from outside the sheet, so the
+check is worth what the arithmetic and the Solver runs behind it are worth
+and no more. V2 is weaker than it was meant to be: it began as a cross-check
+against an outside implementation of the same case and became a hand
+computation when that tool went out of reach. It works the same design the
+model works, so it can catch a slip in the arithmetic and it cannot catch a
+model conceived wrongly. (V6 in the workbook is the Solver setup itself
+rather than a test.)
 
 Beyond the workbook's own checks, all 9,726 feasible bed combinations were
 evaluated against the live model. 10 / 20 / 30 is the global optimum and it
 is unique, and a steepest climb from every feasible starting point reaches
 it, so there is no local optimum for Solver to have settled on instead.
+
+### A correction to this section
+
+The first version of this memo opened this section by saying every
+validation check read OK. When I wrote that, the workbook displayed
+**VIOLATED** on V2 and V3. I wrote the sentence from what I expected the
+sheet to say rather than from the sheet.
+
+The fault was not in the checks. The observed values were sitting in their
+cells; the two check cells were still showing the result from before those
+values were entered, because the file was last written by a tool that does
+not recalculate formulas. Formula and inputs were both right, and the file
+as committed still showed two failed checks to anyone who opened it. The
+workbook now carries the recalculated results and is set to recalculate when
+it opens, so a check cell cannot show a stale answer again.
+
+The claim is true now. It was not true when I made it, and the whole
+difference is that I had not opened the sheet while writing the sentence
+that described it.
