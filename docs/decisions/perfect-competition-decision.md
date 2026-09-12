@@ -143,18 +143,25 @@ re-test themselves each time a bed count moves. V1 is computed by hand — the
 hours for one bed, 1 × 2.5 × 36 × 1.10 = 99 — against the cell that should
 return it.
 
-Two of them are not the workbook checking itself. V2 sets the model's
-marginal cost for tomato bed 10, $8,248.59, against the same figure worked by
-hand from the case table. V3 records the season profit Solver reported
-starting from 0/0/0 and again from 15/0/0; both runs came back $42,761.66.
-Each of those rests on a figure I entered from outside the sheet, so the
-check is worth what the arithmetic and the Solver runs behind it are worth
-and no more. V2 is weaker than it was meant to be: it began as a cross-check
-against an outside implementation of the same case and became a hand
-computation when that tool went out of reach. It works the same design the
-model works, so it can catch a slip in the arithmetic and it cannot catch a
-model conceived wrongly. (V6 in the workbook is the Solver setup itself
-rather than a test.)
+The other two are different. V2 and V3 do not check themselves — I put those
+numbers into the sheet myself.
+
+V2 is the marginal cost of tomato bed 10. The model returns $8,248.59, and I
+worked the same figure out by hand from the case table. They agree to the
+dollar. V3 is the season profit Solver reported from two different starting
+points, and both runs came back $42,761.66.
+
+What the sheet is checking there is that two numbers match. It has no way of
+knowing where mine came from, or whether I ran Solver the way I said I did.
+
+V2 is also weaker than I meant it to be. I wrote it as a cross-check against
+the Farm Profit Lab, which is an outside model of the same case. The Lab is
+out of reach now, so V2 became a hand computation instead. The trouble with
+that is that I am working the same way the model works — so if the model and
+I are wrong in the same way, the check still reads OK. It will catch bad
+arithmetic. It will not catch a bad idea.
+
+(V6 in the workbook is the Solver setup itself, not a test.)
 
 Beyond the workbook's own checks, all 9,726 feasible bed combinations were
 evaluated against the live model. 10 / 20 / 30 is the global optimum and it
