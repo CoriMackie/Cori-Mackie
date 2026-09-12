@@ -170,10 +170,9 @@ it, so there is no local optimum for Solver to have settled on instead.
 
 ### A correction to this section
 
-The first version of this memo opened this section by saying every
-validation check read OK. When I wrote that, the workbook displayed
-**VIOLATED** on V2 and V3. I wrote the sentence from what I expected the
-sheet to say rather than from the sheet.
+I wrote here that every validation check read OK. The sheet showed
+**VIOLATED** on V2 and V3. I wrote what I thought to be true, not what the
+workbook actually showed.
 
 The fault was not in the checks. The observed values were sitting in their
 cells; the two check cells were still showing the result from before those
