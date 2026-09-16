@@ -35,3 +35,34 @@ the most that she should pay per season for carrots, per bed. The carrot schedul
 and the bed the cap forbids are in `figures/carrot-marginal-cost.png`.
 
 ![Marginal cost of each carrot bed against the fixed $2,094 price, beds 1 to 21. The in-plan line never reaches the price; bed 20 costs $1,688.95 and a twenty-first would cost $1,741.51, leaving $352.49 on the table.](figures/carrot-marginal-cost.png)
+
+## Why grow crops that lose money on their own
+
+Average variable cost is every variable dollar a crop spends at that acreage —
+labor for its hours, plus fertilizer — divided by the beds planted. It excludes
+the $20,000 fixed cost, which is owed whether or not anything is planted. AVC is
+not a cell in the workbook: it is built from the labor hours in
+`Marginal Analysis!B7:B87` and the rates on `Inputs`.
+
+| At the quantity the plan plants | AVC | Price | Price − AVC |
+|---|---|---|---|
+| Tomatoes, 10 beds | $6,182.72 | $8,800 | +$2,617.28 |
+| Carrots, 20 beds | $1,918.45 | $2,094 | +$175.55 |
+| Mesclun, 30 beds | $2,430.74 | $2,700 | +$269.26 |
+
+The three crops contribute $62,761.66 between them (`Optimization!G40`), the
+$20,000 comes off that, and the farm clears $42,761.66 (`Optimization!B32`).
+
+Run alone, each crop carries the whole $20,000 by itself:
+
+| Run alone, at its best quantity | Season result |
+|---|---|
+| Carrots, 20 beds | −$16,488.92 |
+| Mesclun, 30 beds | −$11,922.19 |
+| Tomatoes, 10 beds | +$6,172.77 |
+
+Price does not cover AVC everywhere in this model. Mesclun's AVC is above its
+price at bed 13 ($2,716.35) and bed 14 ($2,702.51); tomatoes' passes $8,800 at
+bed 16 ($8,840.90) and does not come back under it.
+
+![Price against average variable cost, one panel per crop. Carrots clear their AVC at every bed; mesclun does not at beds 13 and 14, and tomatoes stop clearing theirs at bed 16.](figures/price-vs-avc.png)
