@@ -38,6 +38,14 @@ and the bed the cap forbids are in `figures/carrot-marginal-cost.png`.
 
 ## Why grow crops that lose money on their own
 
+Although it looks like carrots run at a deficit and may not be worth planting, the
+planting of all three allows the cost to be divided by all crops. Each carrot bed
+does cover its own working cost — $2,094 in, $1,918.45 out, with $175.55 left over
+× 20 beds, $3,511 in all. That money goes towards the $20,000 she owes whether she
+plants or not. The crop gives her money she wouldn't have so it is worth planting.
+Even if you assign or account for the $20,000, it does not change the fact that the
+bed pays.
+
 Average variable cost is every variable dollar a crop spends at that acreage —
 labor for its hours, plus fertilizer — divided by the beds planted. It excludes
 the $20,000 fixed cost, which is owed whether or not anything is planted. AVC is
@@ -61,8 +69,19 @@ Run alone, each crop carries the whole $20,000 by itself:
 | Mesclun, 30 beds | −$11,922.19 |
 | Tomatoes, 10 beds | +$6,172.77 |
 
-Price does not cover AVC everywhere in this model. Mesclun's AVC is above its
-price at bed 13 ($2,716.35) and bed 14 ($2,702.51); tomatoes' passes $8,800 at
-bed 16 ($8,840.90) and does not come back under it.
+At first glance, price exceeds AVC in all vegetable beds, so they all contribute
+but run any single crop by itself it loses money. Looking closer Mesclun's AVC is
+$2,716.35 at bed 13 and $2,702.51 at bed 14, against a $2,700 price. Tomatoes'
+passes $8,800 at bed 16 and never returns. Tomatoes make $6,172.77 at 10 beds. So
+defined the price covers the AVC where vegetables are planted optimally. The rule
+is still the answer of 10/20/30 but that is because of the schedule not because of
+the individual property of the crop. Mesclun AVC climbs while beds are being
+utilized at the farmer's $34.72 peaks at 13 and starts going down, where the
+farmer's hours run out and the temp labor of $17.36 take over. That same switch
+causes the tomato to dip in the marginal cost, and here it shows in the average. So
+the rule that is true everywhere doesn't need to be verified. But it is important
+to look at the rule in individual cases. If a farmer were to expand mesclun from
+12 - 14 with the rule that price always cover AVC would be making a loss. So you
+need to verify by type and not as a general overview.
 
 ![Price against average variable cost, one panel per crop. Carrots clear their AVC at every bed; mesclun does not at beds 13 and 14, and tomatoes stop clearing theirs at bed 16.](figures/price-vs-avc.png)
