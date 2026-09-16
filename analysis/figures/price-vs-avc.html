@@ -1,0 +1,250 @@
+<title>Price Against Average Variable Cost</title>
+<style>
+.viz-root{color-scheme:light;
+ --surface-1:#fcfcfb;--plane:#f9f9f7;--text-primary:#0b0b0b;--text-secondary:#52514e;
+ --muted:#898781;--grid:#e1e0d9;--baseline:#c3c2b7;--ring:rgba(11,11,11,.10);
+ --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--neg:#b3261e;--pos:#006300}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .viz-root{color-scheme:dark;
+ --surface-1:#1a1a19;--plane:#0d0d0d;--text-primary:#fff;--text-secondary:#c3c2b7;
+ --muted:#898781;--grid:#2c2c2a;--baseline:#383835;--ring:rgba(255,255,255,.10);
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--neg:#e66767;--pos:#0ca30c}}
+:root[data-theme="dark"] .viz-root{color-scheme:dark;
+ --surface-1:#1a1a19;--plane:#0d0d0d;--text-primary:#fff;--text-secondary:#c3c2b7;
+ --muted:#898781;--grid:#2c2c2a;--baseline:#383835;--ring:rgba(255,255,255,.10);
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--neg:#e66767;--pos:#0ca30c}
+body{margin:0;background:#f9f9f7;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){body:where(:not([data-theme="light"] *)){background:#0d0d0d}}
+.viz-root{background:var(--plane);padding:22px;max-width:1000px;margin:0 auto}
+.card{background:var(--surface-1);border:1px solid var(--ring);border-radius:12px;padding:20px 22px 14px}
+h1{font-size:17px;margin:0 0 5px;color:var(--text-primary);letter-spacing:-.01em}
+.sub{font-size:13px;color:var(--text-secondary);margin:0 0 15px;max-width:74ch;line-height:1.5}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:0 0 4px;font-size:12.5px;color:var(--text-secondary)}
+.legend span{display:flex;align-items:center;gap:7px}
+.sw{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
+svg{display:block;width:100%;height:auto}
+.grid{stroke:var(--grid);stroke-width:1}.axis{stroke:var(--baseline);stroke-width:1}
+.tick{fill:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}.ytick{text-anchor:end}
+.s1{fill:var(--s1)}.s2{fill:var(--s2)}.s3{fill:var(--s3)}
+.price{stroke:var(--text-primary);stroke-width:2}
+.pricelab{fill:var(--text-primary);font-size:12px;font-weight:650}
+.vlab{fill:var(--text-primary);font-size:11.5px;font-weight:650;font-variant-numeric:tabular-nums}
+.anno{fill:var(--text-secondary);font-size:12px}
+.anno-b{fill:var(--text-primary);font-weight:650;font-size:12.5px}
+.lead{stroke:var(--muted);stroke-width:1;fill:none}.leaddot{fill:var(--muted)}
+.span{stroke:var(--baseline);stroke-width:1}.span-lab{fill:var(--muted);font-size:11.5px}
+.axtitle{fill:var(--text-secondary);font-size:12px}.hit{fill:transparent;cursor:crosshair}
+.foot{font-size:11.5px;color:var(--muted);margin:12px 0 0;line-height:1.55;max-width:96ch}
+.bar{display:flex;justify-content:flex-end;margin:12px 0 0}
+button{font:inherit;font-size:12.5px;padding:5px 11px;border:1px solid var(--ring);
+ background:var(--surface-1);color:var(--text-secondary);border-radius:7px;cursor:pointer}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12px;margin-top:12px;
+ font-variant-numeric:tabular-nums;color:var(--text-secondary)}
+th{text-align:right;font-size:11px;color:var(--muted);font-weight:600;padding:5px 8px;
+ border-bottom:1px solid var(--baseline);white-space:nowrap}
+th:first-child,td:first-child,th:last-child,td:last-child{text-align:left}
+td{text-align:right;padding:4px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+td.strong{color:var(--text-primary);font-weight:650}td.neg{color:var(--neg)}td.pos{color:var(--pos)}
+#tip{position:fixed;pointer-events:none;opacity:0;transition:opacity .1s;background:var(--surface-1);
+ border:1px solid var(--ring);border-radius:8px;padding:9px 11px;font-size:12px;color:var(--text-primary);
+ box-shadow:0 4px 16px rgba(0,0,0,.16);z-index:9;min-width:200px}
+#tip b{display:block;margin-bottom:5px}
+#tip .r{display:flex;justify-content:space-between;gap:16px;color:var(--text-secondary)}
+#tip .r i{font-style:normal;display:flex;align-items:center;gap:6px}
+#tip .tot{margin-top:5px;padding-top:5px;border-top:1px solid var(--grid);color:var(--text-primary);font-weight:650}
+</style>
+<div class="viz-root"><div class="card">
+<h1>Price against average variable cost, one crop at a time</h1>
+<p class="sub">Each panel runs one crop by itself and asks the shutdown question: does the price of a bed cover what a bed costs to work, before any of the $20,000 season fixed cost is counted? Where the line sits below the price, every bed contributes something toward a fixed cost the farm owes whether it plants or not. Each panel has its own dollar scale — the crops are not meant to be compared by height, only each against its own price.</p>
+<div class="legend"><span><i class="sw" style="background:var(--s1)"></i>Average variable cost</span><span><i class="sw" style="background:var(--s2)"></i>The quantity the plan actually plants</span><span><i class="sw" style="background:var(--neg);opacity:.35"></i>AVC above price — a bed that does not pay for itself</span></div>
+<svg viewBox="0 0 900 430" role="img" aria-label="Three panels, one per crop, each plotting average variable cost against a fixed price. Tomatoes: AVC starts at 4,317.50, dips at bed 6, and passes the 8,800 price at bed 16. Carrots: AVC stays below the 2,094 price at every bed, reaching 1,918.45 at the twenty beds the plan plants. Mesclun: AVC rises above the 2,700 price at beds 13 and 14, falls back after the wage switch, and is 2,430.74 at the thirty beds the plan plants.">
+<line class="grid" x1="62" y1="372.0" x2="288" y2="372.0"/>
+<text class="tick ytick" x="54" y="376.0">$0</text>
+<line class="grid" x1="62" y1="332.0" x2="288" y2="332.0"/>
+<text class="tick ytick" x="54" y="336.0">$2,000</text>
+<line class="grid" x1="62" y1="292.0" x2="288" y2="292.0"/>
+<text class="tick ytick" x="54" y="296.0">$4,000</text>
+<line class="grid" x1="62" y1="252.0" x2="288" y2="252.0"/>
+<text class="tick ytick" x="54" y="256.0">$6,000</text>
+<line class="grid" x1="62" y1="212.0" x2="288" y2="212.0"/>
+<text class="tick ytick" x="54" y="216.0">$8,000</text>
+<line class="grid" x1="62" y1="172.0" x2="288" y2="172.0"/>
+<text class="tick ytick" x="54" y="176.0">$10,000</text>
+<line class="grid" x1="62" y1="132.0" x2="288" y2="132.0"/>
+<text class="tick ytick" x="54" y="136.0">$12,000</text>
+<line class="grid" x1="62" y1="92.0" x2="288" y2="92.0"/>
+<text class="tick ytick" x="54" y="96.0">$14,000</text>
+<line class="axis" x1="62" y1="372" x2="288" y2="372"/>
+<rect x="234.5" y="92" width="59.5" height="280" fill="var(--neg)" opacity=".12"/>
+<text class="span-lab" x="264.2" y="84" text-anchor="middle" fill="var(--neg)">beds 16&ndash;20</text>
+<line class="price" x1="62" y1="196.0" x2="288" y2="196.0"/>
+<text class="pricelab" x="65" y="189.0">Price $8,800</text>
+<polyline points="62.0,285.6 73.9,278.8 85.8,271.2 97.7,262.9 109.6,254.1 121.5,257.4 133.4,257.8 145.3,256.2 157.2,252.9 169.1,248.3 180.9,242.5 192.8,235.5 204.7,227.3 216.6,217.9 228.5,207.2 240.4,195.2 252.3,181.7 264.2,166.8 276.1,150.1 288.0,131.7" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="169.1" cy="248.3" r="5.5" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text class="vlab" x="179.1" y="269.3" text-anchor="start">$6,182.72</text>
+<text class="span-lab" x="179.1" y="284.3" text-anchor="start">AVC at 10 beds</text>
+<text class="tick" x="62.0" y="389" text-anchor="middle">1</text>
+<text class="tick" x="109.6" y="389" text-anchor="middle">5</text>
+<text class="tick" x="169.1" y="389" text-anchor="middle">10</text>
+<text class="tick" x="228.5" y="389" text-anchor="middle">15</text>
+<text class="tick" x="288.0" y="389" text-anchor="middle">20</text>
+<text class="anno anno-b" x="62" y="62">Tomatoes</text>
+<text class="axtitle" x="175.0" y="410" text-anchor="middle">beds planted (q)</text>
+<rect class="hit" data-k="tom1" x="56.1" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom2" x="67.9" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom3" x="79.8" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom4" x="91.7" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom5" x="103.6" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom6" x="115.5" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom7" x="127.4" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom8" x="139.3" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom9" x="151.2" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom10" x="163.1" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom11" x="175.0" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom12" x="186.9" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom13" x="198.8" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom14" x="210.7" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom15" x="222.6" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom16" x="234.5" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom17" x="246.4" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom18" x="258.3" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom19" x="270.2" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="tom20" x="282.1" y="92" width="11.9" height="280"/>
+<line class="grid" x1="360" y1="372.0" x2="586" y2="372.0"/>
+<text class="tick ytick" x="352" y="376.0">$0</text>
+<line class="grid" x1="360" y1="325.3" x2="586" y2="325.3"/>
+<text class="tick ytick" x="352" y="329.3">$400</text>
+<line class="grid" x1="360" y1="278.7" x2="586" y2="278.7"/>
+<text class="tick ytick" x="352" y="282.7">$800</text>
+<line class="grid" x1="360" y1="232.0" x2="586" y2="232.0"/>
+<text class="tick ytick" x="352" y="236.0">$1,200</text>
+<line class="grid" x1="360" y1="185.3" x2="586" y2="185.3"/>
+<text class="tick ytick" x="352" y="189.3">$1,600</text>
+<line class="grid" x1="360" y1="138.7" x2="586" y2="138.7"/>
+<text class="tick ytick" x="352" y="142.7">$2,000</text>
+<line class="grid" x1="360" y1="92.0" x2="586" y2="92.0"/>
+<text class="tick ytick" x="352" y="96.0">$2,400</text>
+<line class="axis" x1="360" y1="372" x2="586" y2="372"/>
+<line class="price" x1="360" y1="127.7" x2="586" y2="127.7"/>
+<text class="pricelab" x="363" y="120.7">Price $2,094</text>
+<polyline points="360.0,196.1 371.9,193.0 383.8,189.8 395.7,186.5 407.6,183.2 419.5,179.7 431.4,176.2 443.3,172.6 455.2,168.9 467.1,165.1 478.9,161.2 490.8,157.2 502.7,153.1 514.6,149.0 526.5,144.7 538.4,140.3 550.3,142.4 562.2,144.9 574.1,146.8 586.0,148.2" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="586.0" cy="148.2" r="5.5" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text class="vlab" x="576.0" y="169.2" text-anchor="end">$1,918.45</text>
+<text class="span-lab" x="576.0" y="184.2" text-anchor="end">AVC at 20 beds</text>
+<text class="tick" x="360.0" y="389" text-anchor="middle">1</text>
+<text class="tick" x="407.6" y="389" text-anchor="middle">5</text>
+<text class="tick" x="467.1" y="389" text-anchor="middle">10</text>
+<text class="tick" x="526.5" y="389" text-anchor="middle">15</text>
+<text class="tick" x="586.0" y="389" text-anchor="middle">20</text>
+<text class="anno anno-b" x="360" y="62">Carrots</text>
+<text class="axtitle" x="473.0" y="410" text-anchor="middle">beds planted (q)</text>
+<rect class="hit" data-k="car1" x="354.1" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car2" x="365.9" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car3" x="377.8" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car4" x="389.7" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car5" x="401.6" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car6" x="413.5" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car7" x="425.4" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car8" x="437.3" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car9" x="449.2" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car10" x="461.1" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car11" x="473.0" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car12" x="484.9" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car13" x="496.8" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car14" x="508.7" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car15" x="520.6" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car16" x="532.5" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car17" x="544.4" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car18" x="556.3" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car19" x="568.2" y="92" width="11.9" height="280"/>
+<rect class="hit" data-k="car20" x="580.1" y="92" width="11.9" height="280"/>
+<line class="grid" x1="658" y1="372.0" x2="884" y2="372.0"/>
+<text class="tick ytick" x="650" y="376.0">$0</text>
+<line class="grid" x1="658" y1="325.3" x2="884" y2="325.3"/>
+<text class="tick ytick" x="650" y="329.3">$500</text>
+<line class="grid" x1="658" y1="278.7" x2="884" y2="278.7"/>
+<text class="tick ytick" x="650" y="282.7">$1,000</text>
+<line class="grid" x1="658" y1="232.0" x2="884" y2="232.0"/>
+<text class="tick ytick" x="650" y="236.0">$1,500</text>
+<line class="grid" x1="658" y1="185.3" x2="884" y2="185.3"/>
+<text class="tick ytick" x="650" y="189.3">$2,000</text>
+<line class="grid" x1="658" y1="138.7" x2="884" y2="138.7"/>
+<text class="tick ytick" x="650" y="142.7">$2,500</text>
+<line class="grid" x1="658" y1="92.0" x2="884" y2="92.0"/>
+<text class="tick ytick" x="650" y="96.0">$3,000</text>
+<line class="axis" x1="658" y1="372" x2="884" y2="372"/>
+<rect x="747.6" y="92" width="15.6" height="280" fill="var(--neg)" opacity=".12"/>
+<text class="span-lab" x="755.4" y="84" text-anchor="middle" fill="var(--neg)">beds 13&ndash;14</text>
+<line class="price" x1="658" y1="120.0" x2="884" y2="120.0"/>
+<text class="pricelab" x="661" y="113.0">Price $2,700</text>
+<polyline points="658.0,142.2 665.8,140.4 673.6,138.5 681.4,136.6 689.2,134.7 697.0,132.7 704.8,130.8 712.6,128.8 720.3,126.8 728.1,124.7 735.9,122.7 743.7,120.6 751.5,118.5 759.3,119.8 767.1,124.2 774.9,128.0 782.7,131.2 790.5,133.9 798.3,136.1 806.1,138.1 813.9,139.7 821.7,141.0 829.4,142.1 837.2,143.0 845.0,143.7 852.8,144.3 860.6,144.7 868.4,145.0 876.2,145.1 884.0,145.1" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="884.0" cy="145.1" r="5.5" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<text class="vlab" x="874.0" y="166.1" text-anchor="end">$2,430.74</text>
+<text class="span-lab" x="874.0" y="181.1" text-anchor="end">AVC at 30 beds</text>
+<text class="tick" x="658.0" y="389" text-anchor="middle">1</text>
+<text class="tick" x="689.2" y="389" text-anchor="middle">5</text>
+<text class="tick" x="728.1" y="389" text-anchor="middle">10</text>
+<text class="tick" x="767.1" y="389" text-anchor="middle">15</text>
+<text class="tick" x="806.1" y="389" text-anchor="middle">20</text>
+<text class="tick" x="845.0" y="389" text-anchor="middle">25</text>
+<text class="tick" x="884.0" y="389" text-anchor="middle">30</text>
+<text class="anno anno-b" x="658" y="62">Mesclun</text>
+<text class="axtitle" x="771.0" y="410" text-anchor="middle">beds planted (q)</text>
+<rect class="hit" data-k="mes1" x="654.1" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes2" x="661.9" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes3" x="669.7" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes4" x="677.5" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes5" x="685.3" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes6" x="693.1" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes7" x="700.9" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes8" x="708.7" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes9" x="716.4" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes10" x="724.2" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes11" x="732.0" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes12" x="739.8" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes13" x="747.6" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes14" x="755.4" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes15" x="763.2" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes16" x="771.0" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes17" x="778.8" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes18" x="786.6" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes19" x="794.4" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes20" x="802.2" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes21" x="810.0" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes22" x="817.8" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes23" x="825.6" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes24" x="833.3" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes25" x="841.1" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes26" x="848.9" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes27" x="856.7" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes28" x="864.5" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes29" x="872.3" y="92" width="7.8" height="280"/>
+<rect class="hit" data-k="mes30" x="880.1" y="92" width="7.8" height="280"/>
+</svg>
+<p class="foot">Average variable cost is every variable dollar that crop would spend at that acreage — labor for its hours, the farmer&rsquo;s own at $34.72 until her 720 run out and hired at $17.36 after, plus fertilizer — divided by the beds planted. The $20,000 fixed cost is excluded by construction: it is owed either way, so it has no business in the planting decision. Each panel gives that crop the farmer&rsquo;s full 720 hours, the same standalone convention the <code>Marginal Analysis</code> schedules use. Source: <code>capabilities/marginal-analysis/model.xlsx</code>, <code>Marginal Analysis!B7:B87</code> and the <code>Inputs</code> rates.</p>
+<div class="bar"><button id="t">Show all three schedules as a table</button></div>
+<div class="tw" id="tw" hidden><table><thead><tr><th>Crop</th><th>Beds</th><th>Total variable cost</th><th>AVC</th><th>Price</th><th>Price &minus; AVC</th><th>Shutdown rule</th></tr></thead><tbody><tr><td>Tomatoes</td><td>1</td><td>$4,317.50</td><td class="strong">$4,317.50</td><td>$8,800</td><td class="pos">+4,482.50</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>2</td><td>$9,322.50</td><td class="strong">$4,661.25</td><td>$8,800</td><td class="pos">+4,138.75</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>3</td><td>$15,118.13</td><td class="strong">$5,039.38</td><td>$8,800</td><td class="pos">+3,760.62</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>4</td><td>$21,821.25</td><td class="strong">$5,455.31</td><td>$8,800</td><td class="pos">+3,344.69</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>5</td><td>$29,482.11</td><td class="strong">$5,896.42</td><td>$8,800</td><td class="pos">+2,903.58</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>6</td><td>$34,388.38</td><td class="strong">$5,731.40</td><td>$8,800</td><td class="pos">+3,068.60</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>7</td><td>$39,974.09</td><td class="strong">$5,710.58</td><td>$8,800</td><td class="pos">+3,089.42</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>8</td><td>$46,334.86</td><td class="strong">$5,791.86</td><td>$8,800</td><td class="pos">+3,008.14</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>9</td><td>$53,578.64</td><td class="strong">$5,953.18</td><td>$8,800</td><td class="pos">+2,846.82</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>10</td><td>$61,827.23</td><td class="strong">$6,182.72</td><td>$8,800</td><td class="pos">+2,617.28</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>11</td><td>$71,217.94</td><td class="strong">$6,474.36</td><td>$8,800</td><td class="pos">+2,325.64</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>12</td><td>$81,905.53</td><td class="strong">$6,825.46</td><td>$8,800</td><td class="pos">+1,974.54</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>13</td><td>$94,064.26</td><td class="strong">$7,235.71</td><td>$8,800</td><td class="pos">+1,564.29</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>14</td><td>$107,890.28</td><td class="strong">$7,706.45</td><td>$8,800</td><td class="pos">+1,093.55</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>15</td><td>$123,604.25</td><td class="strong">$8,240.28</td><td>$8,800</td><td class="pos">+559.72</td><td>keep planting</td></tr><tr><td>Tomatoes</td><td>16</td><td>$141,454.32</td><td class="strong">$8,840.90</td><td>$8,800</td><td class="neg">&minus;40.90</td><td>shut down</td></tr><tr><td>Tomatoes</td><td>17</td><td>$161,719.37</td><td class="strong">$9,512.90</td><td>$8,800</td><td class="neg">&minus;712.90</td><td>shut down</td></tr><tr><td>Tomatoes</td><td>18</td><td>$184,712.67</td><td class="strong">$10,261.82</td><td>$8,800</td><td class="neg">&minus;1,461.82</td><td>shut down</td></tr><tr><td>Tomatoes</td><td>19</td><td>$210,786.05</td><td class="strong">$11,094.00</td><td>$8,800</td><td class="neg">&minus;2,294.00</td><td>shut down</td></tr><tr><td>Tomatoes</td><td>20</td><td>$240,334.37</td><td class="strong">$12,016.72</td><td>$8,800</td><td class="neg">&minus;3,216.72</td><td>shut down</td></tr><tr><td>Carrots</td><td>1</td><td>$1,507.71</td><td class="strong">$1,507.71</td><td>$2,094</td><td class="pos">+586.29</td><td>keep planting</td></tr><tr><td>Carrots</td><td>2</td><td>$3,068.80</td><td class="strong">$1,534.40</td><td>$2,094</td><td class="pos">+559.60</td><td>keep planting</td></tr><tr><td>Carrots</td><td>3</td><td>$4,685.28</td><td class="strong">$1,561.76</td><td>$2,094</td><td class="pos">+532.24</td><td>keep planting</td></tr><tr><td>Carrots</td><td>4</td><td>$6,359.22</td><td class="strong">$1,589.81</td><td>$2,094</td><td class="pos">+504.19</td><td>keep planting</td></tr><tr><td>Carrots</td><td>5</td><td>$8,092.75</td><td class="strong">$1,618.55</td><td>$2,094</td><td class="pos">+475.45</td><td>keep planting</td></tr><tr><td>Carrots</td><td>6</td><td>$9,888.08</td><td class="strong">$1,648.01</td><td>$2,094</td><td class="pos">+445.99</td><td>keep planting</td></tr><tr><td>Carrots</td><td>7</td><td>$11,747.50</td><td class="strong">$1,678.21</td><td>$2,094</td><td class="pos">+415.79</td><td>keep planting</td></tr><tr><td>Carrots</td><td>8</td><td>$13,673.36</td><td class="strong">$1,709.17</td><td>$2,094</td><td class="pos">+384.83</td><td>keep planting</td></tr><tr><td>Carrots</td><td>9</td><td>$15,668.09</td><td class="strong">$1,740.90</td><td>$2,094</td><td class="pos">+353.10</td><td>keep planting</td></tr><tr><td>Carrots</td><td>10</td><td>$17,734.21</td><td class="strong">$1,773.42</td><td>$2,094</td><td class="pos">+320.58</td><td>keep planting</td></tr><tr><td>Carrots</td><td>11</td><td>$19,874.33</td><td class="strong">$1,806.76</td><td>$2,094</td><td class="pos">+287.24</td><td>keep planting</td></tr><tr><td>Carrots</td><td>12</td><td>$22,091.11</td><td class="strong">$1,840.93</td><td>$2,094</td><td class="pos">+253.07</td><td>keep planting</td></tr><tr><td>Carrots</td><td>13</td><td>$24,387.34</td><td class="strong">$1,875.95</td><td>$2,094</td><td class="pos">+218.05</td><td>keep planting</td></tr><tr><td>Carrots</td><td>14</td><td>$26,765.87</td><td class="strong">$1,911.85</td><td>$2,094</td><td class="pos">+182.15</td><td>keep planting</td></tr><tr><td>Carrots</td><td>15</td><td>$29,229.66</td><td class="strong">$1,948.64</td><td>$2,094</td><td class="pos">+145.36</td><td>keep planting</td></tr><tr><td>Carrots</td><td>16</td><td>$31,781.76</td><td class="strong">$1,986.36</td><td>$2,094</td><td class="pos">+107.64</td><td>keep planting</td></tr><tr><td>Carrots</td><td>17</td><td>$33,452.66</td><td class="strong">$1,967.80</td><td>$2,094</td><td class="pos">+126.20</td><td>keep planting</td></tr><tr><td>Carrots</td><td>18</td><td>$35,041.80</td><td class="strong">$1,946.77</td><td>$2,094</td><td class="pos">+147.23</td><td>keep planting</td></tr><tr><td>Carrots</td><td>19</td><td>$36,679.98</td><td class="strong">$1,930.53</td><td>$2,094</td><td class="pos">+163.47</td><td>keep planting</td></tr><tr><td>Carrots</td><td>20</td><td>$38,368.92</td><td class="strong">$1,918.45</td><td>$2,094</td><td class="pos">+175.55</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>1</td><td>$2,462.03</td><td class="strong">$2,462.03</td><td>$2,700</td><td class="pos">+237.97</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>2</td><td>$4,963.61</td><td class="strong">$2,481.81</td><td>$2,700</td><td class="pos">+218.19</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>3</td><td>$7,505.49</td><td class="strong">$2,501.83</td><td>$2,700</td><td class="pos">+198.17</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>4</td><td>$10,088.41</td><td class="strong">$2,522.10</td><td>$2,700</td><td class="pos">+177.90</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>5</td><td>$12,713.14</td><td class="strong">$2,542.63</td><td>$2,700</td><td class="pos">+157.37</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>6</td><td>$15,380.47</td><td class="strong">$2,563.41</td><td>$2,700</td><td class="pos">+136.59</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>7</td><td>$18,091.18</td><td class="strong">$2,584.45</td><td>$2,700</td><td class="pos">+115.55</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>8</td><td>$20,846.08</td><td class="strong">$2,605.76</td><td>$2,700</td><td class="pos">+94.24</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>9</td><td>$23,645.98</td><td class="strong">$2,627.33</td><td>$2,700</td><td class="pos">+72.67</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>10</td><td>$26,491.73</td><td class="strong">$2,649.17</td><td>$2,700</td><td class="pos">+50.83</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>11</td><td>$29,384.17</td><td class="strong">$2,671.29</td><td>$2,700</td><td class="pos">+28.71</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>12</td><td>$32,324.15</td><td class="strong">$2,693.68</td><td>$2,700</td><td class="pos">+6.32</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>13</td><td>$35,312.55</td><td class="strong">$2,716.35</td><td>$2,700</td><td class="neg">&minus;16.35</td><td>shut down</td></tr><tr><td>Mesclun</td><td>14</td><td>$37,835.13</td><td class="strong">$2,702.51</td><td>$2,700</td><td class="neg">&minus;2.51</td><td>shut down</td></tr><tr><td>Mesclun</td><td>15</td><td>$39,819.09</td><td class="strong">$2,654.61</td><td>$2,700</td><td class="pos">+45.39</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>16</td><td>$41,828.62</td><td class="strong">$2,614.29</td><td>$2,700</td><td class="pos">+85.71</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>17</td><td>$43,864.18</td><td class="strong">$2,580.25</td><td>$2,700</td><td class="pos">+119.75</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>18</td><td>$45,926.24</td><td class="strong">$2,551.46</td><td>$2,700</td><td class="pos">+148.54</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>19</td><td>$48,015.30</td><td class="strong">$2,527.12</td><td>$2,700</td><td class="pos">+172.88</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>20</td><td>$50,131.83</td><td class="strong">$2,506.59</td><td>$2,700</td><td class="pos">+193.41</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>21</td><td>$52,276.34</td><td class="strong">$2,489.35</td><td>$2,700</td><td class="pos">+210.65</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>22</td><td>$54,449.33</td><td class="strong">$2,474.97</td><td>$2,700</td><td class="pos">+225.03</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>23</td><td>$56,651.32</td><td class="strong">$2,463.10</td><td>$2,700</td><td class="pos">+236.90</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>24</td><td>$58,882.83</td><td class="strong">$2,453.45</td><td>$2,700</td><td class="pos">+246.55</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>25</td><td>$61,144.39</td><td class="strong">$2,445.78</td><td>$2,700</td><td class="pos">+254.22</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>26</td><td>$63,436.55</td><td class="strong">$2,439.87</td><td>$2,700</td><td class="pos">+260.13</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>27</td><td>$65,759.84</td><td class="strong">$2,435.55</td><td>$2,700</td><td class="pos">+264.45</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>28</td><td>$68,114.83</td><td class="strong">$2,432.67</td><td>$2,700</td><td class="pos">+267.33</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>29</td><td>$70,502.09</td><td class="strong">$2,431.11</td><td>$2,700</td><td class="pos">+268.89</td><td>keep planting</td></tr><tr><td>Mesclun</td><td>30</td><td>$72,922.19</td><td class="strong">$2,430.74</td><td>$2,700</td><td class="pos">+269.26</td><td>keep planting</td></tr></tbody></table></div>
+</div></div>
+<div id="tip"></div>
+<script>
+const ROWS={"tom1": {"name": "Tomatoes", "q": 1, "avc": 4317.5, "mc": 4317.5, "price": 8800, "tvc": 4317.5, "planted": false}, "tom2": {"name": "Tomatoes", "q": 2, "avc": 4661.25, "mc": 5005.000000000001, "price": 8800, "tvc": 9322.5, "planted": false}, "tom3": {"name": "Tomatoes", "q": 3, "avc": 5039.375000000001, "mc": 5795.625000000003, "price": 8800, "tvc": 15118.125000000004, "planted": false}, "tom4": {"name": "Tomatoes", "q": 4, "avc": 5455.312500000001, "mc": 6703.125000000001, "price": 8800, "tvc": 21821.250000000004, "planted": false}, "tom5": {"name": "Tomatoes", "q": 5, "avc": 5896.421875000001, "mc": 7660.859375, "price": 8800, "tvc": 29482.109375000004, "planted": false}, "tom6": {"name": "Tomatoes", "q": 6, "avc": 5731.3973958333345, "mc": 4906.275000000002, "price": 8800, "tvc": 34388.38437500001, "planted": false}, "tom7": {"name": "Tomatoes", "q": 7, "avc": 5710.5847544642875, "mc": 5585.7089062500045, "price": 8800, "tvc": 39974.09328125001, "planted": false}, "tom8": {"name": "Tomatoes", "q": 8, "avc": 5791.857515625003, "mc": 6360.766843750007, "price": 8800, "tvc": 46334.86012500002, "planted": false}, "tom9": {"name": "Tomatoes", "q": 9, "avc": 5953.182156076392, "mc": 7243.779279687508, "price": 8800, "tvc": 53578.63940468753, "planted": false}, "tom10": {"name": "Tomatoes", "q": 10, "avc": 6182.722593906254, "mc": 8248.586534375005, "price": 8800, "tvc": 61827.22593906253, "planted": true}, "tom11": {"name": "Tomatoes", "q": 11, "avc": 6474.358489660514, "mc": 9390.717447203133, "price": 8800, "tvc": 71217.94338626566, "planted": false}, "tom12": {"name": "Tomatoes", "q": 12, "avc": 6825.461005293234, "mc": 10687.588677253143, "price": 8800, "tvc": 81905.53206351881, "planted": false}, "tom13": {"name": "Tomatoes", "q": 13, "avc": 7235.712234027686, "mc": 12158.72697884111, "price": 8800, "tvc": 94064.25904235992, "planted": false}, "tom14": {"name": "Tomatoes", "q": 14, "avc": 7706.448292595291, "mc": 13826.017053974148, "price": 8800, "tvc": 107890.27609633407, "planted": false}, "tom15": {"name": "Tomatoes", "q": 15, "avc": 8240.283598045296, "mc": 15713.977874345375, "price": 8800, "tvc": 123604.25397067945, "planted": false}, "tom16": {"name": "Tomatoes", "q": 16, "avc": 8840.895291183158, "mc": 17850.070688251108, "price": 8800, "tvc": 141454.32465893053, "planted": false}, "tom17": {"name": "Tomatoes", "q": 17, "avc": 9512.903937948535, "mc": 20265.04228619455, "price": 8800, "tvc": 161719.3669451251, "planted": false}, "tom18": {"name": "Tomatoes", "q": 18, "avc": 10261.815246776068, "mc": 22993.307496844136, "price": 8800, "tvc": 184712.67444196923, "planted": false}, "tom19": {"name": "Tomatoes", "q": 19, "avc": 11094.002619406892, "mc": 26073.375326761736, "price": 8800, "tvc": 210786.04976873097, "planted": false}, "tom20": {"name": "Tomatoes", "q": 20, "avc": 12016.718670821267, "mc": 29548.323647694364, "price": 8800, "tvc": 240334.37341642534, "planted": false}, "car1": {"name": "Carrots", "q": 1, "avc": 1507.7083333333333, "mc": 1507.7083333333333, "price": 2094, "tvc": 1507.7083333333333, "planted": false}, "car2": {"name": "Carrots", "q": 2, "avc": 1534.4010416666665, "mc": 1561.0937499999998, "price": 2094, "tvc": 3068.802083333333, "planted": false}, "car3": {"name": "Carrots", "q": 3, "avc": 1561.7610677083328, "mc": 1616.4811197916656, "price": 2094, "tvc": 4685.283203124998, "planted": false}, "car4": {"name": "Carrots", "q": 4, "avc": 1589.805094401041, "mc": 1673.9371744791656, "price": 2094, "tvc": 6359.220377604164, "planted": false}, "car5": {"name": "Carrots", "q": 5, "avc": 1618.550221761067, "mc": 1733.5307312011712, "price": 2094, "tvc": 8092.751108805335, "planted": false}, "car6": {"name": "Carrots", "q": 6, "avc": 1648.0139773050935, "mc": 1795.332755025227, "price": 2094, "tvc": 9888.083863830561, "planted": false}, "car7": {"name": "Carrots", "q": 7, "avc": 1678.2143267377214, "mc": 1859.4164233334868, "price": 2094, "tvc": 11747.50028716405, "planted": false}, "car8": {"name": "Carrots", "q": 8, "avc": 1709.1696849061636, "mc": 1925.8571920852605, "price": 2094, "tvc": 13673.35747924931, "planted": false}, "car9": {"name": "Carrots", "q": 9, "avc": 1740.8989270288178, "mc": 1994.732864010051, "price": 2094, "tvc": 15668.09034325936, "planted": false}, "car10": {"name": "Carrots", "q": 10, "avc": 1773.421400204538, "mc": 2066.123658786022, "price": 2094, "tvc": 17734.21400204538, "planted": false}, "car11": {"name": "Carrots", "q": 11, "avc": 1806.7569352096516, "mc": 2140.1122852607887, "price": 2094, "tvc": 19874.32628730617, "planted": false}, "car12": {"name": "Carrots", "q": 12, "avc": 1840.9258585898926, "mc": 2216.7840157725423, "price": 2094, "tvc": 22091.110303078713, "planted": false}, "car13": {"name": "Carrots", "q": 13, "avc": 1875.9490050546397, "mc": 2296.2267626316025, "price": 2094, "tvc": 24387.337065710315, "planted": false}, "car14": {"name": "Carrots", "q": 14, "avc": 1911.8477301810058, "mc": 2378.5311568237676, "price": 2094, "tvc": 26765.86822253408, "planted": false}, "car15": {"name": "Carrots", "q": 15, "avc": 1948.643923435531, "mc": 2463.7906289988787, "price": 2094, "tvc": 29229.658851532964, "planted": false}, "car16": {"name": "Carrots", "q": 16, "avc": 1986.360021521419, "mc": 2552.1014928097397, "price": 2094, "tvc": 31781.760344342703, "planted": false}, "car17": {"name": "Carrots", "q": 17, "avc": 1967.8036286767858, "mc": 1670.9013431626602, "price": 2094, "tvc": 33452.66168750536, "planted": false}, "car18": {"name": "Carrots", "q": 18, "avc": 1946.7666932499149, "mc": 1589.1387909931009, "price": 2094, "tvc": 35041.800478498466, "planted": false}, "car19": {"name": "Carrots", "q": 19, "avc": 1930.5250418677124, "mc": 1638.1753169880665, "price": 2094, "tvc": 36679.975795486534, "planted": false}, "car20": {"name": "Carrots", "q": 20, "avc": 1918.4460626512468, "mc": 1688.945457538409, "price": 2094, "tvc": 38368.921253024935, "planted": true}, "mes1": {"name": "Mesclun", "q": 1, "avc": 2462.03125, "mc": 2462.03125, "price": 2700, "tvc": 2462.03125, "planted": false}, "mes2": {"name": "Mesclun", "q": 2, "avc": 2481.806640625, "mc": 2501.58203125, "price": 2700, "tvc": 4963.61328125, "planted": false}, "mes3": {"name": "Mesclun", "q": 3, "avc": 2501.829223632812, "mc": 2541.8743896484366, "price": 2700, "tvc": 7505.487670898437, "planted": false}, "mes4": {"name": "Mesclun", "q": 4, "avc": 2522.102088928222, "mc": 2582.920684814452, "price": 2700, "tvc": 10088.408355712889, "planted": false}, "mes5": {"name": "Mesclun", "q": 5, "avc": 2542.628365039825, "mc": 2624.7334694862366, "price": 2700, "tvc": 12713.141825199125, "planted": false}, "mes6": {"name": "Mesclun", "q": 6, "avc": 2563.4112196028223, "mc": 2667.3254924178095, "price": 2700, "tvc": 15380.467317616934, "planted": false}, "mes7": {"name": "Mesclun", "q": 7, "avc": 2584.453859847858, "mc": 2710.709701318071, "price": 2700, "tvc": 18091.177018935006, "planted": false}, "mes8": {"name": "Mesclun", "q": 8, "avc": 2605.759533095956, "mc": 2754.899245832644, "price": 2700, "tvc": 20846.07626476765, "planted": false}, "mes9": {"name": "Mesclun", "q": 9, "avc": 2627.3315272596556, "mc": 2799.90748056925, "price": 2700, "tvc": 23645.9837453369, "planted": false}, "mes10": {"name": "Mesclun", "q": 10, "avc": 2649.173171350401, "mc": 2845.7479681671102, "price": 2700, "tvc": 26491.73171350401, "planted": false}, "mes11": {"name": "Mesclun", "q": 11, "avc": 2671.287835992281, "mc": 2892.4344824110804, "price": 2700, "tvc": 29384.16619591509, "planted": false}, "mes12": {"name": "Mesclun", "q": 12, "avc": 2693.6789339421844, "mc": 2939.981011391123, "price": 2700, "tvc": 32324.147207306214, "planted": false}, "mes13": {"name": "Mesclun", "q": 13, "avc": 2716.3499206164615, "mc": 2988.4017607077894, "price": 2700, "tvc": 35312.548968014, "planted": false}, "mes14": {"name": "Mesclun", "q": 14, "avc": 2702.5092901692265, "mc": 2522.5810943551687, "price": 2700, "tvc": 37835.13006236917, "planted": false}, "mes15": {"name": "Mesclun", "q": 15, "avc": 2654.606132486818, "mc": 1983.961924933097, "price": 2700, "tvc": 39819.091987302265, "planted": false}, "mes16": {"name": "Mesclun", "q": 16, "avc": 2614.2887091429034, "mc": 2009.527358984183, "price": 2700, "tvc": 41828.619346286454, "planted": false}, "mes17": {"name": "Mesclun", "q": 17, "avc": 2580.245810654248, "mc": 2035.5594348357681, "price": 2700, "tvc": 43864.17878112222, "planted": false}, "mes18": {"name": "Mesclun", "q": 18, "avc": 2551.4580336142235, "mc": 2062.0658239338063, "price": 2700, "tvc": 45926.244605056025, "planted": false}, "mes19": {"name": "Mesclun", "q": 19, "avc": 2527.1209958765066, "mc": 2089.054316597603, "price": 2700, "tvc": 48015.29892165363, "planted": false}, "mes20": {"name": "Mesclun", "q": 20, "avc": 2506.5915872723317, "mc": 2116.5328237930007, "price": 2700, "tvc": 50131.83174544663, "planted": false}, "mes21": {"name": "Mesclun", "q": 21, "avc": 2489.349577351331, "mc": 2144.509378931318, "price": 2700, "tvc": 52276.34112437795, "planted": false}, "mes22": {"name": "Mesclun", "q": 22, "avc": 2474.9696938214693, "mc": 2172.9921396943755, "price": 2700, "tvc": 54449.333264072324, "planted": false}, "mes23": {"name": "Mesclun", "q": 23, "avc": 2463.1009849547117, "mc": 2201.989389886049, "price": 2700, "tvc": 56651.32265395837, "planted": false}, "mes24": {"name": "Mesclun", "q": 24, "avc": 2453.4513414695443, "mc": 2231.509541310689, "price": 2700, "tvc": 58882.83219526906, "planted": false}, "mes25": {"name": "Mesclun", "q": 25, "avc": 2445.7757332379133, "mc": 2261.5611356787767, "price": 2700, "tvc": 61144.39333094784, "planted": false}, "mes26": {"name": "Mesclun", "q": 26, "avc": 2439.867160672618, "mc": 2292.15284654023, "price": 2700, "tvc": 63436.54617748807, "planted": false}, "mes27": {"name": "Mesclun", "q": 27, "avc": 2435.5496169901426, "mc": 2323.2934812457847, "price": 2700, "tvc": 65759.83965873385, "planted": false}, "mes28": {"name": "Mesclun", "q": 28, "avc": 2432.672558631091, "mc": 2354.991982936689, "price": 2700, "tvc": 68114.83164167055, "planted": false}, "mes29": {"name": "Mesclun", "q": 29, "avc": 2431.1065198011715, "mc": 2387.2574325634255, "price": 2700, "tvc": 70502.08907423397, "planted": false}, "mes30": {"name": "Mesclun", "q": 30, "avc": 2430.739604172249, "mc": 2420.099050933507, "price": 2700, "tvc": 72922.18812516748, "planted": true}};
+const f=n=>"$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const tip=document.getElementById("tip");
+document.querySelectorAll(".hit").forEach(h=>{
+ h.addEventListener("mousemove",e=>{
+  const r=ROWS[h.dataset.k],g=r.price-r.avc;
+  let s="<b>"+r.name+", "+r.q+(r.q===1?" bed":" beds")+(r.planted?" — the plan":"")+"</b>";
+  s+="<div class='r'><i>Total variable cost</i><span>"+f(r.tvc)+"</span></div>";
+  s+="<div class='r'><i><span class='sw' style='background:var(--s1)'></span>AVC</i><span>"+f(r.avc)+"</span></div>";
+  s+="<div class='r'><i>Price</i><span>"+f(r.price)+"</span></div>";
+  s+="<div class='r tot' style='color:"+(g<0?"var(--neg)":"var(--pos)")+"'><span>Price \u2212 AVC</span><span>"+(g<0?"\u2212":"+")+f(Math.abs(g)).slice(1)+"</span></div>";
+  s+="<div class='r' style='margin-top:4px'><span>Shutdown rule</span><span>"+(g<0?"shut down":"keep planting")+"</span></div>";
+  tip.innerHTML=s;tip.style.opacity=1;
+  let x=e.clientX+16,y=e.clientY+16;const b=tip.getBoundingClientRect();
+  if(x+b.width>innerWidth-8)x=e.clientX-b.width-16;
+  if(y+b.height>innerHeight-8)y=e.clientY-b.height-16;
+  tip.style.left=x+"px";tip.style.top=y+"px";});
+ h.addEventListener("mouseleave",()=>tip.style.opacity=0);});
+const tw=document.getElementById("tw"),tb=document.getElementById("t");
+tb.onclick=()=>{tw.hidden=!tw.hidden;tb.textContent=tw.hidden?"Show all three schedules as a table":"Hide the table";};
+</script>

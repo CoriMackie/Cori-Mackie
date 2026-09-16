@@ -1,0 +1,209 @@
+<title>Carrot Marginal Cost</title>
+<style>
+.viz-root{color-scheme:light;
+ --surface-1:#fcfcfb;--plane:#f9f9f7;--text-primary:#0b0b0b;--text-secondary:#52514e;
+ --muted:#898781;--grid:#e1e0d9;--baseline:#c3c2b7;--ring:rgba(11,11,11,.10);
+ --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--neg:#b3261e;--pos:#006300}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .viz-root{color-scheme:dark;
+ --surface-1:#1a1a19;--plane:#0d0d0d;--text-primary:#fff;--text-secondary:#c3c2b7;
+ --muted:#898781;--grid:#2c2c2a;--baseline:#383835;--ring:rgba(255,255,255,.10);
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--neg:#e66767;--pos:#0ca30c}}
+:root[data-theme="dark"] .viz-root{color-scheme:dark;
+ --surface-1:#1a1a19;--plane:#0d0d0d;--text-primary:#fff;--text-secondary:#c3c2b7;
+ --muted:#898781;--grid:#2c2c2a;--baseline:#383835;--ring:rgba(255,255,255,.10);
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--neg:#e66767;--pos:#0ca30c}
+body{margin:0;background:#f9f9f7;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){body:where(:not([data-theme="light"] *)){background:#0d0d0d}}
+.viz-root{background:var(--plane);padding:22px;max-width:1000px;margin:0 auto}
+.card{background:var(--surface-1);border:1px solid var(--ring);border-radius:12px;padding:20px 22px 14px}
+h1{font-size:17px;margin:0 0 5px;color:var(--text-primary);letter-spacing:-.01em}
+.sub{font-size:13px;color:var(--text-secondary);margin:0 0 15px;max-width:74ch;line-height:1.5}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:0 0 4px;font-size:12.5px;color:var(--text-secondary)}
+.legend span{display:flex;align-items:center;gap:7px}
+.sw{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
+svg{display:block;width:100%;height:auto}
+.grid{stroke:var(--grid);stroke-width:1}.axis{stroke:var(--baseline);stroke-width:1}
+.tick{fill:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}.ytick{text-anchor:end}
+.s1{fill:var(--s1)}.s2{fill:var(--s2)}.s3{fill:var(--s3)}
+.price{stroke:var(--text-primary);stroke-width:2}
+.pricelab{fill:var(--text-primary);font-size:12px;font-weight:650}
+.vlab{fill:var(--text-primary);font-size:11.5px;font-weight:650;font-variant-numeric:tabular-nums}
+.anno{fill:var(--text-secondary);font-size:12px}
+.anno-b{fill:var(--text-primary);font-weight:650;font-size:12.5px}
+.lead{stroke:var(--muted);stroke-width:1;fill:none}.leaddot{fill:var(--muted)}
+.span{stroke:var(--baseline);stroke-width:1}.span-lab{fill:var(--muted);font-size:11.5px}
+.axtitle{fill:var(--text-secondary);font-size:12px}.hit{fill:transparent;cursor:crosshair}
+.foot{font-size:11.5px;color:var(--muted);margin:12px 0 0;line-height:1.55;max-width:96ch}
+.bar{display:flex;justify-content:flex-end;margin:12px 0 0}
+button{font:inherit;font-size:12.5px;padding:5px 11px;border:1px solid var(--ring);
+ background:var(--surface-1);color:var(--text-secondary);border-radius:7px;cursor:pointer}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12px;margin-top:12px;
+ font-variant-numeric:tabular-nums;color:var(--text-secondary)}
+th{text-align:right;font-size:11px;color:var(--muted);font-weight:600;padding:5px 8px;
+ border-bottom:1px solid var(--baseline);white-space:nowrap}
+th:first-child,td:first-child,th:last-child,td:last-child{text-align:left}
+td{text-align:right;padding:4px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+td.strong{color:var(--text-primary);font-weight:650}td.neg{color:var(--neg)}td.pos{color:var(--pos)}
+#tip{position:fixed;pointer-events:none;opacity:0;transition:opacity .1s;background:var(--surface-1);
+ border:1px solid var(--ring);border-radius:8px;padding:9px 11px;font-size:12px;color:var(--text-primary);
+ box-shadow:0 4px 16px rgba(0,0,0,.16);z-index:9;min-width:200px}
+#tip b{display:block;margin-bottom:5px}
+#tip .r{display:flex;justify-content:space-between;gap:16px;color:var(--text-secondary)}
+#tip .r i{font-style:normal;display:flex;align-items:center;gap:6px}
+#tip .tot{margin-top:5px;padding-top:5px;border-top:1px solid var(--grid);color:var(--text-primary);font-weight:650}
+</style>
+<div class="viz-root"><div class="card">
+<h1>Marginal cost of each carrot bed — on its own, and in the plan</h1>
+<p class="sub">Carrots never reach their price. The schedule stops at bed 20 because the case allows 20 beds, not because the twenty-first would lose money — it would earn $352.49. The two lines are the same crop costed two ways: alone, carrots are given the farmer&rsquo;s entire 720 hours at $34.72; in the recommended plan tomatoes and mesclun have absorbed those hours already, so every carrot hour is hired at $17.36.</p>
+<div class="legend"><span><i class="sw" style="background:var(--s1)"></i>Standalone — carrots hold all 720 of the farmer&rsquo;s hours (the <code>Marginal Analysis</code> schedule)</span><span><i class="sw" style="background:var(--s2)"></i>In the plan — every carrot hour hired at $17.36</span></div>
+<svg viewBox="0 0 900 500" role="img" aria-label="Two marginal-cost lines for carrot beds 1 to 21 against a fixed price of 2,094 dollars a bed. The standalone line, which charges the farmer's own 34.72 dollar hours to carrots, rises above the price at bed 11 at 2,140.11 and falls back below it at bed 17 when those hours run out. The in-plan line, charging every hour at the hired rate of 17.36, stays below the price throughout, reaching 1,688.95 at bed 20. Bed 21, which the twenty-bed cap forbids, would cost 1,741.51 and add 352.49 of profit.">
+<line class="grid" x1="78" y1="424.0" x2="836" y2="424.0"/>
+<text class="tick ytick" x="68" y="428.0">$0</text>
+<line class="grid" x1="78" y1="371.4" x2="836" y2="371.4"/>
+<text class="tick ytick" x="68" y="375.4">$400</text>
+<line class="grid" x1="78" y1="318.9" x2="836" y2="318.9"/>
+<text class="tick ytick" x="68" y="322.9">$800</text>
+<line class="grid" x1="78" y1="266.3" x2="836" y2="266.3"/>
+<text class="tick ytick" x="68" y="270.3">$1,200</text>
+<line class="grid" x1="78" y1="213.7" x2="836" y2="213.7"/>
+<text class="tick ytick" x="68" y="217.7">$1,600</text>
+<line class="grid" x1="78" y1="161.1" x2="836" y2="161.1"/>
+<text class="tick ytick" x="68" y="165.1">$2,000</text>
+<line class="grid" x1="78" y1="108.6" x2="836" y2="108.6"/>
+<text class="tick ytick" x="68" y="112.6">$2,400</text>
+<line class="grid" x1="78" y1="56.0" x2="836" y2="56.0"/>
+<text class="tick ytick" x="68" y="60.0">$2,800</text>
+<line class="axis" x1="78" y1="424.0" x2="836" y2="424.0"/>
+<line class="span" x1="799.9" y1="52.0" x2="799.9" y2="424.0" stroke-dasharray="4 4"/>
+<text class="span-lab" x="793.9" y="64" text-anchor="end">the case allows 20 beds</text>
+<polygon points="96.0,225.8 132.1,218.8 168.2,211.5 204.3,204.0 240.4,196.2 276.5,188.0 312.6,179.6 348.7,170.9 384.8,161.8 420.9,152.5 457.0,142.7 493.1,132.7 529.2,122.2 565.3,111.4 601.4,100.2 637.5,88.6 673.6,204.4 709.7,215.1 745.8,208.7 781.9,202.0 818.0,195.1 818.0,195.1 781.9,202.0 745.8,208.7 709.7,215.1 673.6,221.4 637.5,227.4 601.4,233.2 565.3,238.8 529.2,244.2 493.1,249.4 457.0,254.4 420.9,259.3 384.8,264.0 348.7,268.5 312.6,272.9 276.5,277.1 240.4,281.2 204.3,285.1 168.2,288.9 132.1,292.5 96.0,296.0" fill="var(--s1)" opacity=".10"/>
+<polyline points="96.0,225.8 132.1,218.8 168.2,211.5 204.3,204.0 240.4,196.2 276.5,188.0 312.6,179.6 348.7,170.9 384.8,161.8 420.9,152.5 457.0,142.7 493.1,132.7 529.2,122.2 565.3,111.4 601.4,100.2 637.5,88.6 673.6,204.4 709.7,215.1 745.8,208.7 781.9,202.0 818.0,195.1" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="96.0,296.0 132.1,292.5 168.2,288.9 204.3,285.1 240.4,281.2 276.5,277.1 312.6,272.9 348.7,268.5 384.8,264.0 420.9,259.3 457.0,254.4 493.1,249.4 529.2,244.2 565.3,238.8 601.4,233.2 637.5,227.4 673.6,221.4 709.7,215.1 745.8,208.7 781.9,202.0 818.0,195.1" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="96.0" cy="225.8" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="96.0" cy="296.0" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="132.1" cy="218.8" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="132.1" cy="292.5" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="168.2" cy="211.5" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="168.2" cy="288.9" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="204.3" cy="204.0" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="204.3" cy="285.1" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="240.4" cy="196.2" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="240.4" cy="281.2" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="276.5" cy="188.0" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="276.5" cy="277.1" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="312.6" cy="179.6" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="312.6" cy="272.9" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="348.7" cy="170.9" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="348.7" cy="268.5" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="384.8" cy="161.8" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="384.8" cy="264.0" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="420.9" cy="152.5" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="420.9" cy="259.3" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="457.0" cy="142.7" r="4.5" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="457.0" cy="254.4" r="4.5" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="493.1" cy="132.7" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="493.1" cy="249.4" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="529.2" cy="122.2" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="529.2" cy="244.2" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="565.3" cy="111.4" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="565.3" cy="238.8" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="601.4" cy="100.2" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="601.4" cy="233.2" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="637.5" cy="88.6" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="637.5" cy="227.4" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="673.6" cy="204.4" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="673.6" cy="221.4" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="709.7" cy="215.1" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="709.7" cy="215.1" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="745.8" cy="208.7" r="3" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="745.8" cy="208.7" r="3" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="781.9" cy="202.0" r="4.5" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="781.9" cy="202.0" r="4.5" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="818.0" cy="195.1" r="4.5" fill="var(--s1)" stroke="var(--surface-1)" stroke-width="2"/>
+<circle cx="818.0" cy="195.1" r="4.5" fill="var(--s2)" stroke="var(--surface-1)" stroke-width="2"/>
+<line class="price" x1="78" y1="148.8" x2="836" y2="148.8"/>
+<text class="pricelab" x="82" y="167.8">Price  $2,094 a bed</text>
+<text class="tick" x="96.0" y="442" text-anchor="middle">1</text>
+<text class="tick" x="132.1" y="442" text-anchor="middle">2</text>
+<text class="tick" x="168.2" y="442" text-anchor="middle">3</text>
+<text class="tick" x="204.3" y="442" text-anchor="middle">4</text>
+<text class="tick" x="240.4" y="442" text-anchor="middle">5</text>
+<text class="tick" x="276.5" y="442" text-anchor="middle">6</text>
+<text class="tick" x="312.6" y="442" text-anchor="middle">7</text>
+<text class="tick" x="348.7" y="442" text-anchor="middle">8</text>
+<text class="tick" x="384.8" y="442" text-anchor="middle">9</text>
+<text class="tick" x="420.9" y="442" text-anchor="middle">10</text>
+<text class="tick" x="457.0" y="442" text-anchor="middle">11</text>
+<text class="tick" x="493.1" y="442" text-anchor="middle">12</text>
+<text class="tick" x="529.2" y="442" text-anchor="middle">13</text>
+<text class="tick" x="565.3" y="442" text-anchor="middle">14</text>
+<text class="tick" x="601.4" y="442" text-anchor="middle">15</text>
+<text class="tick" x="637.5" y="442" text-anchor="middle">16</text>
+<text class="tick" x="673.6" y="442" text-anchor="middle">17</text>
+<text class="tick" x="709.7" y="442" text-anchor="middle">18</text>
+<text class="tick" x="745.8" y="442" text-anchor="middle">19</text>
+<text class="tick" x="781.9" y="442" text-anchor="middle">20</text>
+<text class="tick" x="818.0" y="442" text-anchor="middle">21</text>
+<text class="anno anno-b" x="80" y="88">Bed 11 crosses the price — but only on its own</text>
+<text class="anno" x="80" y="106">Given the farmer’s whole 720 hours, bed 11 costs $2,140.11</text>
+<text class="anno" x="80" y="122">against $2,094. In the plan that same bed costs $1,290.06.</text>
+<text class="anno anno-b" x="349" y="344">The cap binds, not the price</text>
+<text class="anno" x="349" y="362">Bed 20 costs $1,688.95 and earns $2,094.</text>
+<text class="anno" x="349" y="378">Bed 21 would cost $1,741.51 and add $352.49.</text>
+<path class="lead" d="M648.7,339 H818.0 V205.1"/>
+<line class="span" x1="833.0" y1="195.1" x2="833.0" y2="148.8"/>
+<line class="span" x1="829.0" y1="148.8" x2="837.0" y2="148.8"/>
+<line class="span" x1="829.0" y1="195.1" x2="837.0" y2="195.1"/>
+<text class="vlab" x="840.0" y="176.0">$352.49</text>
+<text class="axtitle" x="457" y="474" text-anchor="middle">Carrot bed (q)</text>
+<rect class="hit" data-q="1" x="78.0" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="2" x="114.1" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="3" x="150.2" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="4" x="186.3" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="5" x="222.4" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="6" x="258.5" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="7" x="294.6" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="8" x="330.7" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="9" x="366.8" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="10" x="402.9" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="11" x="439.0" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="12" x="475.0" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="13" x="511.1" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="14" x="547.2" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="15" x="583.3" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="16" x="619.4" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="17" x="655.5" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="18" x="691.6" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="19" x="727.7" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="20" x="763.8" y="56.0" width="36.1" height="368"/>
+<rect class="hit" data-q="21" x="799.9" y="56.0" width="36.1" height="368"/>
+</svg>
+<p class="foot">Marginal cost is the labor for that bed plus one bed of fertilizer at $440; it excludes the $20,000 season fixed cost. From bed 18 the two are the same line: by then the standalone schedule has spent the farmer&rsquo;s 720 hours too, so both charge every marginal hour at $17.36. Bed 21 is beyond the case&rsquo;s 20-bed cap and is plotted to price the constraint. Source: <code>capabilities/marginal-analysis/model.xlsx</code>, <code>Marginal Analysis!A33:J52</code>.</p>
+<div class="bar"><button id="t">Show the schedule as a table</button></div>
+<div class="tw" id="tw" hidden><table><thead><tr><th>Bed</th><th>Marginal hrs</th><th>MC standalone</th><th>Price &minus; MC</th><th>MC in the plan</th><th>Price &minus; MC</th><th>Decision</th></tr></thead><tbody><tr><td>1</td><td>30.75</td><td class="strong">$1,507.71</td><td class="pos">+586.29</td><td class="strong">$973.85</td><td class="pos">+1,120.15</td><td>Plant</td></tr><tr><td>2</td><td>32.29</td><td class="strong">$1,561.09</td><td class="pos">+532.91</td><td class="strong">$1,000.55</td><td class="pos">+1,093.45</td><td>Plant</td></tr><tr><td>3</td><td>33.88</td><td class="strong">$1,616.48</td><td class="pos">+477.52</td><td class="strong">$1,028.24</td><td class="pos">+1,065.76</td><td>Plant</td></tr><tr><td>4</td><td>35.54</td><td class="strong">$1,673.94</td><td class="pos">+420.06</td><td class="strong">$1,056.97</td><td class="pos">+1,037.03</td><td>Plant</td></tr><tr><td>5</td><td>37.25</td><td class="strong">$1,733.53</td><td class="pos">+360.47</td><td class="strong">$1,086.77</td><td class="pos">+1,007.23</td><td>Plant</td></tr><tr><td>6</td><td>39.03</td><td class="strong">$1,795.33</td><td class="pos">+298.67</td><td class="strong">$1,117.67</td><td class="pos">+976.33</td><td>Plant</td></tr><tr><td>7</td><td>40.88</td><td class="strong">$1,859.42</td><td class="pos">+234.58</td><td class="strong">$1,149.71</td><td class="pos">+944.29</td><td>Plant</td></tr><tr><td>8</td><td>42.79</td><td class="strong">$1,925.86</td><td class="pos">+168.14</td><td class="strong">$1,182.93</td><td class="pos">+911.07</td><td>Plant</td></tr><tr><td>9</td><td>44.78</td><td class="strong">$1,994.73</td><td class="pos">+99.27</td><td class="strong">$1,217.37</td><td class="pos">+876.63</td><td>Plant</td></tr><tr><td>10</td><td>46.83</td><td class="strong">$2,066.12</td><td class="pos">+27.88</td><td class="strong">$1,253.06</td><td class="pos">+840.94</td><td>Plant</td></tr><tr><td>11</td><td>48.96</td><td class="strong">$2,140.11</td><td class="neg">&minus;46.11</td><td class="strong">$1,290.06</td><td class="pos">+803.94</td><td>Plant</td></tr><tr><td>12</td><td>51.17</td><td class="strong">$2,216.78</td><td class="neg">&minus;122.78</td><td class="strong">$1,328.39</td><td class="pos">+765.61</td><td>Plant</td></tr><tr><td>13</td><td>53.46</td><td class="strong">$2,296.23</td><td class="neg">&minus;202.23</td><td class="strong">$1,368.11</td><td class="pos">+725.89</td><td>Plant</td></tr><tr><td>14</td><td>55.83</td><td class="strong">$2,378.53</td><td class="neg">&minus;284.53</td><td class="strong">$1,409.27</td><td class="pos">+684.73</td><td>Plant</td></tr><tr><td>15</td><td>58.29</td><td class="strong">$2,463.79</td><td class="neg">&minus;369.79</td><td class="strong">$1,451.90</td><td class="pos">+642.10</td><td>Plant</td></tr><tr><td>16</td><td>60.83</td><td class="strong">$2,552.10</td><td class="neg">&minus;458.10</td><td class="strong">$1,496.05</td><td class="pos">+597.95</td><td>Plant</td></tr><tr><td>17</td><td>63.46</td><td class="strong">$1,670.90</td><td class="pos">+423.10</td><td class="strong">$1,541.78</td><td class="pos">+552.22</td><td>Plant</td></tr><tr><td>18</td><td>66.19</td><td class="strong">$1,589.14</td><td class="pos">+504.86</td><td class="strong">$1,589.14</td><td class="pos">+504.86</td><td>Plant</td></tr><tr><td>19</td><td>69.01</td><td class="strong">$1,638.18</td><td class="pos">+455.82</td><td class="strong">$1,638.18</td><td class="pos">+455.82</td><td>Plant</td></tr><tr><td>20</td><td>71.94</td><td class="strong">$1,688.95</td><td class="pos">+405.05</td><td class="strong">$1,688.95</td><td class="pos">+405.05</td><td>Plant</td></tr><tr><td>21</td><td>74.97</td><td class="strong">$1,741.51</td><td class="pos">+352.49</td><td class="strong">$1,741.51</td><td class="pos">+352.49</td><td>beyond the cap</td></tr></tbody></table></div>
+</div></div>
+<div id="tip"></div>
+<script>
+const ROWS={"1": {"q": 1, "alone": 1507.7083333333333, "plan": 973.8541666666666, "mh": 30.749999999999996}, "2": {"q": 2, "alone": 1561.0937499999998, "plan": 1000.5468749999999, "mh": 32.287499999999994}, "3": {"q": 3, "alone": 1616.4811197916656, "plan": 1028.2405598958328, "mh": 33.88265624999997}, "4": {"q": 4, "alone": 1673.9371744791656, "plan": 1056.9685872395828, "mh": 35.53739062499997}, "5": {"q": 5, "alone": 1733.5307312011712, "plan": 1086.7653656005855, "mh": 37.25368505859373}, "6": {"q": 6, "alone": 1795.332755025227, "plan": 1117.6663775126135, "mh": 39.03358334472654}, "7": {"q": 7, "alone": 1859.4164233334868, "plan": 1149.7082116667434, "mh": 40.87919299200442}, "8": {"q": 8, "alone": 1925.8571920852605, "plan": 1182.9285960426303, "mh": 42.792687132055505}, "9": {"q": 9, "alone": 1994.732864010051, "plan": 1217.3664320050254, "mh": 44.77630648348946}, "10": {"q": 10, "alone": 2066.123658786022, "plan": 1253.061829393011, "mh": 46.83236137303743}, "11": {"q": 11, "alone": 2140.1122852607887, "plan": 1290.0561426303943, "mh": 48.963233815510705}, "12": {"q": 12, "alone": 2216.7840157725423, "plan": 1328.3920078862711, "mh": 51.17137965424922}, "13": {"q": 13, "alone": 2296.2267626316025, "plan": 1368.1133813158012, "mh": 53.45933076379015}, "14": {"q": 14, "alone": 2378.5311568237676, "plan": 1409.2655784118838, "mh": 55.829697316524516}, "15": {"q": 15, "alone": 2463.7906289988787, "plan": 1451.8953144994393, "mh": 58.285170115167716}, "16": {"q": 16, "alone": 2552.1014928097397, "plan": 1496.0507464048699, "mh": 60.82852299292051}, "17": {"q": 17, "alone": 1670.9013431626602, "plan": 1541.7815153340116, "mh": 63.462615283239074}, "18": {"q": 18, "alone": 1589.1387909931009, "plan": 1589.1387909931009, "mh": 66.1903943612026}, "19": {"q": 19, "alone": 1638.1753169880665, "plan": 1638.1753169880665, "mh": 69.01489825851263}, "20": {"q": 20, "alone": 1688.945457538409, "plan": 1688.945457538409, "mh": 71.93925835421237}, "21": {"q": 21, "alone": 1741.5052455431507, "plan": 1741.5052455431507, "mh": 74.96670214328549}};
+const PRICE=2094;
+const f=n=>"$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const tip=document.getElementById("tip");
+document.querySelectorAll(".hit").forEach(h=>{
+ h.addEventListener("mousemove",e=>{
+  const r=ROWS[h.dataset.q],pa=PRICE-r.alone,pp=PRICE-r.plan;
+  let s="<b>Carrot bed "+r.q+(r.q===21?" — beyond the cap":"")+"</b>";
+  s+="<div class='r'><i><span class='sw' style='background:var(--s1)'></span>MC standalone</i><span>"+f(r.alone)+"</span></div>";
+  s+="<div class='r' style='color:"+(pa<0?"var(--neg)":"var(--pos)")+"'><span>Price \u2212 MC</span><span>"+(pa<0?"\u2212":"+")+f(Math.abs(pa)).slice(1)+"</span></div>";
+  s+="<div class='r' style='margin-top:6px'><i><span class='sw' style='background:var(--s2)'></span>MC in the plan</i><span>"+f(r.plan)+"</span></div>";
+  s+="<div class='r' style='color:"+(pp<0?"var(--neg)":"var(--pos)")+"'><span>Price \u2212 MC</span><span>"+(pp<0?"\u2212":"+")+f(Math.abs(pp)).slice(1)+"</span></div>";
+  s+="<div class='r tot'><span>Marginal hours</span><span>"+r.mh.toFixed(2)+"</span></div>";
+  tip.innerHTML=s;tip.style.opacity=1;
+  let x=e.clientX+16,y=e.clientY+16;const b=tip.getBoundingClientRect();
+  if(x+b.width>innerWidth-8)x=e.clientX-b.width-16;
+  if(y+b.height>innerHeight-8)y=e.clientY-b.height-16;
+  tip.style.left=x+"px";tip.style.top=y+"px";});
+ h.addEventListener("mouseleave",()=>tip.style.opacity=0);});
+const tw=document.getElementById("tw"),tb=document.getElementById("t");
+tb.onclick=()=>{tw.hidden=!tw.hidden;tb.textContent=tw.hidden?"Show the schedule as a table":"Hide the table";};
+</script>
