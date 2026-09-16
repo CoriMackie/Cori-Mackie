@@ -14,26 +14,50 @@ again. The two commits are what make "I only used it as an editor" checkable.
 
 Does not exist yet. Nothing in this repo has touched that path, deliberately.
 
-- [ ] **Why tomatoes stop at 10.** Bed 10 costs $8,248.59, bed 11 costs
-      $9,390.72, the $8,800 price sits between them. `Marginal Analysis!G17:G18`.
-      Point at `tomato-marginal-cost.png`.
-- [ ] **Which constraints bind, and what relaxing one is worth.** Carrots and
-      mesclun stop at their caps with margin left — $1,688.95 against $2,094
-      (`G52`), $2,420.10 against $2,700 (`G87`). One more bed is worth **$352.49**
-      and **$246.47**. Buy carrot ground first. Point at `carrot-marginal-cost.png`.
-- [ ] **Name the slack.** 60 of 64 beds. And the four-worker cap is *tight* —
-      you hire all four — but worth **$0**: a fifth worker changes nothing,
-      because 1,202.78 field hours go unused. Tight and binding are not the
-      same thing, and that sentence is yours to make.
-- [ ] **The dip, by mechanism.** Bed 6, $2,754.58, her 720 hours run out and the
-      marginal hour goes from $34.72 to $17.36. `B95:B96`. **Already written** —
-      "How the hypothesis held up" in the memo, including the part Adam called the
-      sharpest reading anyone produced: the break sits upstream of the margin.
-- [ ] **Why grow crops that lose money alone.** The table below. Point at
-      `price-vs-avc.png`.
-- [ ] **Close with the hypothesis paragraph.** Four conditions, three survived,
-      one fired, and what you had wrong was *where* the dip is. **Already
-      written** in the memo.
+You are not computing anything here — the model already answered. Each bullet is
+a column to read and a question to answer out loud in your own words.
+
+- [ ] **Why tomatoes stop at 10.**
+      *Open* `Marginal Analysis`, tomato block, column `I` (price minus cost).
+      *You'll see* it flip: **+$551.41** at bed 10, **−$590.72** at bed 11.
+      *Answer* why you planted 10 beds of the crop earning $8,800 and all 20 of
+      the one earning $2,094. Point at `tomato-marginal-cost.png`.
+
+- [ ] **Which constraints bind, and what relaxing one is worth.**
+      *Open* the same column `I` for carrots (rows 33–52) and mesclun (58–87).
+      *You'll see* it **never flips** — carrots end at +$405.05, mesclun at
+      +$279.90. Both crops stopped with money still on the table.
+      *Answer* what stopped them, then what moving that limit is worth:
+      **+$352.49** a carrot bed, **+$246.47** a mesclun bed. Point at
+      `carrot-marginal-cost.png`.
+
+- [ ] **Name the slack.**
+      *Open* `Optimization` `B9`, `B10`, `B17`.
+      *You'll see* 60 beds of 64, and 5,277.22 field hours of 6,480.
+      *Answer* what the farm never ran out of — and that the four-worker cap is
+      **tight but worth $0**, because a fifth worker changes nothing with
+      1,202.78 hours already idle. Tight and binding are not the same thing.
+
+- [ ] **The dip, by mechanism.**
+      *Open* `Marginal Analysis`, tomato columns `D` and `E`, rows 12–13.
+      *You'll see* `D` (her own hours) go to zero and `E` (hired) take over —
+      and `G` fall $2,754.58 while column `C` keeps rising.
+      *Answer* why cost fell when the work per bed never stopped growing.
+      **Already written** in the memo, including the line Adam called the
+      sharpest reading anyone produced.
+
+- [ ] **Why grow crops that lose money alone.**
+      *Open* the AVC table below and `price-vs-avc.png` — this one is not in the
+      workbook.
+      *You'll see* $2,094 covering $1,918.45, and $2,700 covering $2,430.74.
+      *Answer* why the model plants all 20 carrot beds when carrots run alone
+      lose $16,488.92.
+
+- [ ] **Close with the hypothesis paragraph.**
+      *Open* `docs/briefs/perfect-competition-brief.md`, the four falsification
+      conditions, next to what the model did.
+      *Answer* which held and which fired, and that what you had wrong was
+      *where* the dip is. **Already written** in the memo.
 
 Three of those six are already drafted in `perfect-competition-decision.md`. The
 job is mostly moving them and citing cells.
