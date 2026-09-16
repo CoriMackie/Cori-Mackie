@@ -2,6 +2,8 @@
 
 Four things. Everything else for this stage is done and pushed.
 
+If a term is in the way rather than the idea, [`VOCABULARY.md`](VOCABULARY.md) translates them into farm terms and says which column to read each one in.
+
 Order matters and it is the graded part: **write it, commit it, then** hand it to
 a model for structure only, apply what you agree with in your own words, commit
 again. The two commits are what make "I only used it as an editor" checkable.
