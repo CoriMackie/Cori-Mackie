@@ -5,8 +5,12 @@ unit against what that unit costs to produce — the point where P = MC.
 
 The capability is general; the engagement that exercises it is
 `perfect-competition`, a 64-bed vegetable farm choosing a crop mix under
-land, labor and time constraints. The brief that opened that engagement is
-[`docs/briefs/perfect-competition-brief.md`](../../docs/briefs/perfect-competition-brief.md).
+land, labor and time constraints.
+
+**Exercised in:** `perfect-competition` — 64 beds, three crops, one season.
+[Brief](../../docs/briefs/perfect-competition-brief.md) ·
+[Decision](../../docs/decisions/perfect-competition-decision.md) ·
+[Figures](../../analysis/figures/)
 
 ## What is here
 

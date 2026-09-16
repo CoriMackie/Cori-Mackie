@@ -35,9 +35,18 @@ analysis/figures/     the findings, and the charts they refer to
 -   **One folder per capability.** Each folder under `capabilities/`
     is self-contained: a `README.md` explaining what it does, a `spec.md`
     describing the approach, and any supporting model/workbook.
--   **Log AI sessions that mattered.** Add an entry to `prompt-log.md`
-    for sessions that produced a meaningful change — not every
-    back-and-forth, but anything that shaped a file in this repo.
+-   **Log AI sessions that mattered.** After any session where you helped
+    with graded work, append a dated entry to `prompt-log.md`: the date, what
+    I asked for, and what you produced. Facts only. **Never write the
+    reflection, never fill in what you got wrong, and never assess how I
+    verified your output** — those three are mine. Not every back-and-forth
+    gets a row, only what shaped a file in this repo. See
+    [`.claude/skills/prompt-log/SKILL.md`](.claude/skills/prompt-log/SKILL.md).
+-   **Graded prose is written before it is edited.** Analysis files and
+    decision memos are drafted and committed by me first. A model may then
+    edit for structure — order, unsupported claims, a recommendation that does
+    not follow — and never write the draft. The commit is what makes the
+    difference checkable afterwards.
 -   **Keep secrets out.** Nothing that belongs in `.gitignore` should
     ever be committed, even temporarily.
 
