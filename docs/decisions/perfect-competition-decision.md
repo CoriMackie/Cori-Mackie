@@ -5,6 +5,7 @@
 **Capability:** `marginal-analysis` · **Engagement:** `perfect-competition`
 **Brief:** [`docs/briefs/perfect-competition-brief.md`](../briefs/perfect-competition-brief.md)
 **Model:** [`capabilities/marginal-analysis/model.xlsx`](../../capabilities/marginal-analysis/model.xlsx)
+**Analysis:** [`analysis/perfect-competition-analysis.md`](../../analysis/perfect-competition-analysis.md) — the evidence behind this recommendation
 
 ---
 
@@ -55,55 +56,19 @@ is the wage switch itself. The interactive version, with figures on hover and
 all twenty beds as a table, is at
 [`analysis/figures/tomato-marginal-cost.html`](../../analysis/figures/tomato-marginal-cost.html).*
 
-## How the hypothesis held up
+## Why carrots and mesclun are worth growing
 
-The brief predicted 10 / 20 / 30 and 60 beds planted. That is exactly what
-the model returns, and I set four conditions that would have shown me wrong.
+On their own, both lose money for the season. They are still worth growing
+because the price covers their average variable cost — carrots $1,918.45
+against $2,094, mesclun $2,430.74 against $2,700 — so every block pays for
+its own labor and fertilizer and puts something toward the $20,000 fixed
+cost, which the farm pays whether it plants or not. Together the three crops
+contribute about $62,762 against that $20,000.
 
-**Three of them survived.** The model did not plant more than 10 tomato
-beds. Carrots and mesclun did not come out below their caps — both landed
-exactly on them, which is what I said would have to be true if the caps,
-rather than price, were what stopped them. And not all 64 beds were
-planted; four stayed empty.
-
-**The fourth fired.** I wrote that if the farmer switched from her own
-$34.72 hours to $17.36 temporary hours, marginal cost would dip rather than
-rise smoothly, and that my reasoning would then be incomplete. It does dip.
-Her 720 hours run out partway through the fifth tomato bed, and the sixth
-bed is charged entirely at the temporary rate — so marginal cost falls from
-$7,660.86 to $4,906.28, a drop of **$2,754.58**, before it resumes climbing.
-
-What I had wrong was where it happens. I expected the dip somewhere around
-the four extra tomato beds, at 11 through 14. It is at bed 6, five beds
-before the decision point. By the time tomatoes reach the crossing, beds 10
-and 11 are both priced entirely at the temporary rate, so the break sits
-upstream of the margin and never touches it.
-
-So the conclusion in the brief holds, and the arithmetic in it was already
-right — I had the eleventh bed at $9,390 against $8,800, and the model says
-$9,390.72. What was incomplete was the reason. The crossing is clean not
-because marginal cost rises smoothly, which it does not, but because the
-discontinuity is finished with well before the margin is reached.
-
-## The standalone crossings are not the answer
-
-Each crop also has its own schedule, built as though it were the only thing
-planted. Those cross at **10 tomatoes, 10 carrots and 6 mesclun** — and only
-the tomato figure matches the recommendation.
-
-The difference is not an error, and it is worth being able to explain.
-Every standalone schedule gives that crop the farmer's full 720 cheap-to-
-her, expensive-to-charge hours to itself at $34.72. Carrots priced that way
-stop at bed 11, which costs $2,140.11 against $2,094. Mesclun stops at bed
-7 by $10.71. But the farm only has 720 such hours once. In the real
-allocation they are absorbed early, and carrots and mesclun are worked at
-$17.36 throughout — where that same eleventh carrot bed costs $1,290.06,
-nowhere near the price.
-
-The standalone schedules locate each crop's crossing under the assumption
-that it is alone. The farm is not alone, so they should not be read as the
-plan. The mesclun figure in particular turns on $10.71 and I would not put
-weight on it.
+The evidence behind this memo — P = MC crop by crop, what the binding caps
+are worth, the marginal-cost dip, the standalone crossings, and how the
+brief's hypothesis held up — is in
+[`analysis/perfect-competition-analysis.md`](../../analysis/perfect-competition-analysis.md).
 
 ## What I am not claiming
 

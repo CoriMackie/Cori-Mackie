@@ -1,0 +1,252 @@
+# Engagement Analysis — Perfect Competition
+
+**Author:** Cori Mackie
+**Capability:** `marginal-analysis` · **Engagement:** `perfect-competition`
+**Brief:** [`docs/briefs/perfect-competition-brief.md`](../docs/briefs/perfect-competition-brief.md)
+**Decision:** [`docs/decisions/perfect-competition-decision.md`](../docs/decisions/perfect-competition-decision.md)
+**Model:** [`capabilities/marginal-analysis/model.xlsx`](../capabilities/marginal-analysis/model.xlsx)
+
+---
+
+The decision memo is the answer for the farmer: plant 10 / 20 / 30, leave
+four beds empty, earn $42,761.66. This document is the evidence and the
+reasoning behind that answer — P = MC crop by crop, which constraints bind
+and what they are worth, the marginal-cost dip, and why two crops that lose
+money on their own are still worth growing. Every figure here comes from the
+model; none of it is entered by hand.
+
+## 1. P = MC, crop by crop
+
+In the farm's mix the farmer's 720 hours are used up inside tomato bed 5.
+Every bed after that, of any crop, is worked by temporary labor at $17.36 an
+hour. So at every margin that matters, the three crops are priced the same
+way.
+
+| | Planted | MC of last bed planted | MC of next bed | Price | What stops it |
+|---|---|---|---|---|---|
+| Tomatoes | 10 | $8,248.59 | $9,390.72 | $8,800 | **Price.** Bed 11 costs more than it earns |
+| Carrots | 20 | $1,688.95 | $1,741.51 | $2,094 | **Cap.** No bed 21 exists |
+| Mesclun | 30 | $2,420.10 | $2,453.53 | $2,700 | **Cap.** No bed 31 exists |
+
+Only tomatoes reach P = MC. Bed 10 earns $551.41 more than it costs; bed 11
+would lose $590.72. Carrots and mesclun are still making money on the last
+bed they plant, and would make money on the next one too if the case allowed
+it. They stop because they run out of beds, not because the price stops them.
+
+## 2. Which constraints bind, and what they are worth
+
+| Constraint | Limit | Used | Binds? | Worth of one more unit |
+|---|---|---|---|---|
+| Carrot bed cap | 20 | 20 | **Yes** | **$352.49** — a 21st bed at $17.36 costs $1,741.51 and earns $2,094 |
+| Mesclun bed cap | 30 | 30 | **Yes** | **$246.47** — a 31st bed costs $2,453.53 and earns $2,700 |
+| Tomato bed cap | 20 | 10 | No | $0 — price stops tomatoes at 10 |
+| Farm bed cap | 64 | 60 | No | $0 — four beds are idle |
+| Temporary workers | 4 | 4 hired | At the limit, not binding | $0 — 1,203 of their hours are unused, enough for an eleventh tomato bed without a fifth worker |
+
+Those two dollar figures are the shadow prices of the caps: what the season
+profit would rise by if the case let the farm plant one more bed of that crop.
+The mesclun figure reads the same way from the other side — dropping to 29
+mesclun beds is the best alternative plan, and it earns $279.90 less, which is
+exactly what the thirtieth bed contributes.
+
+The idle beds are the result of these two facts put together. Carrots and
+mesclun would take more beds but are not allowed to. Tomatoes are allowed to
+take more beds, and the eleventh loses money. Nothing else can use the four
+empty beds, so they stay empty. Labor is not the constraint. Four workers are
+hired and 1,203 of their hours are never worked.
+
+## 3. The marginal-cost dip
+
+Marginal cost does not rise smoothly. In every standalone schedule it climbs
+while the farmer's own hours are being used at $34.72, then drops sharply at
+the first bed that is worked entirely at $17.36, and then starts climbing
+again.
+
+| | Last bed at the farmer's rate | First bed fully at $17.36 | MC falls by |
+|---|---|---|---|
+| Tomatoes | bed 5 — $7,660.86 | bed 6 — $4,906.28 | **$2,754.58** |
+| Carrots | bed 16 — $2,552.10 | bed 17 — $1,670.90 | **$881.20** |
+| Mesclun | bed 13 — $2,988.40 | bed 14 — $2,522.58 | **$465.82** |
+
+The cause is the same in all three: the hourly rate halves. The land does not
+become any more productive, and each bed still needs more hours than the one
+before. Only the price of an hour changes.
+
+The dip does not affect the decision, and the reason is where it happens. In
+tomatoes the break is at bed 6, and the decision is at bed 11. By then beds 10
+and 11 are both priced entirely at $17.36, so the break sits before the margin
+and never reaches it. In the mix the carrot and mesclun dips do not happen at
+all: the tomatoes have already used the farmer's hours, so every carrot and
+mesclun bed is at $17.36 from the first one.
+
+Where the dip does matter is the standalone schedules. There, carrots cross
+the price at bed 11, stay above it through bed 16, and fall back under it at
+bed 17. Mesclun does the same between bed 7 and bed 14. That is why the model
+takes the *first* crossing as the stopping point (V7) instead of labeling each
+bed on its own — a bed-by-bed label would say Plant, then Stop, then Plant
+again.
+
+![Marginal cost of each carrot bed as stacked bars, with average variable cost as a dashed line, against the fixed $2,094 price. Beds 1 to 16 are carried by the farmer's own hours; marginal cost passes the price between beds 10 and 11, peaks at $2,552.10 at bed 16, then falls $881.20 at bed 17 when her hours run out and stays under the price through bed 20. Average variable cost stays below the price at every bed.](figures/carrot-marginal-cost.png)
+
+*Figure 2. The carrot schedule, standalone. The colour change at bed 17 is
+the dip; the dashed line is average variable cost, which section 5 uses. The
+interactive version is
+[`figures/carrot-marginal-cost.html`](figures/carrot-marginal-cost.html).
+Figure 1, the tomato schedule, is in the decision memo and at
+[`figures/tomato-marginal-cost.html`](figures/tomato-marginal-cost.html).*
+
+## 4. The standalone crossings are not the answer
+
+Each crop also has its own schedule, built as though it were the only thing
+planted. Those cross at **10 tomatoes, 10 carrots and 6 mesclun** — and only
+the tomato figure matches the recommendation.
+
+The difference is not an error, and it is worth being able to explain.
+Every standalone schedule gives that crop the farmer's full 720 cheap-to-
+her, expensive-to-charge hours to itself at $34.72. Carrots priced that way
+stop at bed 11, which costs $2,140.11 against $2,094. Mesclun stops at bed
+7 by $10.71. But the farm only has 720 such hours once. In the real
+allocation they are absorbed early, and carrots and mesclun are worked at
+$17.36 throughout — where that same eleventh carrot bed costs $1,290.06,
+nowhere near the price.
+
+The standalone schedules locate each crop's crossing under the assumption
+that it is alone. The farm is not alone, so they should not be read as the
+plan. The mesclun figure in particular turns on $10.71 and I would not put
+weight on it.
+
+## 5. Why grow a crop that loses money
+
+On their own, carrots and mesclun both lose money. At the beds the plan
+gives them, a standalone carrot block loses $16,488.92 for the season and a
+standalone mesclun block loses $11,922.19. Growing them is still the right
+call. The question is why.
+
+Marginal cost cannot answer it. P = MC tells you how many beds to plant *if*
+you plant. Whether to plant at all is a different question, and the number
+that answers it is **average variable cost** — the labor and fertilizer for
+the whole block, divided by the number of beds. The $20,000 of fixed cost is
+left out, because the farm pays it whether it plants or not. The figures
+below are the standalone ones — each block carries the farmer's 720 hours
+at $34.72 by itself — so they are the hardest version of the test. In the
+mix every bed is worked at $17.36 and the margins are wider still.
+
+| | Beds | Average variable cost | Price | Price − AVC | Each bed leaves toward fixed cost |
+|---|---|---|---|---|---|
+| Carrots | 20 | **$1,918.45** | $2,094 | $175.55 | $3,511.08 across the block |
+| Mesclun | 30 | **$2,430.74** | $2,700 | $269.26 | $8,077.81 across the block |
+
+This is the shutdown rule. While price is above average variable cost, the
+beds pay for its own labor and fertilizer and leaves something over. The
+crop loses money on its own only because the $20,000 lands on it alone. Not
+planting does not make that $20,000 go away. A carrot-only farm that planted
+nothing would lose the full $20,000; planting 20 beds loses $16,488.92
+instead. Planting is the smaller loss.
+
+In the mix, the three crops share the fixed cost, and the margins add up to
+more than enough to cover it. With labor allocated at the farm's blended rate
+of $19.73 an hour, the crops contribute:
+
+| | Contribution before fixed cost |
+|---|---|
+| Tomatoes | $33,143.42 |
+| Carrots | $13,682.27 |
+| Mesclun | $15,935.98 |
+| **Total** | **$62,761.67** |
+| Less fixed cost | −$20,000.00 |
+| **Season profit** | **$42,761.66** — the one-cent gap is rounding |
+
+### Where the rule holds and where it does not
+
+"Price is above average variable cost" is true where the plan plants. It is
+not true everywhere on the schedules:
+
+-   **Mesclun's AVC goes above its price at beds 13 and 14** — $2,716.35 and
+    $2,702.51 against $2,700. A mesclun block stopped at 13 or 14 beds would
+    not cover its own variable costs. At 15 beds AVC drops back under the
+    price, because the cheaper temporary hours start pulling the average
+    down, and at 30 beds it is well under.
+-   **Tomatoes' AVC goes above the price from bed 16** — $8,840.90 against
+    $8,800, and higher after that.
+-   **Carrots' AVC stays under the price at every bed.** The closest it gets
+    is $1,986.36 at bed 16, still $107.64 below.
+
+So the rule is not a property of the crop. It is a property of the crop *at a
+given number of beds*. The same dip that pulls marginal cost down at the
+switch to $17.36 also pulls average variable cost down behind it, which is
+why mesclun can fail the test at 13 beds and pass it at 30.
+
+### Three reasons a crop stops
+
+Section 1 separated two reasons a crop stops: the price (tomatoes) and the
+cap (carrots and mesclun). Average variable cost adds a third:
+
+1.  **The next bed costs more than it earns** — marginal cost passes the
+    price. This stops tomatoes at 10.
+2.  **There is no next bed** — the cap binds. This stops carrots at 20 and
+    mesclun at 30.
+3.  **The whole block does not pay for itself** — average variable cost is
+    above the price, and the right number of beds is zero. This does not
+    stop anything in the plan, but it would have stopped mesclun if the case
+    had capped it at 13 or 14 beds.
+
+The first two are about the last bed. The third is about the whole block.
+
+## 6. How the hypothesis held up
+
+The brief predicted 10 / 20 / 30 and 60 beds planted. That is exactly what
+the model returns, and I set four conditions that would have shown me wrong.
+
+**Three of them survived.** The model did not plant more than 10 tomato
+beds. Carrots and mesclun did not come out below their caps — both landed
+exactly on them, which is what I said would have to be true if the caps,
+rather than price, were what stopped them. And not all 64 beds were
+planted; four stayed empty.
+
+**The fourth fired.** I wrote that if the farmer switched from her own
+$34.72 hours to $17.36 temporary hours, marginal cost would dip rather than
+rise smoothly, and that my reasoning would then be incomplete. It does dip.
+Her 720 hours run out partway through the fifth tomato bed, and the sixth
+bed is charged entirely at the temporary rate — so marginal cost falls from
+$7,660.86 to $4,906.28, a drop of **$2,754.58**, before it resumes climbing.
+
+What I had wrong was where it happens. I expected the dip somewhere around
+the four extra tomato beds, at 11 through 14. It is at bed 6, five beds
+before the decision point. By the time tomatoes reach the crossing, beds 10
+and 11 are both priced entirely at the temporary rate, so the break sits
+upstream of the margin and never touches it.
+
+So the conclusion in the brief holds, and the arithmetic in it was already
+right — I had the eleventh bed at $9,390 against $8,800, and the model says
+$9,390.72. What was incomplete was the reason. The crossing is clean not
+because marginal cost rises smoothly, which it does not, but because the
+discontinuity is finished with well before the margin is reached.
+
+## Reflection
+
+The biggest thing I learned is that a document can be ahead of the work.
+My memo said every validation check read OK. My prompt log, written the
+same day, said V2 and V3 were still waiting on me. The sheet itself showed
+VIOLATED. Two out of three of my own documents were right, and the one
+going to the reader was the one that was wrong. I did not have the sheet
+open when I wrote the claim. I now write the memo last, with the
+validation sheet open beside it.
+
+The second thing is the difference between a check that computes itself
+and a check I fed by hand. V2 and V3 read OK because two numbers match, but
+the sheet cannot know where my numbers came from. When the Farm Profit Lab
+went out of reach, V2 became a hand calculation that works the model's own
+way, so it catches bad arithmetic and not a bad idea. I would rather say
+that than let it look stronger than it is.
+
+On the economics, my brief was right about the answer and incomplete about
+the reason. I expected the marginal-cost dip at the decision point; it was
+five beds earlier and never touched it. I also answered "how many beds"
+before I had asked "why grow carrots at all," which is an average-variable-
+cost question, not a marginal-cost one.
+
+On working with AI: it did the arithmetic, the full 9,726-combination
+sweep, and found the stale check cells. Where it helped most was showing me
+numbers that changed my mind — carrots from 0 beds to 20 in the brief. The
+judgment calls, including leaving the correction visible in the memo, were
+mine.

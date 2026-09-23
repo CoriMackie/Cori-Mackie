@@ -42,4 +42,5 @@ Business.
     under land, labor and time constraints. Exercises the
     [`marginal-analysis`](capabilities/marginal-analysis/) capability.
     [Brief](docs/briefs/perfect-competition-brief.md) ·
+    [Analysis](analysis/perfect-competition-analysis.md) ·
     [Decision](docs/decisions/perfect-competition-decision.md)
