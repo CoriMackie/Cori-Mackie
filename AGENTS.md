@@ -22,6 +22,9 @@ docs/
   decisions/         AFTER the work: the recommendation
 data/                 sourced inputs, with provenance
 analysis/figures/     the findings, and the charts they refer to
+papers/               papers, one folder each, with their feedback
+  <paper>/
+    feedback/         one file per round of feedback
 ```
 
 ## Conventions
