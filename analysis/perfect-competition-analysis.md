@@ -231,7 +231,10 @@ number moves. V2 and V3 are different. They confirm the numbers I typed in,
 but I still need to check the result behind them.
 
 My hypothesis was correct, but incomplete. I expected the dip at the
-decision point, but it hit at bed 6.
+decision point, but it hit at bed 6. I would have trusted the 10 beds
+because it made sense, but a correct answer doesn't necessarily mean my
+reasoning was correct. Next time I would check my numbers before I
+confirmed the hypothesis.
 
 Working with AI was helpful because it helped me see some of my own biases.
 
