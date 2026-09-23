@@ -35,6 +35,7 @@ Business.
 -   [`docs/decisions/`](docs/decisions/) — recommendations, written after the work
 -   [`data/`](data/) — sourced inputs, with provenance
 -   [`analysis/figures/`](analysis/figures/) — findings and their charts
+-   [`papers/`](papers/) — papers, each with a folder for the feedback on it
 
 ## Engagements
 
