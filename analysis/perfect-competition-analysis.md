@@ -237,4 +237,5 @@ Working with AI was helpful because it helped me see some of my own biases.
 
 What I would do differently is pay attention to the maximum capacity
 numbers. I created my hypothesis without looking at what the limitations
-were, like the caps.
+were, like the caps. My first hypothesis was 10 tomatoes, 0 carrots and 43
+mesclun, but mesclun is capped at 30 beds, so 43 was never possible.
