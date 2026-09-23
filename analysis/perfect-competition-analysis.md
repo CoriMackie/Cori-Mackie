@@ -224,29 +224,17 @@ discontinuity is finished with well before the margin is reached.
 
 ## Reflection
 
-The biggest thing I learned is that a document can be ahead of the work.
-My memo said every validation check read OK. My prompt log, written the
-same day, said V2 and V3 were still waiting on me. The sheet itself showed
-VIOLATED. Two out of three of my own documents were right, and the one
-going to the reader was the one that was wrong. I did not have the sheet
-open when I wrote the claim. I now write the memo last, with the
-validation sheet open beside it.
+The memo gets written last, with the validation sheet open beside it.
 
-The second thing is the difference between a check that computes itself
-and a check I fed by hand. V2 and V3 read OK because two numbers match, but
-the sheet cannot know where my numbers came from. When the Farm Profit Lab
-went out of reach, V2 became a hand calculation that works the model's own
-way, so it catches bad arithmetic and not a bad idea. I would rather say
-that than let it look stronger than it is.
+Some checks change themselves: they recompute from the model every time a
+number moves. V2 and V3 are different. They confirm the numbers I typed in,
+but I still need to check the result behind them.
 
-On the economics, my brief was right about the answer and incomplete about
-the reason. I expected the marginal-cost dip at the decision point; it was
-five beds earlier and never touched it. I also answered "how many beds"
-before I had asked "why grow carrots at all," which is an average-variable-
-cost question, not a marginal-cost one.
+My hypothesis was correct, but incomplete. I expected the dip at the
+decision point, but it hit at bed 6.
 
-On working with AI: it did the arithmetic, the full 9,726-combination
-sweep, and found the stale check cells. Where it helped most was showing me
-numbers that changed my mind — carrots from 0 beds to 20 in the brief. The
-judgment calls, including leaving the correction visible in the memo, were
-mine.
+Working with AI was helpful because it helped me see some of my own biases.
+
+What I would do differently is pay attention to the maximum capacity
+numbers. I created my hypothesis without looking at what the limitations
+were, like the caps.
