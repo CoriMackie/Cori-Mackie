@@ -43,7 +43,7 @@ contribute about $62,762 against that $20,000.
 
 ## The judgment call
 
-_To write: both caps bind. One more carrot bed is worth about $352, one more mesclun bed about $246 (analysis, section 2). Which ground would you buy first, and what is the most you would pay for a bed of it?_
+I would buy a carrot bed first which adds $352.
 
 ## What would change my answer
 
