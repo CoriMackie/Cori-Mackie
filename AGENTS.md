@@ -41,6 +41,11 @@ papers/               papers, one folder each, with their feedback
 -   **Log AI sessions that mattered.** Add an entry to `prompt-log.md`
     for sessions that produced a meaningful change — not every
     back-and-forth, but anything that shaped a file in this repo.
+    After any session where you helped with graded work, append an entry
+    to `prompt-log.md`: the date, the tool, what I asked for, and what you
+    produced. Facts only. Never write the reflection, never fill in what
+    you got wrong, and never assess how I verified your output — those
+    are mine.
 -   **Keep secrets out.** Nothing that belongs in `.gitignore` should
     ever be committed, even temporarily.
 
