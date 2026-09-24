@@ -3,7 +3,7 @@
 **Author:** Cori Mackie
 **Capability:** `marginal-analysis` · **Engagement:** `perfect-competition`
 **Brief:** [`docs/briefs/perfect-competition-brief.md`](../docs/briefs/perfect-competition-brief.md)
-**Decision:** [`docs/decisions/perfect-competition-decision.md`](../docs/decisions/perfect-competition-decision.md)
+**Memo:** [`docs/decisions/perfect-competition-memo.md`](../docs/decisions/perfect-competition-memo.md)
 **Model:** [`capabilities/marginal-analysis/model.xlsx`](../capabilities/marginal-analysis/model.xlsx)
 
 ---
@@ -32,6 +32,15 @@ Only tomatoes reach P = MC. Bed 10 earns $551.41 more than it costs; bed 11
 would lose $590.72. Carrots and mesclun are still making money on the last
 bed they plant, and would make money on the next one too if the case allowed
 it. They stop because they run out of beds, not because the price stops them.
+
+Figure 1 shows the tomato crossing: the price line sits between the bar for
+bed 10 and the bar for bed 11.
+
+![Marginal cost of each tomato bed, shown as stacked bars against the fixed $8,800 price. Beds 1 to 5 are carried by the farmer's own hours at $34.72; bed 6 onward is hired labor at $17.36, and marginal cost falls $2,754.58 at that switch before climbing again to cross the price between beds 10 and 11.](figures/tomato-marginal-cost.png)
+
+*Figure 1. The tomato schedule. The colour change at bed 6 is the wage
+switch that section 3 explains. The interactive version is
+[`figures/tomato-marginal-cost.html`](figures/tomato-marginal-cost.html).*
 
 ## 2. Which constraints bind, and what they are worth
 
@@ -91,9 +100,7 @@ again.
 *Figure 2. The carrot schedule, standalone. The colour change at bed 17 is
 the dip; the dashed line is average variable cost, which section 5 uses. The
 interactive version is
-[`figures/carrot-marginal-cost.html`](figures/carrot-marginal-cost.html).
-Figure 1, the tomato schedule, is in the decision memo and at
-[`figures/tomato-marginal-cost.html`](figures/tomato-marginal-cost.html).*
+[`figures/carrot-marginal-cost.html`](figures/carrot-marginal-cost.html).*
 
 ## 4. The standalone crossings are not the answer
 
@@ -222,23 +229,101 @@ $9,390.72. What was incomplete was the reason. The crossing is clean not
 because marginal cost rises smoothly, which it does not, but because the
 discontinuity is finished with well before the margin is reached.
 
+## 7. The plan in full
+
+| | Beds | Revenue | Field hours |
+|---|---|---|---|
+| Tomatoes | 10 | $88,000 | 2,334 |
+| Carrots | 20 | $41,880 | 983 |
+| Mesclun | 30 | $81,000 | 1,960 |
+| **Planted** | **60** | **$210,880** | **5,277** |
+| Idle | 4 | — | — |
+
+Against that: $44,000 of fertilizer, $104,118 of labor and $20,000 of fixed
+cost, for $168,118 total. The farm hires all four temporary workers and
+uses 5,277 of the 6,480 field hours they and the farmer make available.
+
+## 8. What I am not claiming
+
+**Temporary workers are lumpier than the model prices them.** Labor is
+charged by the hour, but a worker is hired for the season. The plan uses
+4,557 temporary hours out of the 5,760 that four workers make available —
+about $20,882 of capacity that is paid for and not worked. That does not
+change the recommendation, but it means the labor cost is a floor rather
+than what the farmer would actually write cheques for.
+
+**The farmer's own hours are charged, not sunk.** Half her salary, $25,000,
+is charged against her 720 field hours. She earns it either way. If those
+hours were treated as already spent, the same mix would still be optimal
+and the season would report $67,761.66 instead. The mix does not depend on
+this choice; the profit figure does.
+
+**One season, and prices are fixed.** No rotation, soil or carry-over
+effects, and the farmer cannot move her prices — that last one is the
+perfect-competition assumption the engagement is built on, not a finding.
+
+**The dip is located, not accounted for.** Knowing marginal cost breaks at
+tomato bed 6 is enough to show it does not disturb this answer. It is not
+enough to say what a farmer should do about a cost curve that falls before
+it rises. That is the next piece of work.
+
+## 9. How far this was checked
+
+The checks in the workbook read that it is OK, but they fall into two groups.
+The first group is the evidence. The second group is only as reliable as the
+arithmetic I did by hand behind it.
+
+The majority of the workbook checks itself. That is the seven constraints,
+the figures of the mix, season profit and the three standalone crossings, the
+integrity checks, and the rule that once a crop stops planting it never
+starts again. All of those compute from the model's own cells, so they
+re-test themselves each time a bed count moves. V1 is computed by hand — the
+hours for one bed, 1 × 2.5 × 36 × 1.10 = 99 — against the cell that should
+return it.
+
+The other two are different. V2 and V3 do not check themselves — I put those
+numbers into the sheet myself.
+
+V2 is the marginal cost of tomato bed 10. The model returns $8,248.59, and I
+worked the same figure out by hand from the case table. They agree to the
+dollar. V3 is the season profit Solver reported from two different starting
+points, and both runs came back $42,761.66.
+
+What the sheet is checking there is that two numbers match. It has no way of
+knowing where mine came from, or whether I ran Solver the way I said I did.
+
+V2 is also weaker than I meant it to be. I wrote it as a cross-check against
+the Farm Profit Lab, which is an outside model of the same case. The Lab is
+out of reach now, so V2 became a hand computation instead. The trouble with
+that is that I am working the same way the model works — so if the model and
+I are wrong in the same way, the check still reads OK. It will catch bad
+arithmetic. It will not catch a bad idea.
+
+(V6 in the workbook is the Solver setup itself, not a test.)
+
+Beyond the workbook's own checks, all 9,726 feasible bed combinations were
+evaluated against the live model. 10 / 20 / 30 is the global optimum and it
+is unique, and a steepest climb from every feasible starting point reaches
+it, so there is no local optimum for Solver to have settled on instead.
+
+### A correction to this section
+
+I wrote here that every validation check read OK. The sheet showed
+**VIOLATED** on V2 and V3. I wrote what I thought to be true, not what the
+workbook actually showed.
+
+The fault was not in the checks. The numbers were already sitting in their
+cells. What was wrong was the two check cells above them — they were still
+showing the answer from before those numbers went in, because the last time
+the file was saved, it was saved by something that does not recalculate. So
+the formulas were right, the numbers were right, and the file still showed
+two failed checks to anyone who opened it. That is fixed now. The workbook
+carries the recalculated results and recalculates itself whenever it opens.
+
+The claim is true now. It was not true when I made it. The difference is that
+I had not opened the sheet. So the memo gets written last from now on, with
+the validation sheet open beside it.
+
 ## Reflection
 
-The memo gets written last, with the validation sheet open beside it.
-
-Some checks change themselves: they recompute from the model every time a
-number moves. V2 and V3 are different. They confirm the numbers I typed in,
-but I still need to check the result behind them.
-
-My hypothesis was correct, but incomplete. I expected the dip at the
-decision point, but it hit at bed 6. I would have trusted the 10 beds
-because it made sense, but a correct answer doesn't necessarily mean my
-reasoning was correct. Next time I would check my numbers before I
-confirmed the hypothesis.
-
-Working with AI was helpful because it helped me see some of my own biases.
-
-What I would do differently is pay attention to the maximum capacity
-numbers. I created my hypothesis without looking at what the limitations
-were, like the caps. My first hypothesis was 10 tomatoes, 0 carrots and 43
-mesclun, but mesclun is capped at 30 beds, so 43 was never possible.
+The reflection for this engagement is in [`prompt-log.md`](../prompt-log.md#reflection--perfect-competition).

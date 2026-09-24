@@ -12,3 +12,28 @@ the ones that shaped something in this repository.
 | 2026-09-10 | Repository and account tidy-up | Audited the folders against the structure in `AGENTS.md`. Every directory was in use or deliberate scaffolding except `analysis/README.MD` — an empty 1-byte file with a mismatched uppercase extension, created through the GitHub web UI to hold the folder before `analysis/figures/README.md` existed. Deleted it, and dropped the Repository Guide's links to `CM_CV.md` and `Cori_Mackie_Bio.md`, neither of which is in the repo. Also flagged two disposable repositories in the account: `Case---2` (public, zero commits) and `desktop-tutorial` (the GitHub Desktop onboarding repo). |
 | 2026-09-12 | Stage 1.2 feedback — the memo's verification claim | The decision memo said every validation check read OK. The workbook as committed displayed **VIOLATED** on V2 and V3: the observed values were sitting in their cells, but the two check cells still held the result from before those values were entered, because the last write to the file was made by a tool that does not recalculate formulas. Refreshed the two stale results, set the workbook to recalculate when it opens so a check cell cannot show a stale answer again, and rewrote the memo's "How far this was checked" section — it now separates the checks the workbook computes for itself from V2 and V3, which rest on figures I entered from outside the sheet, and it keeps the correction on the page rather than quietly editing the claim away. AI found the stale cells, made the workbook fix and drafted the replacement section; the decision to leave the correction visible is mine. |
 | 2026-09-23 | Stage 1.3 feedback — the analysis, the at-a-loss question, a second figure, the reflection | Adam's Stage 1.3 review held the stage on four gaps. Created `analysis/perfect-competition-analysis.md` as the evidence behind the memo: P = MC per crop, which constraints bind and what the carrot and mesclun caps are worth ($352.49 and $246.47 a bed), the marginal-cost dip in all three schedules, and the at-a-loss resolution — carrots and mesclun lose money on their own but their price covers average variable cost ($1,918.45 against $2,094; $2,430.74 against $2,700), so they are grown; it also shows where that rule fails (mesclun at beds 13–14, tomatoes from bed 16). Moved the memo's hypothesis revisit and standalone-crossings sections into the analysis unchanged, and left the memo a short at-a-loss paragraph and a link. Added `analysis/figures/carrot-marginal-cost` (MC and AVC against price) as the second figure. AI recomputed every schedule from the spec, checked each carrot and mesclun MC against the workbook, built the figure, and drafted the new sections; the moved sections are my own words. The reflection is mine: I replaced the AI draft with my own points, and AI only tidied the grammar. |
+| 2026-09-24 | Stage 1.3 — checking the submission against the stage page (Claude Code) | Asked why the Stage 1.3 feedback on GitHub still listed gaps. The review on pull request 7 was last updated 2026-09-14, before the Stage 1.3 work merged; there is no newer review. Against the stage page, AI renamed the memo to the graded path `docs/decisions/perfect-competition-memo.md` and updated its links, embedded the tomato figure in the analysis as Figure 1 with a sentence pointing at it, added the "Exercised in" line to `capabilities/marginal-analysis/README.md`, added the prompt-log rule to `AGENTS.md`, and moved the reflection from the analysis into this file unchanged. The memo's length and its judgment-call and what-would-change sections are left for me to write. |
+| 2026-09-24 | Stage 1.3 — memo cut to the template (Claude Code) | Asked AI to put my memo into the template's four parts. AI kept my recommendation and my "why" paragraphs word for word, moved the plan table, "What I am not claiming" and "How far this was checked" (with its correction) into the analysis unchanged as sections 7–9, and dropped the tomato chart from the memo since the analysis now carries it. The judgment call and what would change my answer were not in my draft, so AI added only the two headings with a prompt under each; I write those. |
+
+## Reflection — perfect-competition
+
+The memo gets written last, with the validation sheet open beside it.
+
+Some checks change themselves: they recompute from the model every time a
+number moves. V2 and V3 are different. They confirm the numbers I typed in,
+but I still need to check the result behind them.
+
+My hypothesis was correct, but incomplete. I expected the dip at the
+decision point, but it hit at bed 6. I would have trusted the 10 beds
+because it made sense, but a correct answer doesn't necessarily mean my
+reasoning was correct. Next time I would check my numbers before I
+confirmed the hypothesis.
+
+Working with AI was helpful because it helped me see some of my own biases.
+
+What I would do differently is pay attention to the maximum capacity
+numbers. I created my hypothesis without looking at what the limitations
+were, like the caps. My first hypothesis was 10 tomatoes, 0 carrots and 43
+mesclun, but mesclun is capped at 30 beds, so 43 was never possible.
+
+I validated the numbers, for examples V2 the model cost for tomato bed was 10 @ $8248.59 and did computation by hand to check and then compared model's figure.  When I opened sheet V2 and V3, it said VIOLATED, even though everything read OK.  The numbers were right but sheet didn't recalculate.
