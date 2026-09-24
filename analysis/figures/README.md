@@ -1,11 +1,10 @@
 # Figures
 
-Charts and visual outputs referred to by the analysis in `analysis/` and the
-findings in `docs/decisions/`.
+Charts and visual outputs referred to by the analysis in `analysis/`.
 
 | Figure | Referred to by |
 |---|---|
-| `tomato-marginal-cost.png` · `.html` | [`perfect-competition-memo.md`](../../docs/decisions/perfect-competition-memo.md) · [`perfect-competition-analysis.md`](../perfect-competition-analysis.md) |
+| `tomato-marginal-cost.png` · `.html` | [`perfect-competition-analysis.md`](../perfect-competition-analysis.md) |
 | `carrot-marginal-cost.png` · `.html` | [`perfect-competition-analysis.md`](../perfect-competition-analysis.md) |
 
 **`tomato-marginal-cost`** — marginal cost of each tomato bed against the
