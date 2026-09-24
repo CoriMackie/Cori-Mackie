@@ -8,6 +8,10 @@ The capability is general; the engagement that exercises it is
 land, labor and time constraints. The brief that opened that engagement is
 [`docs/briefs/perfect-competition-brief.md`](../../docs/briefs/perfect-competition-brief.md).
 
+**Exercised in:** `perfect-competition` —
+[analysis](../../analysis/perfect-competition-analysis.md) ·
+[memo](../../docs/decisions/perfect-competition-memo.md)
+
 ## What is here
 
 | File | What it holds |

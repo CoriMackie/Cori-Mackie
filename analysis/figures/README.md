@@ -5,7 +5,7 @@ findings in `docs/decisions/`.
 
 | Figure | Referred to by |
 |---|---|
-| `tomato-marginal-cost.png` · `.html` | [`perfect-competition-decision.md`](../../docs/decisions/perfect-competition-decision.md) · [`perfect-competition-analysis.md`](../perfect-competition-analysis.md) |
+| `tomato-marginal-cost.png` · `.html` | [`perfect-competition-memo.md`](../../docs/decisions/perfect-competition-memo.md) · [`perfect-competition-analysis.md`](../perfect-competition-analysis.md) |
 | `carrot-marginal-cost.png` · `.html` | [`perfect-competition-analysis.md`](../perfect-competition-analysis.md) |
 
 **`tomato-marginal-cost`** — marginal cost of each tomato bed against the

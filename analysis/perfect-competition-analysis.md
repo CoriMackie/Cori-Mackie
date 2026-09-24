@@ -3,7 +3,7 @@
 **Author:** Cori Mackie
 **Capability:** `marginal-analysis` · **Engagement:** `perfect-competition`
 **Brief:** [`docs/briefs/perfect-competition-brief.md`](../docs/briefs/perfect-competition-brief.md)
-**Decision:** [`docs/decisions/perfect-competition-decision.md`](../docs/decisions/perfect-competition-decision.md)
+**Memo:** [`docs/decisions/perfect-competition-memo.md`](../docs/decisions/perfect-competition-memo.md)
 **Model:** [`capabilities/marginal-analysis/model.xlsx`](../capabilities/marginal-analysis/model.xlsx)
 
 ---
@@ -32,6 +32,15 @@ Only tomatoes reach P = MC. Bed 10 earns $551.41 more than it costs; bed 11
 would lose $590.72. Carrots and mesclun are still making money on the last
 bed they plant, and would make money on the next one too if the case allowed
 it. They stop because they run out of beds, not because the price stops them.
+
+Figure 1 shows the tomato crossing: the price line sits between the bar for
+bed 10 and the bar for bed 11.
+
+![Marginal cost of each tomato bed, shown as stacked bars against the fixed $8,800 price. Beds 1 to 5 are carried by the farmer's own hours at $34.72; bed 6 onward is hired labor at $17.36, and marginal cost falls $2,754.58 at that switch before climbing again to cross the price between beds 10 and 11.](figures/tomato-marginal-cost.png)
+
+*Figure 1. The tomato schedule. The colour change at bed 6 is the wage
+switch that section 3 explains. The interactive version is
+[`figures/tomato-marginal-cost.html`](figures/tomato-marginal-cost.html).*
 
 ## 2. Which constraints bind, and what they are worth
 
@@ -91,9 +100,7 @@ again.
 *Figure 2. The carrot schedule, standalone. The colour change at bed 17 is
 the dip; the dashed line is average variable cost, which section 5 uses. The
 interactive version is
-[`figures/carrot-marginal-cost.html`](figures/carrot-marginal-cost.html).
-Figure 1, the tomato schedule, is in the decision memo and at
-[`figures/tomato-marginal-cost.html`](figures/tomato-marginal-cost.html).*
+[`figures/carrot-marginal-cost.html`](figures/carrot-marginal-cost.html).*
 
 ## 4. The standalone crossings are not the answer
 
@@ -224,21 +231,4 @@ discontinuity is finished with well before the margin is reached.
 
 ## Reflection
 
-The memo gets written last, with the validation sheet open beside it.
-
-Some checks change themselves: they recompute from the model every time a
-number moves. V2 and V3 are different. They confirm the numbers I typed in,
-but I still need to check the result behind them.
-
-My hypothesis was correct, but incomplete. I expected the dip at the
-decision point, but it hit at bed 6. I would have trusted the 10 beds
-because it made sense, but a correct answer doesn't necessarily mean my
-reasoning was correct. Next time I would check my numbers before I
-confirmed the hypothesis.
-
-Working with AI was helpful because it helped me see some of my own biases.
-
-What I would do differently is pay attention to the maximum capacity
-numbers. I created my hypothesis without looking at what the limitations
-were, like the caps. My first hypothesis was 10 tomatoes, 0 carrots and 43
-mesclun, but mesclun is capped at 30 beds, so 43 was never possible.
+The reflection for this engagement is in [`prompt-log.md`](../prompt-log.md#reflection--perfect-competition).
