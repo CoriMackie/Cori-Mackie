@@ -47,4 +47,4 @@ I would buy a carrot bed first which adds $352.
 
 ## What would change my answer
 
-_To write: one line naming the variable this plan is most sensitive to._
+If the cap was lifted, I would choose carrots and mesclun and  plant  more beds
