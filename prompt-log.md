@@ -37,3 +37,5 @@ were, like the caps. My first hypothesis was 10 tomatoes, 0 carrots and 43
 mesclun, but mesclun is capped at 30 beds, so 43 was never possible.
 
 I validated the numbers, for examples V2 the model cost for tomato bed was 10 @ $8248.59 and did computation by hand to check and then compared model's figure.  When I opened sheet V2 and V3, it said VIOLATED, even though everything read OK.  The numbers were right but sheet didn't recalculate.
+
+AI saved the file but didn't recalculate. The checks should have updated when the numbers went in, it was caught when I opened the validation sheet and saw it
