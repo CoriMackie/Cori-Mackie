@@ -43,8 +43,10 @@ contribute about $62,762 against that $20,000.
 
 ## The judgment call
 
-I would buy a carrot bed first which adds $352.
+I would buy a carrot bed first which adds $352, the mesclun adds $246.47, therefore the carrot is a better profit of $106.02.  The farmer would not pay more than the beds add, which is $352.  Each extra beds costs a little more to farm than the one before so the 22nd carrot bed is worth less than the 21st.  We can't assume that every new bed is worth $352.
 
 ## What would change my answer
 
 If the cap was lifted, I would choose carrots and mesclun and  plant  more beds
+
+Tomatos are the one crop where the price sets where you cut off and the margin is thin. Bed 10 earns only $551.41 more than it costs. If the price falls 6.27% (about $8249), the bed stops paying at 10, so you'd plant 9 tomato beds. If the price rises 6.71% (to about $9391) bed starts paying at 11, so you would plant 11
