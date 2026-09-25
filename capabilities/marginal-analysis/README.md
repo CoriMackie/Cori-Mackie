@@ -30,7 +30,10 @@ Four sheets, and every cell outside the shaded input constants is a formula.
 - **Marginal Analysis** — one standalone MC schedule per crop, each built
   as though that crop were the only thing planted. The Decision column
   applies the crossing rule: a schedule stops at the first bed whose
-  marginal cost exceeds price and stays stopped.
+  marginal cost exceeds price and stays stopped. The carrot and mesclun
+  schedules run one bed past their caps (rows 53 and 88, marked `Past cap`)
+  so the shadow price of each cap is a cell, and every schedule carries
+  cumulative variable cost (column L) and AVC (column M).
 - **Optimization** — season profit at the current bed counts.
   `OUT_SEASON_PROFIT` (`B32`) is the Solver objective.
 - **Validation** — every check computes to `OK` or `VIOLATED`, so a broken

@@ -107,6 +107,13 @@ is built as though that crop were the only thing planted, per convention 5. A
 single blended schedule cannot produce a per-crop crossing point and is not what
 this specifies.
 
+Where a cap binds, the schedule runs **one row past it** — carrot bed 21 and
+mesclun bed 31. That row is marked `Past cap`, sits outside the crossing count
+and the Validation ranges, and exists so the cap's shadow price (P − MC of the
+bed the cap forbids) is a cell rather than a claim. Each schedule also carries
+a cumulative variable cost column (the running sum of MC(q)) and an AVC column
+(that sum divided by q), so the shutdown test reads straight off the sheet.
+
 Every check cell in the Validation area displays `OK` or `VIOLATED`. No other
 wording, so a failed check is visible at a glance rather than read for.
 

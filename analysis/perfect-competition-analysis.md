@@ -13,7 +13,8 @@ four beds empty, earn $42,761.66. This document is the evidence and the
 reasoning behind that answer — P = MC crop by crop, which constraints bind
 and what they are worth, the marginal-cost dip, and why two crops that lose
 money on their own are still worth growing. Every figure here comes from the
-model; none of it is entered by hand.
+model; none of it is entered by hand. Cell references in `code` are to the
+**Marginal Analysis** sheet of the workbook unless another sheet is named.
 
 ## 1. P = MC, crop by crop
 
@@ -24,14 +25,22 @@ way.
 
 | | Planted | MC of last bed planted | MC of next bed | Price | What stops it |
 |---|---|---|---|---|---|
-| Tomatoes | 10 | $8,248.59 | $9,390.72 | $8,800 | **Price.** Bed 11 costs more than it earns |
-| Carrots | 20 | $1,688.95 | $1,741.51 | $2,094 | **Cap.** No bed 21 exists |
-| Mesclun | 30 | $2,420.10 | $2,453.53 | $2,700 | **Cap.** No bed 31 exists |
+| Tomatoes | 10 | $8,248.59 `G17` | $9,390.72 `G18` | $8,800 | **Price.** Bed 11 costs more than it earns |
+| Carrots | 20 | $1,688.95 `G52` | $1,741.51 `G53` | $2,094 | **Cap.** No bed 21 exists |
+| Mesclun | 30 | $2,420.10 `G87` | $2,453.53 `G88` | $2,700 | **Cap.** No bed 31 exists |
 
-Only tomatoes reach P = MC. Bed 10 earns $551.41 more than it costs; bed 11
-would lose $590.72. Carrots and mesclun are still making money on the last
+Only tomatoes reach P = MC. Bed 10 earns $551.41 more than it costs (`I17`);
+bed 11 would lose $590.72 (`I18`). Carrots and mesclun are still making money on the last
 bed they plant, and would make money on the next one too if the case allowed
 it. They stop because they run out of beds, not because the price stops them.
+
+The carrot and mesclun schedules run one row past their caps for exactly this
+reason: rows 53 and 88 are marked `Past cap`, are not counted in the crossing
+or the Validation checks, and hold the bed the case forbids so its cost can be
+read rather than asserted. Carrot bed 21 and mesclun bed 31 are worked at
+$17.36 in the standalone schedules as well as in the mix — the farmer's hours
+are gone by carrot bed 17 and mesclun bed 14 — so the standalone row and the
+in-mix bed cost the same.
 
 Figure 1 shows the tomato crossing: the price line sits between the bar for
 bed 10 and the bar for bed 11.
@@ -46,8 +55,8 @@ switch that section 3 explains. The interactive version is
 
 | Constraint | Limit | Used | Binds? | Worth of one more unit |
 |---|---|---|---|---|
-| Carrot bed cap | 20 | 20 | **Yes** | **$352.49** — a 21st bed at $17.36 costs $1,741.51 and earns $2,094 |
-| Mesclun bed cap | 30 | 30 | **Yes** | **$246.47** — a 31st bed costs $2,453.53 and earns $2,700 |
+| Carrot bed cap | 20 | 20 | **Yes** | **$352.49** `I53` — a 21st bed at $17.36 costs $1,741.51 (`G53`) and earns $2,094 |
+| Mesclun bed cap | 30 | 30 | **Yes** | **$246.47** `I88` — a 31st bed costs $2,453.53 (`G88`) and earns $2,700 |
 | Tomato bed cap | 20 | 10 | No | $0 — price stops tomatoes at 10 |
 | Farm bed cap | 64 | 60 | No | $0 — four beds are idle |
 | Temporary workers | 4 | 4 hired | At the limit, not binding | $0 — 1,203 of their hours are unused, enough for an eleventh tomato bed without a fifth worker |
@@ -73,9 +82,9 @@ again.
 
 | | Last bed at the farmer's rate | First bed fully at $17.36 | MC falls by |
 |---|---|---|---|
-| Tomatoes | bed 5 — $7,660.86 | bed 6 — $4,906.28 | **$2,754.58** |
-| Carrots | bed 16 — $2,552.10 | bed 17 — $1,670.90 | **$881.20** |
-| Mesclun | bed 13 — $2,988.40 | bed 14 — $2,522.58 | **$465.82** |
+| Tomatoes | bed 5 — $7,660.86 `G12` | bed 6 — $4,906.28 `G13` | **$2,754.58** |
+| Carrots | bed 16 — $2,552.10 `G48` | bed 17 — $1,670.90 `G49` | **$881.20** |
+| Mesclun | bed 13 — $2,988.40 `G70` | bed 14 — $2,522.58 `G71` | **$465.82** |
 
 The cause is the same in all three: the hourly rate halves. The land does not
 become any more productive, and each bed still needs more hours than the one
@@ -140,8 +149,12 @@ mix every bed is worked at $17.36 and the margins are wider still.
 
 | | Beds | Average variable cost | Price | Price − AVC | Each bed leaves toward fixed cost |
 |---|---|---|---|---|---|
-| Carrots | 20 | **$1,918.45** | $2,094 | $175.55 | $3,511.08 across the block |
-| Mesclun | 30 | **$2,430.74** | $2,700 | $269.26 | $8,077.81 across the block |
+| Carrots | 20 | **$1,918.45** `M52` | $2,094 | $175.55 | $3,511.08 across the block |
+| Mesclun | 30 | **$2,430.74** `M87` | $2,700 | $269.26 | $8,077.81 across the block |
+
+Column L is cumulative variable cost — the running sum of MC(q) — and column
+M divides it by q. Carrots at 20 beds carry $38,368.92 of variable cost
+(`L52`); mesclun at 30 carry $72,922.19 (`L87`).
 
 This is the shutdown rule. While price is above average variable cost, the
 beds pay for its own labor and fertilizer and leaves something over. The
@@ -169,14 +182,14 @@ of $19.73 an hour, the crops contribute:
 not true everywhere on the schedules:
 
 -   **Mesclun's AVC goes above its price at beds 13 and 14** — $2,716.35 and
-    $2,702.51 against $2,700. A mesclun block stopped at 13 or 14 beds would
+    $2,702.51 against $2,700 (`M70`, `M71`). A mesclun block stopped at 13 or 14 beds would
     not cover its own variable costs. At 15 beds AVC drops back under the
     price, because the cheaper temporary hours start pulling the average
     down, and at 30 beds it is well under.
 -   **Tomatoes' AVC goes above the price from bed 16** — $8,840.90 against
-    $8,800, and higher after that.
+    $8,800 (`M23`), and higher after that.
 -   **Carrots' AVC stays under the price at every bed.** The closest it gets
-    is $1,986.36 at bed 16, still $107.64 below.
+    is $1,986.36 at bed 16 (`M48`), still $107.64 below.
 
 So the rule is not a property of the crop. It is a property of the crop *at a
 given number of beds*. The same dip that pulls marginal cost down at the
