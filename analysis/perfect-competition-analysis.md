@@ -52,6 +52,10 @@ switch that section 3 explains. The interactive version is
 | Farm bed cap | 64 | 60 | No | $0 — four beds are idle |
 | Temporary workers | 4 | 4 hired | At the limit, not binding | $0 — 1,203 of their hours are unused, enough for an eleventh tomato bed without a fifth worker |
 
+*Cells: the bed-21 carrot MC and P − MC are `'Marginal Analysis'!G53` and `I53`
+(`OUT_SHADOW_CAR`); the bed-31 mesclun figures are `G88` and `I88`
+(`OUT_SHADOW_MES`). Each schedule runs one row past its cap for this reason.*
+
 Those two dollar figures are the shadow prices of the caps: what the season
 profit would rise by if the case let the farm plant one more bed of that crop.
 The mesclun figure reads the same way from the other side — dropping to 29
@@ -142,6 +146,10 @@ mix every bed is worked at $17.36 and the margins are wider still.
 |---|---|---|---|---|---|
 | Carrots | 20 | **$1,918.45** | $2,094 | $175.55 | $3,511.08 across the block |
 | Mesclun | 30 | **$2,430.74** | $2,700 | $269.26 | $8,077.81 across the block |
+
+*Cells: AVC is column M of each schedule on `Marginal Analysis` —
+carrots at 20 beds `M52` (`OUT_AVC_CAR`), mesclun at 30 beds `M87`
+(`OUT_AVC_MES`). Column L is the running total of variable cost it divides.*
 
 This is the shutdown rule. While price is above average variable cost, the
 beds pay for its own labor and fertilizer and leaves something over. The
