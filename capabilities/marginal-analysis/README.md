@@ -31,6 +31,9 @@ Four sheets, and every cell outside the shaded input constants is a formula.
   as though that crop were the only thing planted. The Decision column
   applies the crossing rule: a schedule stops at the first bed whose
   marginal cost exceeds price and stays stopped.
+  Columns L and M carry the running variable cost and AVC. The carrot and
+  mesclun schedules run one bed past their caps (rows 53 and 88, marked
+  "Past cap"), so the caps' shadow prices are cells, not arithmetic.
 - **Optimization** — season profit at the current bed counts.
   `OUT_SEASON_PROFIT` (`B32`) is the Solver objective.
 - **Validation** — every check computes to `OK` or `VIOLATED`, so a broken
