@@ -4,6 +4,7 @@
 |---|---|
 | `daily-discharge.rdb` | Daily mean discharge (ft³/s), 1914-01-01 to 2026-09-30, unchanged from USGS |
 | `annual-mean-flow.csv` | Mean of the daily values per water year (Oct–Sep), with the number of days behind each |
+| `annual-mean-flow.xlsx` | The same yearly means in Excel, with the trend (SLOPE) and 30-year averages as formulas, and a Source sheet |
 
 **Source:** U.S. Geological Survey, National Water Information System, daily
 values, parameter 00060 (discharge), statistic 00003 (mean).
@@ -21,6 +22,6 @@ values, parameter 00060 (discharge), statistic 00003 (mean).
   complete water years.
 - 77 days at the end of the record are provisional (code `P`); 227 are
   USGS estimates (`A:e`).
-- Not yet checked: whether this gauge sits above or below the East Maui
-  ditch intakes, which decides whether it measures natural flow or flow
-  left after diversion.
+- The gauge is at 1,550 ft, above the Koolau Ditch, so it measures flow
+  before diversion (CWRM Instream Flow Standard Assessment Report
+  PR-2009-08; confirm in the report before citing).
