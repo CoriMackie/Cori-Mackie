@@ -15,8 +15,10 @@ values, parameter 00060 (discharge), statistic 00003 (mean).
 **Notes**
 
 - Missing: 1916-01-01 to 1916-05-31 and 1917-09-30 to 1921-10-31.
-  Water years with under 90% of their days (1914, 1916–1921 partial) are
-  marked `complete = False` and are left out of any trend.
+  Water years 1918–1921 have no data and are absent from the CSV. Water
+  years 1914 and 1916 have under 90% of their days, are marked
+  `complete = False`, and are left out of any trend. That leaves 107
+  complete water years.
 - 77 days at the end of the record are provisional (code `P`); 227 are
   USGS estimates (`A:e`).
 - Not yet checked: whether this gauge sits above or below the East Maui
