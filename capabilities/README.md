@@ -13,3 +13,7 @@ holds:
     profit-maximizing quantity where P = MC. Exercised by the
     `perfect-competition` engagement: a 64-bed vegetable farm choosing a
     crop mix under land, labor and time constraints.
+-   [`economic-research/`](economic-research/) — analyzing a real
+    economic challenge with course concepts and defending a policy
+    recommendation. Exercised by the `mahi-pono-east-maui-water`
+    research paper.
