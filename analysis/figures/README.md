@@ -6,6 +6,8 @@ Charts and visual outputs referred to by the analysis in `analysis/`.
 |---|---|
 | `tomato-marginal-cost.png` · `.html` | [`perfect-competition-analysis.md`](../perfect-competition-analysis.md) |
 | `carrot-marginal-cost.png` · `.html` | [`perfect-competition-analysis.md`](../perfect-competition-analysis.md) |
+| `water-rent-vs-access-value.png` | [`research-paper.pdf`](../research-paper.pdf), Figure 1 |
+| `honopou-stream-flow.png` | [`research-paper.pdf`](../research-paper.pdf), Figure 2 |
 
 **`tomato-marginal-cost`** — marginal cost of each tomato bed against the
 fixed $8,800 price, beds 1 to 14. Each bar is split by what the cost is
@@ -26,3 +28,7 @@ Each `.png` is the version the documents embed. Each `.html` is the
 same chart with hover figures, a table of all the beds, and light/dark
 themes; open it in a browser. Both are generated from
 `capabilities/marginal-analysis/model.xlsx` and carry no data of their own.
+
+**`water-rent-vs-access-value`** and **`honopou-stream-flow`** are the two
+figures in the research paper, saved here as they appear in it. Their data
+sources are in each figure's note in the paper.
