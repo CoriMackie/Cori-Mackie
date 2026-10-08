@@ -19,6 +19,7 @@ the ones that shaped something in this repository.
 | 2026-10-07 | Research paper — my response to Adam's outline feedback (Claude Code) | I wrote my response to Adam's four points; AI placed each answer under its heading in `feedback/2026-09-24-adam.md` and corrected typos and punctuation only ("steam" to "stream", "10k" to "10-K", "$292000" to "$292,000"). |
 | 2026-10-07 | Research paper — moving the paper to the assignment's paths (Claude Code) | After reading the assignment's deliverable table, asked AI to put the paper where it belongs. AI moved the final paper to `analysis/research-paper.pdf`, saved its two figures unchanged from the PDF to `analysis/figures/` and listed them in that folder's README, and updated the links in the paper folder and the feedback response. |
 | 2026-10-07 | Research paper — repo items from the assignment checklist (Claude Code) | Asked AI to start the remaining repo items. AI added `scratch/` to `.gitignore`, created `capabilities/economic-research/README.md` with the "Exercised in" line pointing at the paper, figures and feedback folder, and listed the capability in `capabilities/README.md`. The brief, spec and reflection are mine to write. |
+| 2026-10-07 | Research paper — committing my research brief (Claude Code) | I wrote the research brief in a headings-only template AI provided. AI saved it as `docs/briefs/2026-10-07-research-brief.md`, dated the day I wrote it, and corrected typos and punctuation only. |
 
 ## Reflection — perfect-competition
 
