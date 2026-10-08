@@ -22,6 +22,7 @@ the ones that shaped something in this repository.
 | 2026-10-07 | Research paper — committing my research brief (Claude Code) | I wrote the research brief in a headings-only template AI provided. AI saved it as `docs/briefs/2026-10-07-research-brief.md`, dated the day I wrote it, and corrected typos and punctuation only. |
 | 2026-10-07 | Research paper — committing my dated drafts (Claude Code) | Asked AI to commit my paper drafts as the dated draft chain. From the Word files I sent, AI took the last version saved on each working day (Sep 24, Oct 4, Oct 5, Oct 6, Oct 7), converted each to Markdown as `drafts/YYYY-MM-DD-draft.md`, and left out its own review comments and its pending tracked-change edits, so each file holds my text as I left it that day; images appear as `[Image]` placeholders. The Oct 4 draft is the outline AI structured for me, with my prose written into it. The Oct 7 draft is the version in `analysis/research-paper.pdf`. AI also added the brief and drafts to the "Exercised in" line in `capabilities/economic-research/README.md`. |
 | 2026-10-07 | Research paper — committing my spec (Claude Code) | I wrote the spec in a headings-only template AI provided. AI saved it as `capabilities/economic-research/spec.md`, restored the "Data sources" heading, put each source on its own line using the full entries from my paper's reference list, added the USGS Honopou Stream entry from that list at my request, changed "water usage" to "the value of water access" in the model section at my direction, and corrected typos and punctuation ("process" to "propose"). |
+| 2026-10-07 | Research paper — committing my reflection (Claude Code) | I wrote the reflection in a headings-only template AI provided. AI added it to the end of this file and corrected punctuation only. |
 
 ## Reflection — perfect-competition
 
@@ -47,3 +48,17 @@ mesclun, but mesclun is capped at 30 beds, so 43 was never possible.
 I validated the numbers, for examples V2 the model cost for tomato bed was 10 @ $8248.59 and did computation by hand to check and then compared model's figure.  When I opened sheet V2 and V3, it said VIOLATED, even though everything read OK.  The numbers were right but sheet didn't recalculate.
 
 AI saved the file but didn't recalculate. The checks should have updated when the numbers went in, it was caught when I opened the validation sheet and saw it VIOLATED
+
+## Reflection — research paper
+
+### Where AI helped
+
+Working with AI helped me organize and resource masses of information and reduce to a working size. In addition, to helping decide graphs and meaning, especially with the time frame that I had allotted.
+
+### Where AI oversimplified or invented something
+
+I had to cut a lot out to fit in 4 pages, the edit was oversimplified.
+
+### One AI error I caught, and how I verified it
+
+I reviewed the AI edits and numbers against the sources and I can't point to a specific error.
